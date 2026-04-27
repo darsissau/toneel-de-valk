@@ -15,35 +15,33 @@ const { title, date, image } = post.frontmatter;
 ---
 
 <Layout title={title}>
-	<article class="py-20">
-		<div class="container mx-auto px-4 max-w-3xl">
-			<a href="/nieuws" class="text-primary font-bold mb-8 inline-block hover:translate-x-[-8px] transition-transform">
-				&larr; Terug naar nieuws
-			</a>
-			
-			<header class="mb-10">
-				<p class="text-accent font-bold uppercase tracking-widest mb-4">{date}</p>
-				<h1 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-8">{title}</h1>
+	<article class="pt-40 pb-32">
+		<div class="container-custom max-w-3xl">
+			<header class="mb-16">
+				<p class="text-accent-gold font-bold uppercase tracking-[0.4em] text-xs mb-8">{date}</p>
+				<h1 class="text-4xl md:text-6xl font-serif text-primary-text mb-12 tracking-tight leading-tight">{title}</h1>
 				
 				{image && (
-					<div class="aspect-video rounded-2xl overflow-hidden shadow-lg mb-10">
-						<img src={image} alt={title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop'" />
+					<div class="aspect-video rounded-lg overflow-hidden border border-ui-border mb-16 shadow-lg">
+						<img src={image} alt={title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2000&auto=format&fit=crop'" />
 					</div>
 				)}
 			</header>
 
-			<div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+			<div class="prose prose-xl prose-serif max-w-none text-primary-text/80 leading-relaxed selection:bg-accent-gold/20">
 				<Content />
 			</div>
 
-			<div class="mt-16 pt-8 border-t border-gray-100 flex justify-between items-center">
-				<div class="flex gap-4">
-					<span class="font-bold">Deel dit bericht:</span>
-					<!-- Simple share placeholders -->
-					<div class="flex gap-2 text-primary">
-						<span class="hover:text-accent cursor-pointer">FB</span>
-						<span class="hover:text-accent cursor-pointer">TW</span>
-						<span class="hover:text-accent cursor-pointer">WA</span>
+			<div class="mt-24 pt-12 border-t border-ui-border flex flex-col md:flex-row justify-between items-center gap-8">
+				<a href="/nieuws" class="text-xs uppercase tracking-widest font-bold text-accent-burgundy hover:text-accent-gold transition-colors flex items-center gap-4">
+					<span class="w-8 h-px bg-accent-burgundy"></span> Terug naar nieuws
+				</a>
+				<div class="flex gap-6">
+					<span class="text-[10px] uppercase tracking-widest text-primary-text/40">Deel dit verhaal</span>
+					<!-- Simple link placeholders -->
+					<div class="flex gap-4 text-primary-text/60">
+						<span class="hover:text-accent-gold cursor-pointer transition-colors text-xs uppercase font-bold">Facebook</span>
+						<span class="hover:text-accent-gold cursor-pointer transition-colors text-xs uppercase font-bold">Twitter</span>
 					</div>
 				</div>
 			</div>

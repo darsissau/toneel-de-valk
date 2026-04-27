@@ -2,10 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 
 // Fetch content
-const voorstellingen = Object.values(import.meta.glob('../content/voorstellingen/*.md', { eager: true }));
-const nieuws = Object.values(import.meta.glob('../content/nieuws/*.md', { eager: true }));
+const voorstellingen = Object.values(import.meta.glob('../../content/voorstellingen/*.md', { eager: true }));
+const nieuws = Object.values(import.meta.glob('../../content/nieuws/*.md', { eager: true }));
 
-// Sort by date (newest first for news, upcoming for performances)
+// Sort by date
 const sortedVoorstellingen = voorstellingen.sort((a, b) => {
   const dateA = new Date(a.frontmatter.date.split('-').reverse().join('-'));
   const dateB = new Date(b.frontmatter.date.split('-').reverse().join('-'));
@@ -16,57 +16,72 @@ const sortedNieuws = nieuws.sort((a, b) => {
   const dateA = new Date(a.frontmatter.date.split('-').reverse().join('-'));
   const dateB = new Date(b.frontmatter.date.split('-').reverse().join('-'));
   return dateB - dateA;
-}).slice(0, 3); // Get latest 3
+}).slice(0, 3);
 
 const volgendeVoorstelling = sortedVoorstellingen[0];
 ---
 
-<Layout title="Home">
-	<!-- Hero Section -->
-	<section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
-		<!-- Background Placeholder (Cinematic) -->
-		<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/80 via-primary to-text z-0"></div>
-		<div class="absolute inset-0 bg-black/40 z-10"></div>
-		
-		<div class="container mx-auto px-4 relative z-20 text-center text-background">
-			<h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-tight animate-fade-in">
-				Toneelgroep De Valk
-			</h1>
-			<p class="text-xl md:text-2xl mb-10 font-light italic max-w-2xl mx-auto">
-				"Beleef theater dat raakt"
-			</p>
-			<div class="flex flex-wrap justify-center gap-4">
-				<a href="/voorstellingen" class="btn-primary text-lg">Bekijk voorstellingen</a>
-				<a href="#volgende" class="btn-secondary text-lg border-background text-background hover:bg-background hover:text-primary">Tickets & Info</a>
-			</div>
+<Layout title="Home" transparentNav={true}>
+	<!-- Act I: The Hero -->
+	<section class="relative h-screen flex items-center justify-center overflow-hidden bg-primary-text">
+		<div class="absolute inset-0 z-0">
+			<!-- Cinematic Background Image Placeholder -->
+			<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+			<!-- Gradient Overlay -->
+			<div class="absolute inset-0 bg-gradient-to-b from-primary-text/20 via-transparent to-primary-text/80"></div>
 		</div>
 		
-		<!-- Subtle Spotlight Effect -->
-		<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.15)_0%,_transparent_70%)] pointer-events-none"></div>
+		<div class="container-custom relative z-10 text-center">
+			<div class="fade-in space-y-8">
+				<p class="text-accent-gold uppercase tracking-[0.4em] text-sm font-bold">Welkom bij</p>
+				<h1 class="text-6xl md:text-9xl font-serif text-bg-ivory tracking-tighter">
+					De <span class="italic font-normal">Valk</span>
+				</h1>
+				<p class="text-bg-ivory/80 text-xl md:text-2xl font-light italic max-w-2xl mx-auto">
+					"Theater dat de ziel raakt en de verbeelding prikkelt."
+				</p>
+				<div class="pt-8">
+					<a href="/voorstellingen" class="btn-theatre-primary bg-bg-ivory text-primary-text hover:bg-accent-gold hover:text-white px-12 py-5 border-none">
+						Ontdek het seizoen
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Scroll Indicator -->
+		<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4 opacity-50">
+			<span class="text-bg-ivory text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+			<div class="w-px h-12 bg-bg-ivory/30 relative overflow-hidden">
+				<div class="absolute top-0 left-0 w-full h-1/2 bg-accent-gold animate-slide-down"></div>
+			</div>
+		</div>
 	</section>
 
-	<!-- Volgende Voorstelling -->
+	<!-- Act II: The Spotlight -->
 	{volgendeVoorstelling && (
-		<section id="volgende" class="py-20 bg-background">
-			<div class="container mx-auto px-4">
-				<h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center">Volgende Voorstelling</h2>
-				<div class="grid md:grid-cols-2 gap-12 items-center bg-white p-8 rounded-2xl shadow-xl border-l-8 border-accent">
-					<div class="aspect-video bg-gray-200 rounded-xl overflow-hidden shadow-inner">
-						<img src={volgendeVoorstelling.frontmatter.image} alt={volgendeVoorstelling.frontmatter.title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=1000&auto=format&fit=crop'" />
+		<section class="act-section bg-bg-ivory">
+			<div class="container-custom">
+				<div class="flex flex-col items-center text-center mb-20">
+					<span class="text-accent-burgundy uppercase tracking-widest text-xs font-bold mb-4">In de schijnwerpers</span>
+					<h2 class="text-4xl md:text-6xl font-serif">Volgende Voorstelling</h2>
+					<div class="w-20 h-px bg-accent-gold mt-8"></div>
+				</div>
+
+				<div class="grid lg:grid-cols-12 gap-0 bg-white rounded-lg shadow-sm border border-ui-border overflow-hidden">
+					<div class="lg:col-span-7 aspect-[16/10] lg:aspect-auto">
+						<img src={volgendeVoorstelling.frontmatter.image} alt={volgendeVoorstelling.frontmatter.title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1503095396549-807a8bc36674?q=80&w=1000&auto=format&fit=crop'" />
 					</div>
-					<div>
-						<div class="inline-block px-3 py-1 bg-accent/20 text-accent font-bold rounded-full text-sm mb-4">
-							{volgendeVoorstelling.frontmatter.date}
-						</div>
-						<h3 class="text-4xl font-serif font-bold mb-4 text-primary">{volgendeVoorstelling.frontmatter.title}</h3>
-						<p class="text-lg text-gray-700 mb-8 leading-relaxed">
+					<div class="lg:col-span-5 p-12 md:p-20 flex flex-col justify-center">
+						<p class="text-accent-gold font-bold uppercase tracking-widest text-sm mb-6">{volgendeVoorstelling.frontmatter.date}</p>
+						<h3 class="text-4xl md:text-5xl font-serif mb-8 text-primary-text">{volgendeVoorstelling.frontmatter.title}</h3>
+						<div class="text-primary-text/70 mb-10 leading-relaxed prose prose-sm">
 							{volgendeVoorstelling.rawContent().substring(0, 200)}...
-						</p>
-						<div class="flex gap-4">
+						</div>
+						<div class="flex flex-col sm:flex-row gap-4">
 							{volgendeVoorstelling.frontmatter.ticket_link && (
-								<a href={volgendeVoorstelling.frontmatter.ticket_link} target="_blank" class="btn-primary">Reserveer Tickets</a>
+								<a href={volgendeVoorstelling.frontmatter.ticket_link} class="btn-theatre-primary text-center">Tickets</a>
 							)}
-							<a href={`/voorstellingen/${volgendeVoorstelling.file.split('/').pop().replace('.md', '')}`} class="btn-secondary">Meer Informatie</a>
+							<a href={`/voorstellingen/${volgendeVoorstelling.file.split('/').pop().replace('.md', '')}`} class="btn-theatre-secondary text-center">Details</a>
 						</div>
 					</div>
 				</div>
@@ -74,23 +89,26 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</section>
 	)}
 
-	<!-- Voorstellingen Overzicht -->
-	<section class="py-20 bg-gray-50">
-		<div class="container mx-auto px-4">
-			<div class="flex justify-between items-end mb-12">
-				<h2 class="text-3xl font-serif font-bold">Onze Voorstellingen</h2>
-				<a href="/voorstellingen" class="text-primary font-bold hover:text-accent transition-colors">Bekijk alle &rarr;</a>
+	<!-- Act III: The Collection -->
+	<section class="act-section border-t border-ui-border">
+		<div class="container-custom">
+			<div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
+				<h2 class="text-4xl md:text-5xl font-serif tracking-tight">Programma</h2>
+				<a href="/voorstellingen" class="group text-sm uppercase tracking-widest font-bold flex items-center gap-4 hover:text-accent-gold transition-colors">
+					Bekijk volledig overzicht <span class="w-8 h-px bg-primary-text group-hover:bg-accent-gold group-hover:w-12 transition-all"></span>
+				</a>
 			</div>
+			
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.file.split('/').pop().replace('.md', '')}`} class="card group">
-						<div class="aspect-[4/3] overflow-hidden">
-							<img src={item.frontmatter.image} alt={item.frontmatter.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1503095396549-807a8bc36674?q=80&w=1000&auto=format&fit=crop'" />
+					<a href={`/voorstellingen/${item.file.split('/').pop().replace('.md', '')}`} class="theatre-card group">
+						<div class="aspect-[4/5] overflow-hidden">
+							<img src={item.frontmatter.image} alt={item.frontmatter.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop'" />
 						</div>
-						<div class="p-6">
-							<p class="text-accent text-sm font-bold mb-2">{item.frontmatter.date}</p>
-							<h3 class="text-xl font-serif font-bold mb-3 group-hover:text-primary transition-colors">{item.frontmatter.title}</h3>
-							<p class="text-gray-600 text-sm line-clamp-2">
+						<div class="p-10">
+							<p class="text-accent-gold text-xs font-bold uppercase tracking-widest mb-4">{item.frontmatter.date}</p>
+							<h3 class="text-2xl font-serif mb-6 group-hover:text-accent-burgundy transition-colors">{item.frontmatter.title}</h3>
+							<p class="text-primary-text/60 text-sm line-clamp-2 leading-relaxed">
 								{item.rawContent().substring(0, 100)}...
 							</p>
 						</div>
@@ -100,50 +118,41 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</div>
 	</section>
 
-	<!-- Over Ons -->
-	<section class="py-20 bg-primary text-background overflow-hidden relative">
-		<div class="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center relative z-10">
-			<div>
-				<h2 class="text-4xl font-serif font-bold mb-6 text-accent">Over Toneelgroep De Valk</h2>
-				<p class="text-lg mb-6 leading-relaxed opacity-90">
-					Al decennialang brengt Toneelgroep De Valk mensen samen door de kracht van verhalen. Wat begon als een kleine vriendengroep is uitgegroeid tot een passievol collectief dat elk jaar streeft naar artistieke vernieuwing en diepgaande emotie.
+	<!-- Act IV: The Story -->
+	<section class="act-section bg-primary-text text-bg-ivory relative overflow-hidden">
+		<!-- Minimal Decor Decor -->
+		<div class="absolute top-0 right-0 w-1/3 h-full bg-accent-burgundy/5 skew-x-12 translate-x-1/2"></div>
+		
+		<div class="container-custom relative z-10">
+			<div class="max-w-3xl mx-auto text-center space-y-10">
+				<h2 class="text-4xl md:text-6xl font-serif">Wij zijn De Valk</h2>
+				<p class="text-xl md:text-2xl font-light italic text-bg-ivory/80 leading-relaxed">
+					"Al meer dan 50 jaar brengen wij de magie van het theater naar het hart van Gent. Met een hart voor traditie en een oog voor vernieuwing."
 				</p>
-				<p class="text-lg mb-8 leading-relaxed opacity-90">
-					Bij ons staat de gemeenschap centraal. Of je nu op het podium staat of in de zaal zit, je maakt deel uit van onze theaterfamilie.
-				</p>
-				<a href="/contact" class="btn-secondary border-accent text-accent hover:bg-accent hover:text-primary">Sluit je aan bij ons</a>
-			</div>
-			<div class="relative">
-				<div class="rounded-2xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-					<img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop" alt="Theategroep" class="w-full h-auto" />
-				</div>
-				<div class="absolute -bottom-6 -left-6 bg-accent p-6 rounded-2xl shadow-xl -rotate-6 hidden md:block">
-					<p class="text-primary font-serif font-bold text-xl italic">"Samen cultuur maken"</p>
+				<div class="pt-6">
+					<a href="/contact" class="btn-theatre-secondary border-bg-ivory text-bg-ivory hover:bg-bg-ivory hover:text-primary-text">Leer ons kennen</a>
 				</div>
 			</div>
 		</div>
-		<!-- Decor element -->
-		<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
 	</section>
 
-	<!-- Nieuws Section -->
-	<section class="py-20 bg-background">
-		<div class="container mx-auto px-4">
-			<h2 class="text-3xl font-serif font-bold mb-12 text-center">Laatste Nieuws</h2>
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+	<!-- Act V: The Bulletin -->
+	<section class="act-section bg-bg-ivory">
+		<div class="container-custom">
+			<h2 class="text-4xl md:text-5xl font-serif mb-20 text-center">Nieuws</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 				{sortedNieuws.map((post) => (
-					<article class="flex flex-col">
-						<div class="aspect-video rounded-xl overflow-hidden mb-4 shadow-md bg-gray-100">
-							<img src={post.frontmatter.image} alt={post.frontmatter.title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop'" />
+					<article class="flex flex-col group">
+						<div class="aspect-video overflow-hidden mb-8 border border-ui-border rounded-lg">
+							<img src={post.frontmatter.image} alt={post.frontmatter.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop'" />
 						</div>
-						<p class="text-accent text-xs font-bold uppercase tracking-wider mb-2">{post.frontmatter.date}</p>
-						<h3 class="text-xl font-serif font-bold mb-3 hover:text-primary transition-colors">
+						<p class="text-accent-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-4">{post.frontmatter.date}</p>
+						<h3 class="text-2xl font-serif mb-6 hover:text-accent-burgundy transition-colors tracking-tight leading-tight">
 							<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`}>{post.frontmatter.title}</a>
 						</h3>
-						<p class="text-gray-600 mb-4 line-clamp-3">
-							{post.rawContent().substring(0, 150)}...
-						</p>
-						<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`} class="text-primary font-bold text-sm hover:underline">Lees meer</a>
+						<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`} class="text-xs uppercase tracking-widest font-bold text-accent-burgundy hover:text-accent-gold transition-colors inline-flex items-center gap-2">
+							Lees bericht <span class="w-4 h-px bg-accent-burgundy"></span>
+						</a>
 					</article>
 				))}
 			</div>
@@ -152,12 +161,11 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 </Layout>
 
 <style>
-	.animate-fade-in {
-		animation: fadeIn 1s ease-out forwards;
+	@keyframes slideDown {
+		0% { transform: translateY(-100%); }
+		100% { transform: translateY(200%); }
 	}
-
-	@keyframes fadeIn {
-		from { opacity: 0; transform: translateY(20px); }
-		to { opacity: 1; transform: translateY(0); }
+	.animate-slide-down {
+		animation: slideDown 2.5s infinite ease-in-out;
 	}
 </style>

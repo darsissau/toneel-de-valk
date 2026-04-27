@@ -15,37 +15,60 @@ const { title, date, image, ticket_link } = post.frontmatter;
 ---
 
 <Layout title={title}>
-	<article class="py-20">
-		<div class="container mx-auto px-4 max-w-4xl">
-			<a href="/voorstellingen" class="text-primary font-bold mb-8 inline-block hover:translate-x-[-8px] transition-transform">
-				&larr; Terug naar overzicht
-			</a>
-			
-			<div class="aspect-video rounded-3xl overflow-hidden shadow-2xl mb-12">
-				<img src={image} alt={title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=1000&auto=format&fit=crop'" />
-			</div>
-
-			<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
-				<div>
-					<div class="inline-block px-4 py-1 bg-accent/20 text-accent font-bold rounded-full text-sm mb-4">
-						{date}
-					</div>
-					<h1 class="text-4xl md:text-6xl font-serif font-bold text-primary">{title}</h1>
-				</div>
+	<article class="pt-40 pb-32">
+		<div class="container-custom max-w-5xl">
+			<header class="mb-20 text-center">
+				<p class="text-accent-gold font-bold uppercase tracking-[0.4em] text-xs mb-6">{date}</p>
+				<h1 class="text-5xl md:text-8xl font-serif text-primary-text mb-12 tracking-tighter">{title}</h1>
+				
 				{ticket_link && (
-					<a href={ticket_link} target="_blank" class="btn-primary text-xl px-10 py-4 shadow-xl">Reserveer Tickets</a>
+					<a href={ticket_link} target="_blank" class="btn-theatre-primary px-16 py-6 text-base tracking-[0.2em]">
+						Reserveer Uw Plaats
+					</a>
 				)}
+			</header>
+			
+			<div class="aspect-[16/7] rounded-lg overflow-hidden shadow-2xl mb-24 border border-ui-border">
+				<img src={image} alt={title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop'" />
 			</div>
 
-			<div class="prose prose-lg max-w-none text-gray-700 leading-relaxed first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left">
-				<Content />
-			</div>
+			<div class="grid md:grid-cols-12 gap-16">
+				<aside class="md:col-span-4 border-t border-ui-border pt-10">
+					<h3 class="text-xs uppercase tracking-widest font-bold text-accent-gold mb-6">Details</h3>
+					<div class="space-y-8">
+						<div>
+							<p class="text-[10px] uppercase tracking-widest text-primary-text/40 mb-1">Datum</p>
+							<p class="font-medium">{date}</p>
+						</div>
+						<div>
+							<p class="text-[10px] uppercase tracking-widest text-primary-text/40 mb-1">Locatie</p>
+							<p class="font-medium">De Valk Studio, Gent</p>
+						</div>
+						<div>
+							<p class="text-[10px] uppercase tracking-widest text-primary-text/40 mb-1">Tickets</p>
+							<p class="font-medium">€15 / €12 (-26j)</p>
+						</div>
+					</div>
+				</aside>
 
-			<div class="mt-20 p-10 bg-gray-50 rounded-3xl border border-gray-100 text-center">
-				<h3 class="text-2xl font-serif font-bold mb-4">Interesse in deze voorstelling?</h3>
-				<p class="mb-8 text-gray-600 italic">Vragen over tickets of groepsreserveringen? Neem gerust contact met ons op.</p>
-				<a href="/contact" class="btn-secondary">Contacteer ons</a>
+				<div class="md:col-span-8 border-t border-ui-border pt-10">
+					<div class="prose prose-lg prose-serif max-w-none text-primary-text/80 leading-relaxed selection:bg-accent-gold/20">
+						<Content />
+					</div>
+				</div>
 			</div>
 		</div>
 	</article>
+
+	<!-- Related / Back Action -->
+	<section class="py-24 border-t border-ui-border bg-white">
+		<div class="container-custom text-center">
+			<a href="/voorstellingen" class="group inline-flex flex-col items-center">
+				<span class="text-[10px] uppercase tracking-[0.5em] text-primary-text/40 mb-6 group-hover:text-accent-gold transition-colors">Volledig Programma</span>
+				<div class="w-24 h-px bg-ui-border relative overflow-hidden group-hover:w-40 transition-all duration-500">
+					<div class="absolute inset-0 bg-accent-gold -translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+				</div>
+			</a>
+		</div>
+	</section>
 </Layout>

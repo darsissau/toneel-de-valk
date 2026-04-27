@@ -4,9 +4,10 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description?: string;
+	transparentNav?: boolean;
 }
 
-const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt" } = Astro.props;
+const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", transparentNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,31 +28,38 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt" } 
 		<!-- Netlify Identity Widget -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 	</head>
-	<body class="min-h-screen flex flex-col">
-		<header class="bg-primary text-background py-4 sticky top-0 z-50 shadow-md">
-			<nav class="container mx-auto px-4 flex justify-between items-center">
-				<a href="/" class="text-2xl font-serif font-bold tracking-tight">Toneelgroep De Valk</a>
-				<ul class="hidden md:flex space-x-8 font-medium">
-					<li><a href="/" class="hover:text-accent transition-colors">Home</a></li>
-					<li><a href="/voorstellingen" class="hover:text-accent transition-colors">Voorstellingen</a></li>
-					<li><a href="/nieuws" class="hover:text-accent transition-colors">Nieuws</a></li>
-					<li><a href="/contact" class="hover:text-accent transition-colors">Contact</a></li>
+	<body class="min-h-screen flex flex-col selection:bg-accent-gold selection:text-white">
+		<header id="main-header" class={`fixed top-0 w-full z-50 transition-all duration-500 ${transparentNav ? 'bg-transparent py-8' : 'bg-bg-ivory/95 backdrop-blur-sm py-4 border-b border-ui-border'}`}>
+			<nav class="container-custom flex justify-between items-center">
+				<a href="/" class="text-xl md:text-2xl font-serif font-bold tracking-tighter hover:text-accent-burgundy transition-colors">
+					Toneelgroep <span class="text-accent-burgundy">De Valk</span>
+				</a>
+				
+				<ul class="hidden md:flex space-x-10">
+					<li><a href="/" class="nav-link">Home</a></li>
+					<li><a href="/voorstellingen" class="nav-link">Voorstellingen</a></li>
+					<li><a href="/nieuws" class="nav-link">Nieuws</a></li>
+					<li><a href="/contact" class="nav-link">Contact</a></li>
 				</ul>
-				<!-- Mobile Menu Button -->
-				<button id="menu-toggle" class="md:hidden text-accent">
+
+				<button id="menu-toggle" class="md:hidden text-primary-text p-2">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
 					</svg>
 				</button>
 			</nav>
-			<!-- Mobile Menu -->
-			<div id="mobile-menu" class="hidden md:hidden bg-primary px-4 pb-6 transition-all border-t border-primary/20">
-				<ul class="flex flex-col space-y-4 font-medium py-4">
-					<li><a href="/" class="hover:text-accent transition-colors block">Home</a></li>
-					<li><a href="/voorstellingen" class="hover:text-accent transition-colors block">Voorstellingen</a></li>
-					<li><a href="/nieuws" class="hover:text-accent transition-colors block">Nieuws</a></li>
-					<li><a href="/contact" class="hover:text-accent transition-colors block">Contact</a></li>
-				</ul>
+
+			<!-- Mobile Menu Overlay -->
+			<div id="mobile-menu" class="fixed inset-0 bg-bg-ivory z-[60] hidden flex-col items-center justify-center space-y-8">
+				<button id="menu-close" class="absolute top-8 right-8 text-primary-text">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+				<a href="/" class="text-3xl font-serif font-bold">Home</a>
+				<a href="/voorstellingen" class="text-3xl font-serif font-bold">Voorstellingen</a>
+				<a href="/nieuws" class="text-3xl font-serif font-bold">Nieuws</a>
+				<a href="/contact" class="text-3xl font-serif font-bold">Contact</a>
 			</div>
 		</header>
 
@@ -59,39 +67,73 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt" } 
 			<slot />
 		</main>
 
-		<footer class="bg-text text-background py-12">
-			<div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-				<div>
-					<h3 class="text-xl font-serif font-bold mb-4 text-accent">Toneelgroep De Valk</h3>
-					<p class="text-gray-300">Beleef theater dat raakt. Wij brengen passie en cultuur naar het hart van de gemeenschap.</p>
+		<footer class="bg-primary-text text-bg-ivory py-20 mt-auto">
+			<div class="container-custom">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+					<div class="md:col-span-5">
+						<h3 class="text-3xl font-serif font-bold mb-6 text-accent-gold tracking-tight">Toneelgroep De Valk</h3>
+						<p class="text-bg-ivory/60 leading-relaxed max-w-md">
+							Sinds generaties brengen wij theater dat raakt, verbindt en inspireert. Onze passie ligt in het vertellen van verhalen die blijven nazinderen.
+						</p>
+					</div>
+					<div class="md:col-span-3">
+						<h4 class="text-sm uppercase tracking-widest font-bold mb-6 text-accent-gold">Menu</h4>
+						<ul class="space-y-4">
+							<li><a href="/voorstellingen" class="text-bg-ivory/60 hover:text-white transition-colors">Alle Voorstellingen</a></li>
+							<li><a href="/nieuws" class="text-bg-ivory/60 hover:text-white transition-colors">Laatste Nieuws</a></li>
+							<li><a href="/contact" class="text-bg-ivory/60 hover:text-white transition-colors">Tickets & Info</a></li>
+						</ul>
+					</div>
+					<div class="md:col-span-4">
+						<h4 class="text-sm uppercase tracking-widest font-bold mb-6 text-accent-gold">Contact</h4>
+						<p class="text-bg-ivory/60 mb-2">info@toneeldevalk.be</p>
+						<p class="text-bg-ivory/60">Gent, België</p>
+					</div>
 				</div>
-				<div>
-					<h3 class="text-lg font-serif font-bold mb-4">Navigatie</h3>
-					<ul class="space-y-2">
-						<li><a href="/" class="hover:text-accent transition-colors">Home</a></li>
-						<li><a href="/voorstellingen" class="hover:text-accent transition-colors">Voorstellingen</a></li>
-						<li><a href="/nieuws" class="hover:text-accent transition-colors">Nieuws</a></li>
-						<li><a href="/contact" class="hover:text-accent transition-colors">Contact</a></li>
-					</ul>
+				<div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+					<p class="text-xs text-bg-ivory/40 uppercase tracking-widest">
+						&copy; {new Date().getFullYear()} Toneelgroep De Valk.
+					</p>
+					<div class="flex space-x-8">
+						<a href="#" class="text-xs uppercase tracking-widest text-bg-ivory/40 hover:text-white transition-colors">Instagram</a>
+						<a href="#" class="text-xs uppercase tracking-widest text-bg-ivory/40 hover:text-white transition-colors">Facebook</a>
+					</div>
 				</div>
-				<div>
-					<h3 class="text-lg font-serif font-bold mb-4">Contact</h3>
-					<p class="text-gray-300">Email: info@toneeldevalk.be</p>
-					<p class="text-gray-300">Locatie: Dorpsstraat 1, 9000 Gent</p>
-				</div>
-			</div>
-			<div class="container mx-auto px-4 mt-8 pt-8 border-t border-gray-700 text-center text-gray-400 text-sm">
-				&copy; {new Date().getFullYear()} Toneelgroep De Valk. Alle rechten voorbehouden.
 			</div>
 		</footer>
 
 		<script>
-			// Mobile menu toggle
+			// Header scroll logic
+			const header = document.getElementById('main-header');
+			const isTransparent = header?.classList.contains('bg-transparent');
+
+			if (isTransparent) {
+				window.addEventListener('scroll', () => {
+					if (window.scrollY > 100) {
+						header?.classList.remove('bg-transparent', 'py-8');
+						header?.classList.add('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border');
+					} else {
+						header?.classList.add('bg-transparent', 'py-8');
+						header?.classList.remove('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border');
+					}
+				});
+			}
+
+			// Mobile menu
 			const menuToggle = document.getElementById('menu-toggle');
+			const menuClose = document.getElementById('menu-close');
 			const mobileMenu = document.getElementById('mobile-menu');
 
 			menuToggle?.addEventListener('click', () => {
-				mobileMenu?.classList.toggle('hidden');
+				mobileMenu?.classList.remove('hidden');
+				mobileMenu?.classList.add('flex');
+				document.body.style.overflow = 'hidden';
+			});
+
+			menuClose?.addEventListener('click', () => {
+				mobileMenu?.classList.add('hidden');
+				mobileMenu?.classList.remove('flex');
+				document.body.style.overflow = '';
 			});
 
 			// Netlify Identity

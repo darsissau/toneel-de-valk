@@ -5,34 +5,68 @@
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
 
-  --color-primary: #800020; /* Deep Burgundy */
-  --color-accent: #D4AF37;  /* Gold */
-  --color-background: #FFFDF5; /* Warm Ivory */
-  --color-text: #1A1A1A;    /* Dark Charcoal */
+  --color-bg-ivory: #F7F1E6;
+  --color-primary-text: #1C1C1C;
+  --color-accent-burgundy: #6B1F2B;
+  --color-accent-gold: #C8A24A;
+  --color-ui-border: rgba(0, 0, 0, 0.08);
+
+  /* Overriding default primary for convenience if needed, but using specific names is safer */
+  --color-primary: var(--color-accent-burgundy);
 }
 
 @layer base {
   html {
     font-family: var(--font-sans);
-    background-color: var(--color-background);
-    color: var(--color-text);
+    background-color: var(--color-bg-ivory);
+    color: var(--color-primary-text);
+    scroll-behavior: smooth;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  body {
+    @apply antialiased;
   }
 }
 
 @layer components {
-  .btn-primary {
-    @apply px-6 py-3 bg-primary text-background rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 inline-block;
+  .container-custom {
+    @apply max-w-[1200px] mx-auto px-6 md:px-12;
   }
 
-  .btn-secondary {
-    @apply px-6 py-3 border-2 border-accent text-accent rounded-xl font-semibold transition-all duration-300 hover:bg-accent hover:text-background active:scale-95 inline-block;
+  .btn-theatre-primary {
+    @apply px-8 py-4 bg-accent-burgundy text-bg-ivory rounded-lg font-medium transition-all duration-300 hover:opacity-90 active:scale-95 inline-block tracking-wide uppercase text-sm;
   }
 
-  .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  .btn-theatre-secondary {
+    @apply px-8 py-4 border border-accent-burgundy text-accent-burgundy rounded-lg font-medium transition-all duration-300 hover:bg-accent-burgundy hover:text-bg-ivory active:scale-95 inline-block tracking-wide uppercase text-sm;
+  }
+
+  .theatre-card {
+    @apply bg-white rounded-lg border border-ui-border overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-accent-gold;
+  }
+
+  .act-section {
+    @apply py-24 md:py-32;
+  }
+
+  .nav-link {
+    @apply text-sm uppercase tracking-widest transition-colors duration-300 hover:text-accent-gold;
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 1.2s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

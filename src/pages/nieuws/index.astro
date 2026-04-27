@@ -10,30 +10,30 @@ const sortedNieuws = nieuws.sort((a, b) => {
 ---
 
 <Layout title="Nieuws">
-	<section class="py-20 bg-primary text-background">
-		<div class="container mx-auto px-4 text-center">
-			<h1 class="text-5xl font-serif font-bold mb-6">Nieuws</h1>
-			<p class="text-xl opacity-90 max-w-2xl mx-auto">Blijf op de hoogte van onze activiteiten, repetities en achter-de-schermen verhalen.</p>
+	<section class="py-32 bg-primary-text text-bg-ivory">
+		<div class="container-custom text-center">
+			<h1 class="text-5xl md:text-8xl font-serif mb-8 tracking-tighter">Nieuws</h1>
+			<p class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold">Het laatste uit onze coulissen</p>
 		</div>
 	</section>
 
-	<section class="py-20">
-		<div class="container mx-auto px-4 max-w-5xl">
-			<div class="space-y-16">
+	<section class="py-24">
+		<div class="container-custom max-w-4xl">
+			<div class="space-y-32">
 				{sortedNieuws.map((post) => (
-					<article class="grid md:grid-cols-2 gap-10 items-center">
-						<div class="aspect-video rounded-2xl overflow-hidden shadow-lg order-1 md:order-none">
-							<img src={post.frontmatter.image} alt={post.frontmatter.title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop'" />
+					<article class="group">
+						<div class="aspect-[21/9] rounded-lg overflow-hidden border border-ui-border mb-12">
+							<img src={post.frontmatter.image} alt={post.frontmatter.title} class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop'" />
 						</div>
-						<div>
-							<p class="text-accent text-sm font-bold uppercase tracking-widest mb-3">{post.frontmatter.date}</p>
-							<h2 class="text-3xl font-serif font-bold mb-4 hover:text-primary transition-colors">
+						<div class="max-w-2xl">
+							<p class="text-accent-gold text-xs font-bold uppercase tracking-[0.3em] mb-6">{post.frontmatter.date}</p>
+							<h2 class="text-4xl md:text-5xl font-serif mb-8 hover:text-accent-burgundy transition-colors tracking-tight">
 								<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`}>{post.frontmatter.title}</a>
 							</h2>
-							<p class="text-gray-600 text-lg mb-6">
-								{post.rawContent().substring(0, 200)}...
+							<p class="text-primary-text/70 text-lg mb-10 leading-relaxed">
+								{post.rawContent().substring(0, 250)}...
 							</p>
-							<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`} class="btn-secondary">Lees volledig artikel</a>
+							<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`} class="btn-theatre-secondary">Lees volledig bericht</a>
 						</div>
 					</article>
 				))}
