@@ -16,7 +16,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + '/favicon.svg'} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | Toneelgroep De Valk</title>
 
@@ -38,10 +38,10 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 				</svg>
 			</button>
 			<nav class="flex flex-col items-center space-y-8">
-				<a href={\`${import.meta.env.BASE_URL}\`} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Home</a>
-				<a href={\`${import.meta.env.BASE_URL}voorstellingen\`} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Voorstellingen</a>
-				<a href={\`${import.meta.env.BASE_URL}nieuws\`} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Nieuws</a>
-				<a href={\`${import.meta.env.BASE_URL}contact\`} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Contact</a>
+				<a href={import.meta.env.BASE_URL} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Home</a>
+				<a href={import.meta.env.BASE_URL + 'voorstellingen'} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Voorstellingen</a>
+				<a href={import.meta.env.BASE_URL + 'nieuws'} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Nieuws</a>
+				<a href={import.meta.env.BASE_URL + 'contact'} class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Contact</a>
 			</nav>
 			<div class="pt-12 flex flex-col items-center space-y-4">
 				<div class="w-12 h-px bg-accent-gold/30"></div>
@@ -52,17 +52,17 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<header id="main-header" class={`fixed top-0 w-full z-50 transition-all duration-500 ${transparentNav ? 'bg-transparent py-8 text-white' : 'bg-bg-ivory/95 backdrop-blur-sm py-4 border-b border-ui-border text-primary-text'}`}>
 			<nav class="container-custom flex justify-between items-center">
 				<div class="flex flex-col">
-					<a href={\`${import.meta.env.BASE_URL}\`} id="nav-logo" class="text-xl md:text-2xl font-serif font-bold tracking-tighter transition-colors duration-500">
+					<a href={import.meta.env.BASE_URL} id="nav-logo" class="text-xl md:text-2xl font-serif font-bold tracking-tighter transition-colors duration-500">
 						Toneelgroep <span id="nav-logo-accent" class={transparentNav ? 'text-white' : 'text-accent-burgundy'}>De Valk</span>
 					</a>
 					<span id="nav-tagline" class={`hidden md:block text-[9px] uppercase tracking-[0.3em] font-bold mt-1 transition-colors duration-500 ${transparentNav ? 'text-white/60' : 'text-accent-gold/80'}`}>Brugge — Sinds 1945</span>
 				</div>
 				
 				<ul class="hidden md:flex space-x-10">
-					<li><a href={\`${import.meta.env.BASE_URL}\`} class="nav-link">Home</a></li>
-					<li><a href={\`${import.meta.env.BASE_URL}voorstellingen\`} class="nav-link">Voorstellingen</a></li>
-					<li><a href={\`${import.meta.env.BASE_URL}nieuws\`} class="nav-link">Nieuws</a></li>
-					<li><a href={\`${import.meta.env.BASE_URL}contact\`} class="nav-link">Contact</a></li>
+					<li><a href={import.meta.env.BASE_URL} class="nav-link">Home</a></li>
+					<li><a href={import.meta.env.BASE_URL + 'voorstellingen'} class="nav-link">Voorstellingen</a></li>
+					<li><a href={import.meta.env.BASE_URL + 'nieuws'} class="nav-link">Nieuws</a></li>
+					<li><a href={import.meta.env.BASE_URL + 'contact'} class="nav-link">Contact</a></li>
 				</ul>
 
 				<button id="menu-toggle" class="md:hidden p-2 transition-colors duration-500">
@@ -89,9 +89,9 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 					<div class="md:col-span-3">
 						<h4 class="text-sm uppercase tracking-widest font-bold mb-6 text-accent-gold">Menu</h4>
 						<ul class="space-y-4">
-							<li><a href={\`${import.meta.env.BASE_URL}voorstellingen\`} class="text-bg-ivory/60 hover:text-white transition-colors">Alle Voorstellingen</a></li>
-							<li><a href={\`${import.meta.env.BASE_URL}nieuws\`} class="text-bg-ivory/60 hover:text-white transition-colors">Laatste Nieuws</a></li>
-							<li><a href="/contact" class="text-bg-ivory/60 hover:text-white transition-colors">Tickets & Info</a></li>
+							<li><a href={import.meta.env.BASE_URL + 'voorstellingen'} class="text-bg-ivory/60 hover:text-white transition-colors">Alle Voorstellingen</a></li>
+							<li><a href={import.meta.env.BASE_URL + 'nieuws'} class="text-bg-ivory/60 hover:text-white transition-colors">Laatste Nieuws</a></li>
+							<li><a href={import.meta.env.BASE_URL + 'contact'} class="text-bg-ivory/60 hover:text-white transition-colors">Tickets & Info</a></li>
 						</ul>
 					</div>
 					<div class="md:col-span-4">
