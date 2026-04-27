@@ -2,11 +2,9 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Fetch content
 const voorstellingen = await getCollection('voorstellingen');
 const nieuws = await getCollection('nieuws');
 
-// Sort by date
 const sortedVoorstellingen = voorstellingen.sort((a, b) => {
   const dateA = new Date(a.data.date.split('-').reverse().join('-'));
   const dateB = new Date(b.data.date.split('-').reverse().join('-'));
@@ -23,10 +21,9 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 ---
 
 <Layout title="Home" transparentNav={true}>
-	<!-- POSTER HERO -->
 	<section class="relative h-screen flex items-end overflow-hidden bg-primary-text">
 		<div class="absolute inset-0 z-0">
-			<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2400&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-60"></div>
+			<img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2400&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-40" alt="Theatre stage" />
 			<div class="absolute inset-0 bg-gradient-to-t from-primary-text via-transparent to-transparent"></div>
 		</div>
 		
@@ -47,7 +44,6 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</div>
 	</section>
 
-	<!-- ACT I: THE HIGHLIGHT (ASYMMETRIC) -->
 	{volgendeVoorstelling && (
 		<section class="act-section bg-bg-ivory overflow-hidden">
 			<div class="container-custom">
@@ -63,16 +59,15 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 							{volgendeVoorstelling.data.summary}
 						</p>
 						<div class="flex flex-col items-start">
-							<a href={`/voorstellingen/${volgendeVoorstelling.id || volgendeVoorstelling.slug}`} class="btn-theatre-outline">
+							<a href={`/voorstellingen/${volgendeVoorstelling.id}`} class="btn-theatre-outline">
 								Bekijk details
 							</a>
 						</div>
 					</div>
 					<div class="lg:col-span-7 order-1 lg:order-2 relative">
 						<div class="aspect-[4/5] md:aspect-[16/11] relative z-10 bg-primary-text/5">
-							<img src={volgendeVoorstelling.data.image} alt={volgendeVoorstelling.data.title} class="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop'" />
+							<img src={volgendeVoorstelling.data.image} alt={volgendeVoorstelling.data.title} class="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000" />
 						</div>
-						<!-- Abstract Decor Element -->
 						<div class="absolute -top-12 -right-12 w-64 h-64 border border-accent-gold/20 -z-0 hidden md:block"></div>
 					</div>
 				</div>
@@ -80,25 +75,20 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</section>
 	)}
 
-	<!-- ACT II: THE SEASON (MINIMAL GRID) -->
 	<section class="act-section bg-white border-y border-ui-border">
 		<div class="container-custom">
 			<div class="max-w-xl mb-32">
 				<h2 class="text-4xl md:text-6xl mb-8">Programma</h2>
 				<p class="text-primary-text/50 text-sm tracking-wide leading-relaxed">
-					Een jubileumseizoen vol nostalgie en actualiteit. Ontdek onze selectie voor 2025-2026.
+					Een jubileumseizoen vol nostalgie en actualiteit.
 				</p>
 			</div>
 			
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card">
+					<a href={`/voorstellingen/${item.id}`} class="theatre-card">
 						<div class="theatre-card-image bg-primary-text/5">
-							<img 
-								src={item.data.image} 
-								alt={item.data.title} 
-								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503095396549-807a8bc36674?q=80&w=1000&auto=format&fit=crop';"
-							/>
+							<img src={item.data.image} alt={item.data.title} />
 							<div class="absolute inset-0 bg-accent-burgundy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 						</div>
 						<div class="theatre-card-content">
@@ -111,59 +101,20 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</div>
 	</section>
 
-	<!-- ACT III: THE PHILOSOPHY -->
 	<section class="act-section bg-bg-ivory">
-		<div class="container-custom">
-			<div class="max-w-4xl mx-auto text-center">
-				<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>
-				<h2 class="text-4xl md:text-7xl mb-16 italic font-normal tracking-tight leading-tight">
-					"In 1945 werd onder de kerktoren van Sint-Baafs een theaterlijk valkenei uitgebroed."
-				</h2>
-				<div class="w-12 h-px bg-primary-text/20 mx-auto mb-16"></div>
-				<p class="text-primary-text/60 max-w-xl mx-auto text-sm leading-loose uppercase tracking-widest">
-					80 jaar later is De Valk een blijver in het Brugse landschap. Met de 175ste productie in de Magdalenazaal vieren we nostalgie, actualiteit en de kracht van het verhaal.
-				</p>
-			</div>
-		</div>
-	</section>
-
-	<!-- ACT IV: JOURNAL -->
-	<section class="act-section bg-primary-text text-bg-ivory">
-		<div class="container-custom">
-			<div class="flex justify-between items-end mb-24">
-				<h2 class="text-4xl md:text-6xl text-bg-ivory tracking-tighter">Journal</h2>
-				<a href="/nieuws" class="nav-link text-bg-ivory/40 hover:text-accent-gold underline underline-offset-8">Alle Berichten</a>
-			</div>
-			
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-				{sortedNieuws.map((post, index) => (
-					<article class={`group ${index === 0 ? 'lg:col-span-2 flex flex-col lg:flex-row gap-12' : ''}`}>
-						<div class={`${index === 0 ? 'lg:w-2/3 aspect-[21/9]' : 'aspect-video mb-8'} overflow-hidden grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 bg-bg-ivory/5`}>
-							<img 
-								src={post.data.image} 
-								alt={post.data.title} 
-								class="w-full h-full object-cover" 
-								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop';"
-							/>
-						</div>
-						<div class={`${index === 0 ? 'lg:w-1/3 flex flex-col justify-center' : ''}`}>
-							<p class="text-accent-gold text-[10px] uppercase tracking-[0.3em] mb-4">{post.data.date}</p>
-							<h3 class="text-2xl md:text-3xl mb-6 tracking-tight leading-tight">
-								<a href={`/nieuws/${post.id || post.slug}`} class="hover:text-accent-gold transition-colors">{post.data.title}</a>
-							</h3>
-							<p class="text-bg-ivory/40 text-sm line-clamp-2 leading-relaxed">
-								{post.body.substring(0, 120)}...
-							</p>
-						</div>
-					</article>
-				))}
-			</div>
+		<div class="container-custom text-center">
+			<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>
+			<h2 class="text-4xl md:text-7xl mb-16 italic font-normal tracking-tight leading-tight max-w-4xl mx-auto">
+				"In 1945 werd onder de kerktoren van Sint-Baafs een theaterlijk valkenei uitgebroed."
+			</h2>
+			<div class="w-12 h-px bg-primary-text/20 mx-auto mb-16"></div>
+			<p class="text-primary-text/60 max-w-xl mx-auto text-sm leading-loose uppercase tracking-widest">
+				80 jaar later is De Valk een blijver in het Brugse landschap.
+			</p>
 		</div>
 	</section>
 </Layout>
 
 <style>
-	.text-poster {
-		font-size: clamp(4rem, 15vw, 12rem);
-	}
+	.text-poster { font-size: clamp(4rem, 15vw, 12rem); }
 </style>
