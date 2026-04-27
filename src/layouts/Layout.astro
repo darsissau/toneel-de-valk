@@ -59,10 +59,10 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 				</div>
 				
 				<ul class="hidden md:flex space-x-10">
-					<li><a href="/" class="nav-link">Home</a></li>
-					<li><a href="/voorstellingen" class="nav-link">Voorstellingen</a></li>
-					<li><a href="/nieuws" class="nav-link">Nieuws</a></li>
-					<li><a href="/contact" class="nav-link">Contact</a></li>
+					<li><a href={import.meta.env.BASE_URL} class="nav-link">Home</a></li>
+					<li><a href={`${import.meta.env.BASE_URL}voorstellingen`} class="nav-link">Voorstellingen</a></li>
+					<li><a href={`${import.meta.env.BASE_URL}nieuws`} class="nav-link">Nieuws</a></li>
+					<li><a href={`${import.meta.env.BASE_URL}contact`} class="nav-link">Contact</a></li>
 				</ul>
 
 				<button id="menu-toggle" class="md:hidden p-2 transition-colors duration-500">
