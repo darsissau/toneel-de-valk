@@ -1,10 +1,13 @@
 backend:
   name: github
-  repo: user/repo # Verander dit naar jouw GitHub repository (bijv: gebruikersnaam/project-naam)
+  repo: darsissau/toneel-de-valk
   branch: main
 
+site_url: https://darsissau.github.io/toneel-de-valk
+display_url: https://darsissau.github.io/toneel-de-valk
+
 media_folder: "public/images"
-public_folder: "/images"
+public_folder: "/toneel-de-valk/images"
 
 collections:
   - name: "voorstellingen"
@@ -14,10 +17,21 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "DD-MM-YYYY", date_format: "DD-MM-YYYY", time_format: false }
+      - {
+          label: "Datum",
+          name: "date",
+          widget: "datetime",
+          date_format: "DD-MM-YYYY",
+          time_format: false,
+        }
       - { label: "Beschrijving", name: "body", widget: "markdown" }
       - { label: "Afbeelding", name: "image", widget: "image" }
-      - { label: "Ticket link", name: "ticket_link", widget: "string", required: false }
+      - {
+          label: "Ticket link",
+          name: "ticket_link",
+          widget: "string",
+          required: false,
+        }
 
   - name: "nieuws"
     label: "Nieuws"
@@ -26,6 +40,12 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "DD-MM-YYYY", date_format: "DD-MM-YYYY", time_format: false }
+      - {
+          label: "Datum",
+          name: "date",
+          widget: "datetime",
+          date_format: "DD-MM-YYYY",
+          time_format: false,
+        }
       - { label: "Inhoud", name: "body", widget: "markdown" }
       - { label: "Afbeelding", name: "image", widget: "image", required: false }
