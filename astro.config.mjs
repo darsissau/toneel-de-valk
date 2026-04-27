@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// Gebruik base: '/' zodat GitHub Pages de juiste sub-URL structuur automatisch overneemt
+// De 'base' moet exact overeenkomen met je GitHub Pages submap
 export default defineConfig({
   site: 'https://darsissau.github.io',
-  base: '/',
+  base: '/toneel-de-valk/',
   vite: {
     plugins: [tailwindcss()]
   }
