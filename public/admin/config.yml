@@ -1,0 +1,31 @@
+backend:
+  name: github
+  repo: user/repo # Verander dit naar jouw GitHub repository (bijv: gebruikersnaam/project-naam)
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "voorstellingen"
+    label: "Voorstellingen"
+    folder: "content/voorstellingen"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "DD-MM-YYYY", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Beschrijving", name: "body", widget: "markdown" }
+      - { label: "Afbeelding", name: "image", widget: "image" }
+      - { label: "Ticket link", name: "ticket_link", widget: "string", required: false }
+
+  - name: "nieuws"
+    label: "Nieuws"
+    folder: "content/nieuws"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "DD-MM-YYYY", date_format: "DD-MM-YYYY", time_format: false }
+      - { label: "Inhoud", name: "body", widget: "markdown" }
+      - { label: "Afbeelding", name: "image", widget: "image", required: false }

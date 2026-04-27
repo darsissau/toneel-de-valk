@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const nieuws = Object.values(import.meta.glob('../../../content/nieuws/*.md', { eager: true }));
+  return nieuws.map(post => ({
+    params: { slug: post.file.split('/').pop().replace('.md', '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = post;
+const { title, date, image } = post.frontmatter;
+---
+
+<Layout title={title}>
+	<article class="py-20">
+		<div class="container mx-auto px-4 max-w-3xl">
+			<a href="/nieuws" class="text-primary font-bold mb-8 inline-block hover:translate-x-[-8px] transition-transform">
+				&larr; Terug naar nieuws
+			</a>
+			
+			<header class="mb-10">
+				<p class="text-accent font-bold uppercase tracking-widest mb-4">{date}</p>
+				<h1 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-8">{title}</h1>
+				
+				{image && (
+					<div class="aspect-video rounded-2xl overflow-hidden shadow-lg mb-10">
+						<img src={image} alt={title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1000&auto=format&fit=crop'" />
+					</div>
+				)}
+			</header>
+
+			<div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+				<Content />
+			</div>
+
+			<div class="mt-16 pt-8 border-t border-gray-100 flex justify-between items-center">
+				<div class="flex gap-4">
+					<span class="font-bold">Deel dit bericht:</span>
+					<!-- Simple share placeholders -->
+					<div class="flex gap-2 text-primary">
+						<span class="hover:text-accent cursor-pointer">FB</span>
+						<span class="hover:text-accent cursor-pointer">TW</span>
+						<span class="hover:text-accent cursor-pointer">WA</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</Layout>
