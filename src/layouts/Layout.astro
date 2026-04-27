@@ -28,12 +28,35 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<!-- Netlify Identity Widget -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 	</head>
-	<body class="min-h-screen flex flex-col selection:bg-accent-gold selection:text-white">
-		<header id="main-header" class={`fixed top-0 w-full z-50 transition-all duration-500 ${transparentNav ? 'bg-transparent py-8' : 'bg-bg-ivory/95 backdrop-blur-sm py-4 border-b border-ui-border'}`}>
+	<body class="min-h-screen flex flex-col selection:bg-accent-gold selection:text-white overflow-x-hidden">
+		
+		<!-- Mobile Menu Overlay (Outside header for stability) -->
+		<div id="mobile-menu" class="fixed inset-0 bg-primary-text z-[100] hidden flex-col items-center justify-center space-y-10 w-full h-[100dvh]">
+			<button id="menu-close" class="absolute top-8 right-8 text-bg-ivory p-4">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+			<nav class="flex flex-col items-center space-y-8">
+				<a href="/" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Home</a>
+				<a href="/voorstellingen" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Voorstellingen</a>
+				<a href="/nieuws" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Nieuws</a>
+				<a href="/contact" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Contact</a>
+			</nav>
+			<div class="pt-12 flex flex-col items-center space-y-4">
+				<div class="w-12 h-px bg-accent-gold/30"></div>
+				<span class="text-[10px] uppercase tracking-[0.4em] font-bold text-accent-gold">Brugge — Sinds 1945</span>
+			</div>
+		</div>
+
+		<header id="main-header" class={`fixed top-0 w-full z-50 transition-all duration-500 ${transparentNav ? 'bg-transparent py-8 text-white' : 'bg-bg-ivory/95 backdrop-blur-sm py-4 border-b border-ui-border text-primary-text'}`}>
 			<nav class="container-custom flex justify-between items-center">
-				<a href="/" class="text-xl md:text-2xl font-serif font-bold tracking-tighter hover:text-accent-burgundy transition-colors">
-					Toneelgroep <span class="text-accent-burgundy">De Valk</span>
-				</a>
+				<div class="flex flex-col">
+					<a href="/" id="nav-logo" class="text-xl md:text-2xl font-serif font-bold tracking-tighter transition-colors duration-500">
+						Toneelgroep <span id="nav-logo-accent" class={transparentNav ? 'text-white' : 'text-accent-burgundy'}>De Valk</span>
+					</a>
+					<span id="nav-tagline" class={`hidden md:block text-[9px] uppercase tracking-[0.3em] font-bold mt-1 transition-colors duration-500 ${transparentNav ? 'text-white/60' : 'text-accent-gold/80'}`}>Brugge — Sinds 1945</span>
+				</div>
 				
 				<ul class="hidden md:flex space-x-10">
 					<li><a href="/" class="nav-link">Home</a></li>
@@ -42,25 +65,12 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 					<li><a href="/contact" class="nav-link">Contact</a></li>
 				</ul>
 
-				<button id="menu-toggle" class="md:hidden text-primary-text p-2">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<button id="menu-toggle" class="md:hidden p-2 transition-colors duration-500">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
 					</svg>
 				</button>
 			</nav>
-
-			<!-- Mobile Menu Overlay -->
-			<div id="mobile-menu" class="fixed inset-0 bg-bg-ivory z-[60] hidden flex-col items-center justify-center space-y-8">
-				<button id="menu-close" class="absolute top-8 right-8 text-primary-text">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-					</svg>
-				</button>
-				<a href="/" class="text-3xl font-serif font-bold">Home</a>
-				<a href="/voorstellingen" class="text-3xl font-serif font-bold">Voorstellingen</a>
-				<a href="/nieuws" class="text-3xl font-serif font-bold">Nieuws</a>
-				<a href="/contact" class="text-3xl font-serif font-bold">Contact</a>
-			</div>
 		</header>
 
 		<main class="flex-grow">
@@ -73,7 +83,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 					<div class="md:col-span-5">
 						<h3 class="text-3xl font-serif font-bold mb-6 text-accent-gold tracking-tight">Toneelgroep De Valk</h3>
 						<p class="text-bg-ivory/60 leading-relaxed max-w-md">
-							Sinds generaties brengen wij theater dat raakt, verbindt en inspireert. Onze passie ligt in het vertellen van verhalen die blijven nazinderen.
+							80 jaar passie voor theater onder de Brugse kerktoren. Van een uitgebroed valkenei in 1945 tot een blijver in het culturele landschap.
 						</p>
 					</div>
 					<div class="md:col-span-3">
@@ -87,7 +97,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 					<div class="md:col-span-4">
 						<h4 class="text-sm uppercase tracking-widest font-bold mb-6 text-accent-gold">Contact</h4>
 						<p class="text-bg-ivory/60 mb-2">info@toneeldevalk.be</p>
-						<p class="text-bg-ivory/60">Gent, België</p>
+						<p class="text-bg-ivory/60">Brugge, België</p>
 					</div>
 				</div>
 				<div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -103,24 +113,42 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		</footer>
 
 		<script>
-			// Header scroll logic
 			const header = document.getElementById('main-header');
-			const isTransparent = header?.classList.contains('bg-transparent');
+			const navLogoAccent = document.getElementById('nav-logo-accent');
+			const navTagline = document.getElementById('nav-tagline');
+			const menuToggle = document.getElementById('menu-toggle');
+			const isTransparentInitial = header?.classList.contains('bg-transparent');
 
-			if (isTransparent) {
-				window.addEventListener('scroll', () => {
-					if (window.scrollY > 100) {
-						header?.classList.remove('bg-transparent', 'py-8');
-						header?.classList.add('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border');
-					} else {
-						header?.classList.add('bg-transparent', 'py-8');
-						header?.classList.remove('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border');
-					}
-				});
+			function updateHeader() {
+				if (!isTransparentInitial) return;
+
+				if (window.scrollY > 50) {
+					header?.classList.remove('bg-transparent', 'py-8', 'text-white');
+					header?.classList.add('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border', 'text-primary-text');
+					
+					navLogoAccent?.classList.remove('text-white');
+					navLogoAccent?.classList.add('text-accent-burgundy');
+
+					navTagline?.classList.remove('text-white/60');
+					navTagline?.classList.add('text-accent-gold/80');
+				} else {
+					header?.classList.add('bg-transparent', 'py-8', 'text-white');
+					header?.classList.remove('bg-bg-ivory/95', 'backdrop-blur-sm', 'py-4', 'border-b', 'border-ui-border', 'text-primary-text');
+					
+					navLogoAccent?.classList.add('text-white');
+					navLogoAccent?.classList.remove('text-accent-burgundy');
+
+					navTagline?.classList.add('text-white/60');
+					navTagline?.classList.remove('text-accent-gold/80');
+				}
 			}
 
-			// Mobile menu
-			const menuToggle = document.getElementById('menu-toggle');
+			if (isTransparentInitial) {
+				window.addEventListener('scroll', updateHeader);
+				updateHeader();
+			}
+
+			// Mobile menu toggle
 			const menuClose = document.getElementById('menu-close');
 			const mobileMenu = document.getElementById('mobile-menu');
 

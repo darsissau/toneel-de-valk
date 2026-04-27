@@ -9,10 +9,10 @@
   --color-primary-text: #1C1C1C;
   --color-accent-burgundy: #6B1F2B;
   --color-accent-gold: #C8A24A;
-  --color-ui-border: rgba(0, 0, 0, 0.08);
+  --color-ui-border: rgba(0, 0, 0, 0.05);
 
-  /* Overriding default primary for convenience if needed, but using specific names is safer */
-  --color-primary: var(--color-accent-burgundy);
+  --tracking-theatre: 0.2em;
+  --tracking-poster: -0.04em;
 }
 
 @layer base {
@@ -23,50 +23,77 @@
     scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1 {
     font-family: var(--font-serif);
     font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: var(--tracking-poster);
+  }
+
+  h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
     line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased text-[17px] leading-relaxed;
   }
 }
 
 @layer components {
   .container-custom {
-    @apply max-w-[1200px] mx-auto px-6 md:px-12;
+    @apply max-w-[1140px] mx-auto px-8;
   }
 
-  .btn-theatre-primary {
-    @apply px-8 py-4 bg-accent-burgundy text-bg-ivory rounded-lg font-medium transition-all duration-300 hover:opacity-90 active:scale-95 inline-block tracking-wide uppercase text-sm;
-  }
-
-  .btn-theatre-secondary {
-    @apply px-8 py-4 border border-accent-burgundy text-accent-burgundy rounded-lg font-medium transition-all duration-300 hover:bg-accent-burgundy hover:text-bg-ivory active:scale-95 inline-block tracking-wide uppercase text-sm;
-  }
-
-  .theatre-card {
-    @apply bg-white rounded-lg border border-ui-border overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-accent-gold;
-  }
-
+  /* DRAMATIC SECTIONING */
   .act-section {
-    @apply py-24 md:py-32;
+    @apply py-32 md:py-48;
+  }
+
+  /* POSTER-GRADE BUTTONS */
+  .btn-theatre-primary {
+    @apply px-10 py-5 bg-accent-gold text-white rounded-none font-bold transition-all duration-500 hover:bg-accent-burgundy active:scale-95 inline-block tracking-[0.2em] uppercase text-[11px];
+  }
+
+  .btn-theatre-outline {
+    @apply px-10 py-5 border border-primary-text/20 text-primary-text rounded-none font-bold transition-all duration-500 hover:border-accent-gold hover:text-accent-gold active:scale-95 inline-block tracking-[0.2em] uppercase text-[11px];
+  }
+
+  /* SIMPLIFIED CARDS */
+  .theatre-card {
+    @apply block transition-all duration-700;
+  }
+
+  .theatre-card-image {
+    @apply aspect-[3/4] overflow-hidden mb-8 relative;
+  }
+
+  .theatre-card-image img {
+    @apply w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.3] group-hover:grayscale-0;
+  }
+
+  .theatre-card-content {
+    @apply space-y-2;
   }
 
   .nav-link {
-    @apply text-sm uppercase tracking-widest transition-colors duration-300 hover:text-accent-gold;
+    @apply text-[10px] font-bold uppercase tracking-[0.3em] transition-colors duration-500 hover:text-accent-gold;
   }
 }
 
 @layer utilities {
   .fade-in {
-    animation: fadeIn 1.2s ease-out forwards;
+    animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  .text-poster {
+    @apply text-7xl md:text-[140px] lg:text-[180px];
   }
 }

@@ -1,20 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 // Fetch content
-const voorstellingen = Object.values(import.meta.glob('../../content/voorstellingen/*.md', { eager: true }));
-const nieuws = Object.values(import.meta.glob('../../content/nieuws/*.md', { eager: true }));
+const voorstellingen = await getCollection('voorstellingen');
+const nieuws = await getCollection('nieuws');
 
 // Sort by date
 const sortedVoorstellingen = voorstellingen.sort((a, b) => {
-  const dateA = new Date(a.frontmatter.date.split('-').reverse().join('-'));
-  const dateB = new Date(b.frontmatter.date.split('-').reverse().join('-'));
+  const dateA = new Date(a.data.date.split('-').reverse().join('-'));
+  const dateB = new Date(b.data.date.split('-').reverse().join('-'));
   return dateA - dateB;
 });
 
 const sortedNieuws = nieuws.sort((a, b) => {
-  const dateA = new Date(a.frontmatter.date.split('-').reverse().join('-'));
-  const dateB = new Date(b.frontmatter.date.split('-').reverse().join('-'));
+  const dateA = new Date(a.data.date.split('-').reverse().join('-'));
+  const dateB = new Date(b.data.date.split('-').reverse().join('-'));
   return dateB - dateA;
 }).slice(0, 3);
 
@@ -22,95 +23,87 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 ---
 
 <Layout title="Home" transparentNav={true}>
-	<!-- Act I: The Hero -->
-	<section class="relative h-screen flex items-center justify-center overflow-hidden bg-primary-text">
+	<!-- POSTER HERO -->
+	<section class="relative h-screen flex items-end overflow-hidden bg-primary-text">
 		<div class="absolute inset-0 z-0">
-			<!-- Cinematic Background Image Placeholder -->
-			<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
-			<!-- Gradient Overlay -->
-			<div class="absolute inset-0 bg-gradient-to-b from-primary-text/20 via-transparent to-primary-text/80"></div>
+			<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2400&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-60"></div>
+			<div class="absolute inset-0 bg-gradient-to-t from-primary-text via-transparent to-transparent"></div>
 		</div>
 		
-		<div class="container-custom relative z-10 text-center">
-			<div class="fade-in space-y-8">
-				<p class="text-accent-gold uppercase tracking-[0.4em] text-sm font-bold">Welkom bij</p>
-				<h1 class="text-6xl md:text-9xl font-serif text-bg-ivory tracking-tighter">
-					De <span class="italic font-normal">Valk</span>
+		<div class="container-custom relative z-10 pb-20 md:pb-32 w-full">
+			<div class="fade-in max-w-4xl">
+				<h1 class="text-poster text-bg-ivory mb-12 uppercase">
+					80 JAAR<br/><span class="italic font-normal">DE VALK</span>
 				</h1>
-				<p class="text-bg-ivory/80 text-xl md:text-2xl font-light italic max-w-2xl mx-auto">
-					"Theater dat de ziel raakt en de verbeelding prikkelt."
-				</p>
-				<div class="pt-8">
-					<a href="/voorstellingen" class="btn-theatre-primary bg-bg-ivory text-primary-text hover:bg-accent-gold hover:text-white px-12 py-5 border-none">
-						Ontdek het seizoen
+				<div class="flex flex-col md:flex-row items-start md:items-center gap-12">
+					<a href="/voorstellingen" class="btn-theatre-primary">
+						Bekijk de 175ste productie
 					</a>
+					<p class="text-bg-ivory/40 text-[10px] uppercase tracking-[0.3em] max-w-xs leading-loose">
+						Sinds 1945 brengt De Valk drama, schoonheid en humor naar de Brugse podia.
+					</p>
 				</div>
-			</div>
-		</div>
-
-		<!-- Scroll Indicator -->
-		<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4 opacity-50">
-			<span class="text-bg-ivory text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-			<div class="w-px h-12 bg-bg-ivory/30 relative overflow-hidden">
-				<div class="absolute top-0 left-0 w-full h-1/2 bg-accent-gold animate-slide-down"></div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Act II: The Spotlight -->
+	<!-- ACT I: THE HIGHLIGHT (ASYMMETRIC) -->
 	{volgendeVoorstelling && (
-		<section class="act-section bg-bg-ivory">
+		<section class="act-section bg-bg-ivory overflow-hidden">
 			<div class="container-custom">
-				<div class="flex flex-col items-center text-center mb-20">
-					<span class="text-accent-burgundy uppercase tracking-widest text-xs font-bold mb-4">In de schijnwerpers</span>
-					<h2 class="text-4xl md:text-6xl font-serif">Volgende Voorstelling</h2>
-					<div class="w-20 h-px bg-accent-gold mt-8"></div>
-				</div>
-
-				<div class="grid lg:grid-cols-12 gap-0 bg-white rounded-lg shadow-sm border border-ui-border overflow-hidden">
-					<div class="lg:col-span-7 aspect-[16/10] lg:aspect-auto">
-						<img src={volgendeVoorstelling.frontmatter.image} alt={volgendeVoorstelling.frontmatter.title} class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1503095396549-807a8bc36674?q=80&w=1000&auto=format&fit=crop'" />
+				<div class="grid lg:grid-cols-12 gap-20 items-center">
+					<div class="lg:col-span-5 order-2 lg:order-1">
+						<div class="flex items-center gap-4 mb-10">
+							<span class="text-accent-burgundy uppercase tracking-[0.4em] text-[10px] font-bold">Nu op de planken</span>
+							<span class="w-8 h-px bg-accent-gold/30"></span>
+							<span class="text-primary-text/40 uppercase tracking-[0.2em] text-[9px] font-bold">{volgendeVoorstelling.data.date}</span>
+						</div>
+						<h2 class="text-5xl md:text-7xl mb-8 text-primary-text leading-[0.9]">{volgendeVoorstelling.data.title}</h2>
+						<p class="text-primary-text/70 text-lg md:text-xl mb-12 max-w-md leading-relaxed italic font-serif">
+							{volgendeVoorstelling.data.summary}
+						</p>
+						<div class="flex flex-col items-start">
+							<a href={`/voorstellingen/${volgendeVoorstelling.id || volgendeVoorstelling.slug}`} class="btn-theatre-outline">
+								Bekijk details
+							</a>
+						</div>
 					</div>
-					<div class="lg:col-span-5 p-12 md:p-20 flex flex-col justify-center">
-						<p class="text-accent-gold font-bold uppercase tracking-widest text-sm mb-6">{volgendeVoorstelling.frontmatter.date}</p>
-						<h3 class="text-4xl md:text-5xl font-serif mb-8 text-primary-text">{volgendeVoorstelling.frontmatter.title}</h3>
-						<div class="text-primary-text/70 mb-10 leading-relaxed prose prose-sm">
-							{volgendeVoorstelling.rawContent().substring(0, 200)}...
+					<div class="lg:col-span-7 order-1 lg:order-2 relative">
+						<div class="aspect-[4/5] md:aspect-[16/11] relative z-10 bg-primary-text/5">
+							<img src={volgendeVoorstelling.data.image} alt={volgendeVoorstelling.data.title} class="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop'" />
 						</div>
-						<div class="flex flex-col sm:flex-row gap-4">
-							{volgendeVoorstelling.frontmatter.ticket_link && (
-								<a href={volgendeVoorstelling.frontmatter.ticket_link} class="btn-theatre-primary text-center">Tickets</a>
-							)}
-							<a href={`/voorstellingen/${volgendeVoorstelling.file.split('/').pop().replace('.md', '')}`} class="btn-theatre-secondary text-center">Details</a>
-						</div>
+						<!-- Abstract Decor Element -->
+						<div class="absolute -top-12 -right-12 w-64 h-64 border border-accent-gold/20 -z-0 hidden md:block"></div>
 					</div>
 				</div>
 			</div>
 		</section>
 	)}
 
-	<!-- Act III: The Collection -->
-	<section class="act-section border-t border-ui-border">
+	<!-- ACT II: THE SEASON (MINIMAL GRID) -->
+	<section class="act-section bg-white border-y border-ui-border">
 		<div class="container-custom">
-			<div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
-				<h2 class="text-4xl md:text-5xl font-serif tracking-tight">Programma</h2>
-				<a href="/voorstellingen" class="group text-sm uppercase tracking-widest font-bold flex items-center gap-4 hover:text-accent-gold transition-colors">
-					Bekijk volledig overzicht <span class="w-8 h-px bg-primary-text group-hover:bg-accent-gold group-hover:w-12 transition-all"></span>
-				</a>
+			<div class="max-w-xl mb-32">
+				<h2 class="text-4xl md:text-6xl mb-8">Programma</h2>
+				<p class="text-primary-text/50 text-sm tracking-wide leading-relaxed">
+					Een jubileumseizoen vol nostalgie en actualiteit. Ontdek onze selectie voor 2025-2026.
+				</p>
 			</div>
 			
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.file.split('/').pop().replace('.md', '')}`} class="theatre-card group">
-						<div class="aspect-[4/5] overflow-hidden">
-							<img src={item.frontmatter.image} alt={item.frontmatter.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop'" />
+					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card">
+						<div class="theatre-card-image bg-primary-text/5">
+							<img 
+								src={item.data.image} 
+								alt={item.data.title} 
+								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503095396549-807a8bc36674?q=80&w=1000&auto=format&fit=crop';"
+							/>
+							<div class="absolute inset-0 bg-accent-burgundy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 						</div>
-						<div class="p-10">
-							<p class="text-accent-gold text-xs font-bold uppercase tracking-widest mb-4">{item.frontmatter.date}</p>
-							<h3 class="text-2xl font-serif mb-6 group-hover:text-accent-burgundy transition-colors">{item.frontmatter.title}</h3>
-							<p class="text-primary-text/60 text-sm line-clamp-2 leading-relaxed">
-								{item.rawContent().substring(0, 100)}...
-							</p>
+						<div class="theatre-card-content">
+							<h3 class="text-2xl mb-2 group-hover:text-accent-gold transition-colors">{item.data.title}</h3>
+							<p class="text-primary-text/40 text-[10px] uppercase tracking-[0.2em] font-bold">{item.data.date}</p>
 						</div>
 					</a>
 				))}
@@ -118,41 +111,50 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 		</div>
 	</section>
 
-	<!-- Act IV: The Story -->
-	<section class="act-section bg-primary-text text-bg-ivory relative overflow-hidden">
-		<!-- Minimal Decor Decor -->
-		<div class="absolute top-0 right-0 w-1/3 h-full bg-accent-burgundy/5 skew-x-12 translate-x-1/2"></div>
-		
-		<div class="container-custom relative z-10">
-			<div class="max-w-3xl mx-auto text-center space-y-10">
-				<h2 class="text-4xl md:text-6xl font-serif">Wij zijn De Valk</h2>
-				<p class="text-xl md:text-2xl font-light italic text-bg-ivory/80 leading-relaxed">
-					"Al meer dan 50 jaar brengen wij de magie van het theater naar het hart van Gent. Met een hart voor traditie en een oog voor vernieuwing."
+	<!-- ACT III: THE PHILOSOPHY -->
+	<section class="act-section bg-bg-ivory">
+		<div class="container-custom">
+			<div class="max-w-4xl mx-auto text-center">
+				<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>
+				<h2 class="text-4xl md:text-7xl mb-16 italic font-normal tracking-tight leading-tight">
+					"In 1945 werd onder de kerktoren van Sint-Baafs een theaterlijk valkenei uitgebroed."
+				</h2>
+				<div class="w-12 h-px bg-primary-text/20 mx-auto mb-16"></div>
+				<p class="text-primary-text/60 max-w-xl mx-auto text-sm leading-loose uppercase tracking-widest">
+					80 jaar later is De Valk een blijver in het Brugse landschap. Met de 175ste productie in de Magdalenazaal vieren we nostalgie, actualiteit en de kracht van het verhaal.
 				</p>
-				<div class="pt-6">
-					<a href="/contact" class="btn-theatre-secondary border-bg-ivory text-bg-ivory hover:bg-bg-ivory hover:text-primary-text">Leer ons kennen</a>
-				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Act V: The Bulletin -->
-	<section class="act-section bg-bg-ivory">
+	<!-- ACT IV: JOURNAL -->
+	<section class="act-section bg-primary-text text-bg-ivory">
 		<div class="container-custom">
-			<h2 class="text-4xl md:text-5xl font-serif mb-20 text-center">Nieuws</h2>
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-				{sortedNieuws.map((post) => (
-					<article class="flex flex-col group">
-						<div class="aspect-video overflow-hidden mb-8 border border-ui-border rounded-lg">
-							<img src={post.frontmatter.image} alt={post.frontmatter.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop'" />
+			<div class="flex justify-between items-end mb-24">
+				<h2 class="text-4xl md:text-6xl text-bg-ivory tracking-tighter">Journal</h2>
+				<a href="/nieuws" class="nav-link text-bg-ivory/40 hover:text-accent-gold underline underline-offset-8">Alle Berichten</a>
+			</div>
+			
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+				{sortedNieuws.map((post, index) => (
+					<article class={`group ${index === 0 ? 'lg:col-span-2 flex flex-col lg:flex-row gap-12' : ''}`}>
+						<div class={`${index === 0 ? 'lg:w-2/3 aspect-[21/9]' : 'aspect-video mb-8'} overflow-hidden grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 bg-bg-ivory/5`}>
+							<img 
+								src={post.data.image} 
+								alt={post.data.title} 
+								class="w-full h-full object-cover" 
+								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1000&auto=format&fit=crop';"
+							/>
 						</div>
-						<p class="text-accent-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-4">{post.frontmatter.date}</p>
-						<h3 class="text-2xl font-serif mb-6 hover:text-accent-burgundy transition-colors tracking-tight leading-tight">
-							<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`}>{post.frontmatter.title}</a>
-						</h3>
-						<a href={`/nieuws/${post.file.split('/').pop().replace('.md', '')}`} class="text-xs uppercase tracking-widest font-bold text-accent-burgundy hover:text-accent-gold transition-colors inline-flex items-center gap-2">
-							Lees bericht <span class="w-4 h-px bg-accent-burgundy"></span>
-						</a>
+						<div class={`${index === 0 ? 'lg:w-1/3 flex flex-col justify-center' : ''}`}>
+							<p class="text-accent-gold text-[10px] uppercase tracking-[0.3em] mb-4">{post.data.date}</p>
+							<h3 class="text-2xl md:text-3xl mb-6 tracking-tight leading-tight">
+								<a href={`/nieuws/${post.id || post.slug}`} class="hover:text-accent-gold transition-colors">{post.data.title}</a>
+							</h3>
+							<p class="text-bg-ivory/40 text-sm line-clamp-2 leading-relaxed">
+								{post.body.substring(0, 120)}...
+							</p>
+						</div>
 					</article>
 				))}
 			</div>
@@ -161,11 +163,7 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 </Layout>
 
 <style>
-	@keyframes slideDown {
-		0% { transform: translateY(-100%); }
-		100% { transform: translateY(200%); }
-	}
-	.animate-slide-down {
-		animation: slideDown 2.5s infinite ease-in-out;
+	.text-poster {
+		font-size: clamp(4rem, 15vw, 12rem);
 	}
 </style>

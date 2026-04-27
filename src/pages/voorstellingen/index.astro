@@ -1,40 +1,44 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const voorstellingen = Object.values(import.meta.glob('../../../content/voorstellingen/*.md', { eager: true }));
+const voorstellingen = await getCollection('voorstellingen');
 const sortedVoorstellingen = voorstellingen.sort((a, b) => {
-  const dateA = new Date(a.frontmatter.date.split('-').reverse().join('-'));
-  const dateB = new Date(b.frontmatter.date.split('-').reverse().join('-'));
+  const dateA = new Date(a.data.date.split('-').reverse().join('-'));
+  const dateB = new Date(b.data.date.split('-').reverse().join('-'));
   return dateA - dateB;
 });
 ---
 
 <Layout title="Voorstellingen">
-	<section class="py-32 bg-primary-text text-bg-ivory">
-		<div class="container-custom text-center">
-			<span class="text-accent-gold uppercase tracking-[0.4em] text-xs font-bold mb-6 block">Seizoen 2026</span>
-			<h1 class="text-5xl md:text-8xl font-serif mb-8 tracking-tighter">Programma</h1>
-			<div class="w-24 h-px bg-accent-gold mx-auto"></div>
+	<section class="pt-48 pb-32 bg-bg-ivory">
+		<div class="container-custom">
+			<div class="max-w-3xl">
+				<p class="text-accent-gold uppercase tracking-[0.5em] text-[10px] font-bold mb-10">Archief & Toekomst</p>
+				<h1 class="text-6xl md:text-8xl mb-12 tracking-tighter leading-[0.85]">Onze<br/><span class="italic font-normal">Voorstellingen</span></h1>
+				<div class="w-16 h-1 bg-accent-gold"></div>
+			</div>
 		</div>
 	</section>
 
-	<section class="py-24">
+	<section class="py-32 bg-white">
 		<div class="container-custom">
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-32">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.file.split('/').pop().replace('.md', '')}`} class="theatre-card group">
-						<div class="aspect-[3/4] overflow-hidden">
-							<img src={item.frontmatter.image} alt={item.frontmatter.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=1000&auto=format&fit=crop'" />
+					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card">
+						<div class="theatre-card-image bg-primary-text/5">
+							<img 
+								src={item.data.image} 
+								alt={item.data.title} 
+								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=1000&auto=format&fit=crop';"
+							/>
 						</div>
-						<div class="p-10">
-							<p class="text-accent-gold text-xs font-bold uppercase tracking-[0.2em] mb-4">{item.frontmatter.date}</p>
-							<h3 class="text-3xl font-serif mb-6 group-hover:text-accent-burgundy transition-colors tracking-tight leading-tight">{item.frontmatter.title}</h3>
-							<p class="text-primary-text/60 text-sm mb-8 line-clamp-3 leading-relaxed">
-								{item.rawContent().substring(0, 150)}...
+						<div class="theatre-card-content">
+							<p class="text-accent-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-4">{item.data.date}</p>
+							<h2 class="text-3xl mb-6 group-hover:text-accent-gold transition-colors tracking-tight leading-tight">{item.data.title}</h2>
+							<p class="text-primary-text/40 text-xs uppercase tracking-widest font-bold flex items-center gap-4">
+								Ontdek <span class="w-8 h-px bg-primary-text/10 group-hover:bg-accent-gold group-hover:w-12 transition-all"></span>
 							</p>
-							<span class="text-xs uppercase tracking-widest font-bold text-accent-burgundy flex items-center gap-3">
-								Bekijk voorstelling <span class="w-8 h-px bg-accent-burgundy group-hover:w-12 transition-all"></span>
-							</span>
 						</div>
 					</a>
 				))}
