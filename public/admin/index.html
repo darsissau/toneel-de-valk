@@ -49,7 +49,7 @@
       // 1. Laad de Google Fonts
       CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
-      // 2. Definieer alle stijlen handmatig (omdat de Tailwind CDN niet werkt als stylesheet in Decap)
+      // 2. Definieer alle stijlen handmatig om exact de site te matchen
       CMS.registerPreviewStyle(`
         body {
           background-color: #FCFBF7;
@@ -59,9 +59,9 @@
           padding: 0;
         }
         .preview-container {
-          max-width: 800px;
+          max-width: 1200px;
           margin: 0 auto;
-          padding: 60px 20px;
+          padding: 80px 40px;
         }
         .font-serif {
           font-family: 'Playfair Display', serif;
@@ -78,25 +78,81 @@
           display: block;
         }
         .main-title {
-          font-size: 64px;
-          line-height: 1.1;
+          font-size: 80px;
+          line-height: 0.85;
+          margin-bottom: 30px;
+          letter-spacing: -0.04em;
+        }
+        .credits-box {
+          border-left: 2px solid rgba(200, 162, 74, 0.2);
+          padding-left: 32px;
           margin-bottom: 40px;
-          letter-spacing: -0.02em;
+          font-style: italic;
+          color: rgba(28, 28, 28, 0.6);
+          font-family: 'Playfair Display', serif;
+          font-size: 18px;
+        }
+        .btn-preview {
+          display: inline-block;
+          background-color: #C8A24A;
+          color: white;
+          padding: 14px 28px;
+          text-decoration: none;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          font-size: 11px;
+          margin-right: 15px;
+          margin-bottom: 15px;
+        }
+        /* Layout for Vertical Poster */
+        .header-split {
+          display: grid;
+          grid-template-columns: 1.4fr 1fr;
+          gap: 60px;
+          align-items: start;
+          margin-bottom: 80px;
         }
         .image-wrapper {
           width: 100%;
-          aspect-ratio: 21 / 9;
+          aspect-ratio: 3 / 4;
           overflow: hidden;
           background-color: #eee;
-          margin-bottom: 50px;
-          filter: grayscale(100%);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+          filter: grayscale(30%);
         }
         .image-wrapper img {
           width: 100%;
           height: 100%;
           object-fit: cover;
         }
-        /* Content styling (Prose) */
+        /* Bottom Grid: Sidebar LEFT, Body RIGHT */
+        .meta-grid {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          gap: 80px;
+          border-top: 1px solid #eee;
+          padding-top: 60px;
+        }
+        .sidebar h3 {
+          text-transform: uppercase;
+          letter-spacing: 0.3em;
+          font-size: 10px;
+          font-weight: 700;
+          color: #C8A24A;
+          margin-bottom: 15px;
+        }
+        .sidebar ul {
+          list-style: none;
+          padding: 0;
+          margin: 0 0 40px 0;
+          font-family: 'Playfair Display', serif;
+          font-size: 18px;
+        }
+        .sidebar li {
+          border-bottom: 1px solid #eee;
+          padding: 8px 0;
+        }
         .content-body {
           font-size: 19px;
           line-height: 1.7;
@@ -108,18 +164,17 @@
           margin-bottom: 20px;
           color: #1C1C1C;
         }
-        .content-body p {
-          margin-bottom: 24px;
-        }
-        .content-body ul {
-          margin-bottom: 24px;
-          padding-left: 20px;
-        }
-        .content-body li {
-          margin-bottom: 10px;
-        }
-        .content-body strong {
-          color: #1C1C1C;
+        /* Drop Cap effect */
+        .content-body p:first-of-type::first-letter {
+          font-family: 'Playfair Display', serif;
+          float: left;
+          font-size: 5rem;
+          line-height: 4rem;
+          padding-top: 4px;
+          padding-right: 12px;
+          padding-left: 3px;
+          color: #C8A24A;
+          font-weight: 700;
         }
       `, { raw: true });
 
@@ -128,17 +183,47 @@
         render: function() {
           var entry = this.props.entry;
           var title = entry.getIn(['data', 'title']);
+          var author = entry.getIn(['data', 'author']);
+          var director = entry.getIn(['data', 'director']);
+          var location = entry.getIn(['data', 'location']);
           var date = entry.getIn(['data', 'date']);
           var image = entry.getIn(['data', 'image']);
+          var schedule = entry.getIn(['data', 'schedule']);
+          var ticket_link = entry.getIn(['data', 'ticket_link']);
           var body = this.props.widgetFor('body');
 
           return h('div', { className: 'preview-container' },
-            h('p', { className: 'date-label text-gold' }, date || 'Datum nog niet ingesteld'),
-            h('h1', { className: 'main-title font-serif' }, title || 'Nieuwe Voorstelling'),
-            image ? h('div', { className: 'image-wrapper' },
-              h('img', { src: this.props.getAsset(image).toString() })
-            ) : null,
-            h('div', { className: 'content-body' }, body)
+            h('div', { className: 'header-split' },
+              h('div', { className: 'header-left' },
+                h('p', { className: 'date-label text-gold' }, date),
+                h('h1', { className: 'main-title font-serif' }, title),
+                h('div', { className: 'credits-box' }, 
+                  author ? h('p', { style: { margin: '0 0 5px 0' } }, 'Door: ' + author) : null,
+                  director ? h('p', { style: { margin: '0' } }, 'Regie: ' + director) : null
+                ),
+                h('div', { style: { margin: '40px 0' } },
+                  ticket_link ? h('a', { className: 'btn-preview', href: '#' }, 'Tickets Reserveren') : null
+                ),
+                location ? h('div', { style: { marginTop: '20px', opacity: 0.4, fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '10px' } }, 
+                  h('span', {}, '📍'), 
+                  location
+                ) : null
+              ),
+              h('div', { className: 'header-right' },
+                image ? h('div', { className: 'image-wrapper' },
+                  h('img', { src: this.props.getAsset(image) })
+                ) : null
+              )
+            ),
+            h('div', { className: 'meta-grid' },
+              h('div', { className: 'sidebar' },
+                h('h3', {}, 'Data & Tijden'),
+                h('ul', {}, schedule ? schedule.map(function(item) {
+                  return h('li', {}, item.getIn(['data', 'time']) || item.get('time') || item.getIn(['fields', 'time']));
+                }) : h('li', {}, 'Geen data ingevoerd'))
+              ),
+              h('div', { className: 'content-body' }, body)
+            )
           );
         }
       });

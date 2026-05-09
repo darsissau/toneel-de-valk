@@ -2,6 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
+local_backend: true
+
 logo_url: https://toneeldevalk.netlify.app/favicon.svg
 
 media_folder: "public/images"
@@ -14,10 +16,46 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime" }
-      - { label: "Beschrijving", name: "body", widget: "markdown" }
-      - { label: "Afbeelding", name: "image", widget: "image" }
+      - label: "Titel"
+        name: "title"
+        widget: "string"
+      - label: "Auteur"
+        name: "author"
+        widget: "string"
+        required: false
+      - label: "Regie"
+        name: "director"
+        widget: "string"
+        required: false
+      - label: "Locatie"
+        name: "location"
+        widget: "string"
+        default: "Magdalenazaal, Brugge"
+      - label: "Korte Samenvatting"
+        name: "summary"
+        widget: "text"
+      - label: "Datum tekst (bijv. Nov 2025)"
+        name: "date"
+        widget: "string"
+      - label: "Speeldata & Tijden"
+        name: "schedule"
+        widget: "list"
+        summary: "{{fields.time}}"
+        fields:
+          - label: "Dag/Tijdstip"
+            name: "time"
+            widget: "string"
+            hint: "Bijv: 21 November 2025 - 20:00"
+      - label: "Hoofdafbeelding"
+        name: "image"
+        widget: "image"
+      - label: "Ticket Link"
+        name: "ticket_link"
+        widget: "string"
+        required: false
+      - label: "Volledige Beschrijving"
+        name: "body"
+        widget: "markdown"
 
   - name: "nieuws"
     label: "Nieuws"
@@ -25,7 +63,16 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime" }
-      - { label: "Inhoud", name: "body", widget: "markdown" }
-      - { label: "Afbeelding", name: "image", widget: "image", required: false }
+      - label: "Titel"
+        name: "title"
+        widget: "string"
+      - label: "Datum"
+        name: "date"
+        widget: "datetime"
+      - label: "Inhoud"
+        name: "body"
+        widget: "markdown"
+      - label: "Afbeelding"
+        name: "image"
+        widget: "image"
+        required: false
