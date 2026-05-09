@@ -1,6 +1,6 @@
 ---
 title: Onze nieuwe website is live!
-date: 2026-05-09
+date: !!str 2026-05-09
 image: https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop
 ---
 Met trots presenteren wij de gloednieuwe website van Toneelgroep De Valk. Vanaf nu vindt u hier al onze voorstellingen, het laatste nieuws uit onze coulissen en kunt u direct uw tickets reserveren.

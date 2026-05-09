@@ -71,7 +71,7 @@
   }
 
   .theatre-card-image img {
-    @apply w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.3] group-hover:grayscale-0;
+    @apply w-full h-full transition-transform duration-1000 group-hover:scale-105 grayscale-[0.3] group-hover:grayscale-0;
   }
 
   .theatre-card-content {
