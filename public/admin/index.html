@@ -4,38 +4,85 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager | Toneelgroep De Valk</title>
-    <!-- Netlify Identity Widget -->
     <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
-    
-    <style>
-      /* Styles voor de CMS UI zelf (niet de preview) */
-      .nc-app-layout-main {
-        background-color: #f0f0f0 !important;
-      }
-    </style>
   </head>
   <body>
-    <!-- Decap CMS App -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    
     <script>
-      // 1. Laad Fonts en Tailwind met Typography plugin
+      // 1. Laad de Google Fonts
       CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-      CMS.registerPreviewStyle("https://cdn.tailwindcss.com?plugins=typography");
 
-      // 2. Definieer de kleuren van je website zodat Tailwind ze herkent
+      // 2. Definieer alle stijlen handmatig (omdat de Tailwind CDN niet werkt als stylesheet in Decap)
       CMS.registerPreviewStyle(`
-        @theme {
-          --color-accent-gold: #C8A24A;
-          --color-primary-text: #1C1C1C;
-          --color-bg-ivory: #FCFBF7;
-        }
         body {
           background-color: #FCFBF7;
+          color: #1C1C1C;
+          font-family: 'Inter', sans-serif;
+          margin: 0;
+          padding: 0;
         }
-        .preview-body p {
-          margin-bottom: 1.5rem;
-          line-height: 1.8;
+        .preview-container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 60px 20px;
+        }
+        .font-serif {
+          font-family: 'Playfair Display', serif;
+        }
+        .text-gold {
+          color: #C8A24A;
+        }
+        .date-label {
+          text-transform: uppercase;
+          letter-spacing: 0.4em;
+          font-size: 10px;
+          font-weight: 700;
+          margin-bottom: 20px;
+          display: block;
+        }
+        .main-title {
+          font-size: 64px;
+          line-height: 1.1;
+          margin-bottom: 40px;
+          letter-spacing: -0.02em;
+        }
+        .image-wrapper {
+          width: 100%;
+          aspect-ratio: 21 / 9;
+          overflow: hidden;
+          background-color: #eee;
+          margin-bottom: 50px;
+          filter: grayscale(100%);
+        }
+        .image-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        /* Content styling (Prose) */
+        .content-body {
+          font-size: 19px;
+          line-height: 1.7;
+          color: rgba(28, 28, 28, 0.85);
+        }
+        .content-body h2, .content-body h3 {
+          font-family: 'Playfair Display', serif;
+          margin-top: 40px;
+          margin-bottom: 20px;
+          color: #1C1C1C;
+        }
+        .content-body p {
+          margin-bottom: 24px;
+        }
+        .content-body ul {
+          margin-bottom: 24px;
+          padding-left: 20px;
+        }
+        .content-body li {
+          margin-bottom: 10px;
+        }
+        .content-body strong {
+          color: #1C1C1C;
         }
       `, { raw: true });
 
@@ -48,29 +95,20 @@
           var image = entry.getIn(['data', 'image']);
           var body = this.props.widgetFor('body');
 
-          return h('div', { className: 'bg-[#FCFBF7] min-h-screen p-8 md:p-16 text-[#1C1C1C]' },
-            h('div', { className: 'max-w-4xl mx-auto' },
-              // Header
-              h('div', { className: 'mb-12' },
-                h('p', { className: 'text-[#C8A24A] font-bold uppercase tracking-[0.4em] text-[10px] mb-4' }, date || 'Datum nog niet ingesteld'),
-                h('h1', { className: 'text-6xl font-serif leading-tight tracking-tighter mb-8' }, title || 'Nieuwe Voorstelling')
-              ),
-              // Image
-              image ? h('div', { className: 'aspect-[21/9] overflow-hidden grayscale mb-12 bg-gray-200' },
-                h('img', { src: this.props.getAsset(image).toString(), className: 'w-full h-full object-cover' })
-              ) : null,
-              // Content
-              h('div', { className: 'prose prose-xl prose-serif max-w-none text-primary-text/80 preview-body' }, body)
-            )
+          return h('div', { className: 'preview-container' },
+            h('p', { className: 'date-label text-gold' }, date || 'Datum nog niet ingesteld'),
+            h('h1', { className: 'main-title font-serif' }, title || 'Nieuwe Voorstelling'),
+            image ? h('div', { className: 'image-wrapper' },
+              h('img', { src: this.props.getAsset(image).toString() })
+            ) : null,
+            h('div', { className: 'content-body' }, body)
           );
         }
       });
 
-      // 4. Registreer de templates voor beide collecties
       CMS.registerPreviewTemplate("voorstellingen", PostPreview);
       CMS.registerPreviewTemplate("nieuws", PostPreview);
 
-      // Netlify Identity Login Helper
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
