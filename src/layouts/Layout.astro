@@ -26,7 +26,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 		
 		<!-- Netlify Identity Widget -->
-		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
 	</head>
 	<body class="min-h-screen flex flex-col selection:bg-accent-gold selection:text-white overflow-x-hidden">
 		
@@ -126,6 +126,11 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 							document.location.href = "/admin/";
 						});
 					}
+				});
+
+				// Sluit de modal na wachtwoord instellen
+				window.netlifyIdentity.on('close', () => {
+					document.location.href = '/admin/';
 				});
 			}
 
