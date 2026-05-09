@@ -12,7 +12,7 @@ public_folder: "/toneel-de-valk/images"
 collections:
   - name: "voorstellingen"
     label: "Voorstellingen"
-    folder: "content/voorstellingen"
+    folder: "src/content/voorstellingen"
     create: true
     slug: "{{slug}}"
     fields:
@@ -35,7 +35,7 @@ collections:
 
   - name: "nieuws"
     label: "Nieuws"
-    folder: "content/nieuws"
+    folder: "src/content/nieuws"
     create: true
     slug: "{{slug}}"
     fields:
