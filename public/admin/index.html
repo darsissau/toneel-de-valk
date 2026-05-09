@@ -11,6 +11,9 @@
     <!-- Decap CMS App -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
+      // Zorgt ervoor dat Tailwind klassen werken in het preview venster
+      CMS.registerPreviewStyle("https://cdn.tailwindcss.com");
+      
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
