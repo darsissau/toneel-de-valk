@@ -5,6 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager | Toneelgroep De Valk</title>
     <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
+    <style>
+      /* Verberg de standaard Decap branding */
+      [class^="nc-login-logo"], 
+      [class*=" nc-login-logo"],
+      svg[width="300"][height="40"] {
+        display: none !important;
+      }
+
+      /* Eigen styling voor het inlogscherm */
+      div[class^="nc-login-container"] {
+        background-color: #FCFBF7 !important;
+      }
+
+      /* Voeg eigen titel toe boven de login knop */
+      div[class^="nc-login-container"]::before {
+        content: "TONEELGROEP DE VALK";
+        display: block;
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: #1C1C1C;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      button[class^="nc-login-button"] {
+        background-color: #C8A24A !important;
+        color: white !important;
+        border-radius: 0 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        font-weight: 700 !important;
+        padding: 12px 24px !important;
+        border: none !important;
+      }
+    </style>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
