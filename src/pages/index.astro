@@ -33,7 +33,7 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 					80 JAAR<br/><span class="italic font-normal">DE VALK</span>
 				</h1>
 				<div class="flex flex-col md:flex-row items-start md:items-center gap-12">
-					<a href={import.meta.env.BASE_URL + 'voorstellingen'} class="btn-theatre-primary">
+					<a href="/voorstellingen" class="btn-theatre-primary">
 						Bekijk de 175ste productie
 					</a>
 					<p class="text-bg-ivory/40 text-[10px] uppercase tracking-[0.3em] max-w-xs leading-loose">
@@ -59,7 +59,7 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 							{volgendeVoorstelling.data.summary}
 						</p>
 						<div class="flex flex-col items-start">
-							<a href={`${import.meta.env.BASE_URL}voorstellingen/${volgendeVoorstelling.id}`} class="btn-theatre-outline">
+							<a href={`/voorstellingen/${volgendeVoorstelling.id}`} class="btn-theatre-outline">
 								Bekijk details
 							</a>
 						</div>
@@ -86,7 +86,7 @@ const volgendeVoorstelling = sortedVoorstellingen[0];
 			
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`${import.meta.env.BASE_URL}voorstellingen/${item.id}`} class="theatre-card">
+					<a href={`/voorstellingen/${item.id}`} class="theatre-card">
 						<div class="theatre-card-image bg-primary-text/5">
 							<img src={item.data.image} alt={item.data.title} />
 							<div class="absolute inset-0 bg-accent-burgundy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>

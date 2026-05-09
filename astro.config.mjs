@@ -3,8 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // De 'base' moet exact overeenkomen met je GitHub Pages submap
 export default defineConfig({
-  site: 'https://darsissau.github.io',
-  base: '/toneel-de-valk/',
+  site: 'https://toneeldevalk.be', // Pas dit aan naar je uiteindelijke domein
   vite: {
     plugins: [tailwindcss()]
   }

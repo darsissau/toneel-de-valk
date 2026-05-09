@@ -1,13 +1,9 @@
 backend:
-  name: github
-  repo: darsissau/toneel-de-valk
+  name: git-gateway
   branch: main
 
-site_url: https://darsissau.github.io/toneel-de-valk
-display_url: https://darsissau.github.io/toneel-de-valk
-
 media_folder: "public/images"
-public_folder: "/toneel-de-valk/images"
+public_folder: "/images"
 
 collections:
   - name: "voorstellingen"
