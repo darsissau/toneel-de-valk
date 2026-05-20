@@ -6,16 +6,21 @@
     <title>Content Manager | Toneelgroep De Valk</title>
     <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
     <style>
-      /* Verberg de standaard Decap branding */
-      [class^="nc-login-logo"], 
-      [class*=" nc-login-logo"],
-      svg[width="300"][height="40"] {
+      /* Verberg alle branding (Decap logo's) */
+      [class*="nc-login-logo"],
+      [class*="nc-login-page-logo"],
+      svg[width="300"][height="40"],
+      div[class*="nc-login-page"] > svg,
+      div[class*="nc-login-container"] > svg {
         display: none !important;
       }
 
       /* Eigen styling voor het inlogscherm */
       div[class^="nc-login-container"] {
         background-color: #FCFBF7 !important;
+        padding: 60px 40px !important;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1) !important;
+        border-radius: 4px !important;
       }
 
       /* Voeg eigen titel toe boven de login knop */
@@ -31,21 +36,63 @@
         text-align: center;
       }
 
+      /* Inlogknop restylen en tekst aanpassen */
       button[class^="nc-login-button"] {
         background-color: #C8A24A !important;
-        color: white !important;
+        color: transparent !important; /* Verberg oude tekst */
         border-radius: 0 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.1em !important;
         font-weight: 700 !important;
         padding: 12px 24px !important;
         border: none !important;
+        position: relative !important;
+        min-width: 180px !important;
+        transition: background-color 0.3s ease !important;
+      }
+
+      button[class^="nc-login-button"]::after {
+        content: "Log in" !important;
+        color: white !important;
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        font-size: 14px !important;
+        width: 100% !important;
+        text-align: center !important;
+        visibility: visible !important;
+      }
+      
+      button[class^="nc-login-button"]:hover {
+        background-color: #b08d3d !important;
       }
     </style>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
+      // MutationObserver om dynamische tekst en logo's aan te pakken
+      const observer = new MutationObserver(() => {
+        const loginBtn = document.querySelector('button[class^="nc-login-button"]');
+        if (loginBtn && loginBtn.innerText.includes('Netlify Identity')) {
+          // We laten de CSS de tekst afhandelen via ::after, 
+          // maar we kunnen hier ook de tekst direct aanpassen indien nodig.
+        }
+        
+        // Extra check voor logo's
+        const logos = document.querySelectorAll('svg, [class*="logo"]');
+        logos.forEach(logo => {
+          if (logo.closest('[class^="nc-login-container"]') || logo.closest('[class^="nc-login-page"]')) {
+            if (!logo.closest('button')) { // Behalve iconen in knoppen
+               logo.style.display = 'none';
+            }
+          }
+        });
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
       // 1. Laad de Google Fonts
       CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
