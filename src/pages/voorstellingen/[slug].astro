@@ -17,6 +17,7 @@ const {
 	date, 
 	image, 
 	ticket_link, 
+	ticket_label,
 	author, 
 	director, 
 	location, 
@@ -41,7 +42,7 @@ const {
 					<div class="flex flex-wrap gap-6 mb-16">
 						{ticket_link && (
 							<a href={ticket_link} target="_blank" class="btn-theatre-primary">
-								Tickets Reserveren
+								{ticket_label || "Tickets Reserveren"}
 							</a>
 						)}
 					</div>

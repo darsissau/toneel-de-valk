@@ -15,6 +15,7 @@ const voorstellingen = defineCollection({
     })).optional(),
     image: z.string(),
     ticket_link: z.string().optional(),
+    ticket_label: z.string().optional(),
   }),
 });
 

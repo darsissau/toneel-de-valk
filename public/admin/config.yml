@@ -53,6 +53,11 @@ collections:
         name: "ticket_link"
         widget: "string"
         required: false
+      - label: "Ticket Knop Tekst"
+        name: "ticket_label"
+        widget: "string"
+        default: "Tickets Reserveren"
+        required: false
       - label: "Volledige Beschrijving"
         name: "body"
         widget: "markdown"

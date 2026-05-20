@@ -16,8 +16,7 @@ schedule:
   - time: 23 November 2025 - 17:15 (Dinerevent)
 image: /images/olifantman.jpg
 ticket_link: https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=165831#
-extra_ticket_link: https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=165831#
-extra_ticket_label: Tickets Dinerevent
+ticket_label: Tickets Dinerevent
 ---
 De Olifantman is het waargebeurde verhaal van Joseph 'John' Merrick, een man met ernstige misvormingen die in de 19de eeuw als kermisattractie werd opgevoerd. Hij ging letterlijk en figuurlijk zwaar gebukt onder zijn misvormingen.
 
