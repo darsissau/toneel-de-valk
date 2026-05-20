@@ -3,100 +3,123 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Content Manager | Toneelgroep De Valk</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Netlify Identity -->
     <script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
+
     <style>
-      /* Verberg alle branding (Decap logo's) */
-      [class*="nc-login-logo"],
-      [class*="nc-login-page-logo"],
-      svg[width="300"][height="40"],
-      div[class*="nc-login-page"] > svg,
-      div[class*="nc-login-container"] > svg {
+      /* =========================================================
+         LOGIN PAGE STYLING
+      ========================================================= */
+
+      body {
+        margin: 0;
+        background: #fcfbf7;
+      }
+
+      /* Full auth page */
+      section[class*="StyledAuthenticationPage"] {
+        min-height: 100vh !important;
+        background: #fcfbf7 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+
+      /* Hide Netlify branding */
+      [class*="NetlifyCreditIcon"] {
         display: none !important;
       }
 
-      /* Eigen styling voor het inlogscherm */
-      div[class^="nc-login-container"] {
-        background-color: #FCFBF7 !important;
-        padding: 60px 40px !important;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.1) !important;
-        border-radius: 4px !important;
+      /* Style existing logo */
+      span[class*="CustomIconWrapper"] img {
+        width: 120px !important;
+        height: auto !important;
+        margin-bottom: 30px !important;
       }
 
-      /* Voeg eigen titel toe boven de login knop */
-      div[class^="nc-login-container"]::before {
+      /* Custom title */
+      section[class*="StyledAuthenticationPage"]::before {
         content: "TONEELGROEP DE VALK";
+
         display: block;
-        font-family: 'Playfair Display', serif;
-        font-size: 24px;
+
+        font-family: "Playfair Display", serif;
+        font-size: 32px;
         font-weight: 700;
         letter-spacing: 0.2em;
-        color: #1C1C1C;
+
+        color: #1c1c1c;
+
         margin-bottom: 40px;
-        text-align: center;
       }
 
-      /* Inlogknop restylen en tekst aanpassen */
-      button[class^="nc-login-button"] {
-        background-color: #C8A24A !important;
-        color: transparent !important; /* Verberg oude tekst */
-        border-radius: 0 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
-        font-weight: 700 !important;
-        padding: 12px 24px !important;
+      /* Login button */
+      button[class*="LoginButton"] {
+        background-color: #c8a24a !important;
         border: none !important;
+        border-radius: 0 !important;
+
+        padding: 14px 30px !important;
+
+        text-transform: uppercase !important;
+        letter-spacing: 0.15em !important;
+
+        transition: 0.3s ease !important;
+
+        min-width: 220px !important;
+
         position: relative !important;
-        min-width: 180px !important;
-        transition: background-color 0.3s ease !important;
+
+        color: transparent !important;
+        font-size: 0 !important;
       }
 
-      button[class^="nc-login-button"]::after {
-        content: "Log in" !important;
-        color: white !important;
-        position: absolute !important;
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        font-size: 14px !important;
-        width: 100% !important;
-        text-align: center !important;
-        visibility: visible !important;
+      button[class*="LoginButton"]::after {
+        content: "Log in";
+
+        color: white;
+
+        position: absolute;
+
+        left: 50%;
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
       }
-      
-      button[class^="nc-login-button"]:hover {
+
+      button[class*="LoginButton"]:hover {
         background-color: #b08d3d !important;
       }
     </style>
   </head>
+
   <body>
+    <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
     <script>
-      // MutationObserver om dynamische tekst en logo's aan te pakken
-      const observer = new MutationObserver(() => {
-        const loginBtn = document.querySelector('button[class^="nc-login-button"]');
-        if (loginBtn && loginBtn.innerText.includes('Netlify Identity')) {
-          // We laten de CSS de tekst afhandelen via ::after, 
-          // maar we kunnen hier ook de tekst direct aanpassen indien nodig.
-        }
-        
-        // Extra check voor logo's
-        const logos = document.querySelectorAll('svg, [class*="logo"]');
-        logos.forEach(logo => {
-          if (logo.closest('[class^="nc-login-container"]') || logo.closest('[class^="nc-login-page"]')) {
-            if (!logo.closest('button')) { // Behalve iconen in knoppen
-               logo.style.display = 'none';
-            }
-          }
-        });
-      });
+      /* =========================================================
+         PREVIEW STYLES
+      ========================================================= */
 
-      observer.observe(document.body, { childList: true, subtree: true });
-
-      // 1. Laad de Google Fonts
-      CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-
-      // 2. Definieer alle stijlen handmatig om exact de site te matchen
       CMS.registerPreviewStyle(`
         body {
           background-color: #FCFBF7;
@@ -105,17 +128,21 @@
           margin: 0;
           padding: 0;
         }
+
         .preview-container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 80px 40px;
         }
+
         .font-serif {
           font-family: 'Playfair Display', serif;
         }
+
         .text-gold {
           color: #C8A24A;
         }
+
         .date-label {
           text-transform: uppercase;
           letter-spacing: 0.4em;
@@ -124,12 +151,14 @@
           margin-bottom: 20px;
           display: block;
         }
+
         .main-title {
           font-size: 80px;
           line-height: 0.85;
           margin-bottom: 30px;
           letter-spacing: -0.04em;
         }
+
         .credits-box {
           border-left: 2px solid rgba(200, 162, 74, 0.2);
           padding-left: 32px;
@@ -139,6 +168,7 @@
           font-family: 'Playfair Display', serif;
           font-size: 18px;
         }
+
         .btn-preview {
           display: inline-block;
           background-color: #C8A24A;
@@ -152,7 +182,7 @@
           margin-right: 15px;
           margin-bottom: 15px;
         }
-        /* Layout for Vertical Poster */
+
         .header-split {
           display: grid;
           grid-template-columns: 1.4fr 1fr;
@@ -160,19 +190,22 @@
           align-items: start;
           margin-bottom: 80px;
         }
+
         .image-wrapper {
           width: 100%;
           aspect-ratio: 3 / 4;
           overflow: hidden;
           background-color: #eee;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-          filter: grayscale(30%);
         }
+
         .image-wrapper img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
+          display: block;
         }
-        /* Bottom Grid: Sidebar LEFT, Body RIGHT */
+
         .meta-grid {
           display: grid;
           grid-template-columns: 1fr 2fr;
@@ -180,6 +213,7 @@
           border-top: 1px solid #eee;
           padding-top: 60px;
         }
+
         .sidebar h3 {
           text-transform: uppercase;
           letter-spacing: 0.3em;
@@ -188,6 +222,7 @@
           color: #C8A24A;
           margin-bottom: 15px;
         }
+
         .sidebar ul {
           list-style: none;
           padding: 0;
@@ -195,22 +230,26 @@
           font-family: 'Playfair Display', serif;
           font-size: 18px;
         }
+
         .sidebar li {
           border-bottom: 1px solid #eee;
           padding: 8px 0;
         }
+
         .content-body {
           font-size: 19px;
           line-height: 1.7;
           color: rgba(28, 28, 28, 0.85);
         }
-        .content-body h2, .content-body h3 {
+
+        .content-body h2,
+        .content-body h3 {
           font-family: 'Playfair Display', serif;
           margin-top: 40px;
           margin-bottom: 20px;
           color: #1C1C1C;
         }
-        /* Drop Cap effect */
+
         .content-body p:first-of-type::first-letter {
           font-family: 'Playfair Display', serif;
           float: left;
@@ -224,61 +263,177 @@
         }
       `, { raw: true });
 
-      // 3. De Preview Component
-      var PostPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title']);
-          var author = entry.getIn(['data', 'author']);
-          var director = entry.getIn(['data', 'director']);
-          var location = entry.getIn(['data', 'location']);
-          var date = entry.getIn(['data', 'date']);
-          var image = entry.getIn(['data', 'image']);
-          var schedule = entry.getIn(['data', 'schedule']);
-          var ticket_link = entry.getIn(['data', 'ticket_link']);
-          var body = this.props.widgetFor('body');
+      /* =========================================================
+         PREVIEW COMPONENT
+      ========================================================= */
 
-          return h('div', { className: 'preview-container' },
-            h('div', { className: 'header-split' },
-              h('div', { className: 'header-left' },
-                h('p', { className: 'date-label text-gold' }, date),
-                h('h1', { className: 'main-title font-serif' }, title),
-                h('div', { className: 'credits-box' }, 
-                  author ? h('p', { style: { margin: '0 0 5px 0' } }, 'Door: ' + author) : null,
-                  director ? h('p', { style: { margin: '0' } }, 'Regie: ' + director) : null
+      const PostPreview = window.createClass({
+        render: function () {
+          const entry = this.props.entry;
+
+          const title = entry.getIn(["data", "title"]);
+          const author = entry.getIn(["data", "author"]);
+          const director = entry.getIn(["data", "director"]);
+          const location = entry.getIn(["data", "location"]);
+          const date = entry.getIn(["data", "date"]);
+          const image = entry.getIn(["data", "image"]);
+          const schedule = entry.getIn(["data", "schedule"]);
+          const ticket_link = entry.getIn(["data", "ticket_link"]);
+
+          const body = this.props.widgetFor("body");
+
+          return h(
+            "div",
+            { className: "preview-container" },
+
+            h(
+              "div",
+              { className: "header-split" },
+
+              h(
+                "div",
+                { className: "header-left" },
+
+                h(
+                  "p",
+                  { className: "date-label text-gold" },
+                  date || ""
                 ),
-                h('div', { style: { margin: '40px 0' } },
-                  ticket_link ? h('a', { className: 'btn-preview', href: '#' }, 'Tickets Reserveren') : null
+
+                h(
+                  "h1",
+                  { className: "main-title font-serif" },
+                  title || "Titel"
                 ),
-                location ? h('div', { style: { marginTop: '20px', opacity: 0.4, fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '10px' } }, 
-                  h('span', {}, '📍'), 
-                  location
-                ) : null
+
+                h(
+                  "div",
+                  { className: "credits-box" },
+
+                  author
+                    ? h(
+                        "p",
+                        { style: { margin: "0 0 5px 0" } },
+                        "Door: " + author
+                      )
+                    : null,
+
+                  director
+                    ? h(
+                        "p",
+                        { style: { margin: "0" } },
+                        "Regie: " + director
+                      )
+                    : null
+                ),
+
+                h(
+                  "div",
+                  { style: { margin: "40px 0" } },
+
+                  ticket_link
+                    ? h(
+                        "a",
+                        {
+                          className: "btn-preview",
+                          href: "#",
+                        },
+                        "Tickets Reserveren"
+                      )
+                    : null
+                ),
+
+                location
+                  ? h(
+                      "div",
+                      {
+                        style: {
+                          marginTop: "20px",
+                          opacity: "0.4",
+                          fontSize: "10px",
+                          fontWeight: "bold",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.1em",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                        },
+                      },
+
+                      h("span", {}, "📍"),
+                      location
+                    )
+                  : null
               ),
-              h('div', { className: 'header-right' },
-                image ? h('div', { className: 'image-wrapper' },
-                  h('img', { src: this.props.getAsset(image) })
-                ) : null
+
+              h(
+                "div",
+                { className: "header-right" },
+
+                image
+                  ? h(
+                      "div",
+                      { className: "image-wrapper" },
+
+                      h("img", {
+                        src: this.props.getAsset(image),
+                      })
+                    )
+                  : null
               )
             ),
-            h('div', { className: 'meta-grid' },
-              h('div', { className: 'sidebar' },
-                h('h3', {}, 'Data & Tijden'),
-                h('ul', {}, schedule ? schedule.map(function(item) {
-                  return h('li', {}, item.getIn(['data', 'time']) || item.get('time') || item.getIn(['fields', 'time']));
-                }) : h('li', {}, 'Geen data ingevoerd'))
+
+            h(
+              "div",
+              { className: "meta-grid" },
+
+              h(
+                "div",
+                { className: "sidebar" },
+
+                h("h3", {}, "Data & Tijden"),
+
+                h(
+                  "ul",
+                  {},
+
+                  schedule && schedule.size > 0
+                    ? schedule
+                        .map(function (item, index) {
+                          return h(
+                            "li",
+                            { key: index },
+                            item.get("time") || "Geen tijd"
+                          );
+                        })
+                        .toArray()
+                    : h("li", {}, "Geen data ingevoerd")
+                )
               ),
-              h('div', { className: 'content-body' }, body)
+
+              h(
+                "div",
+                { className: "content-body" },
+                body
+              )
             )
           );
-        }
+        },
       });
+
+      /* =========================================================
+         REGISTER PREVIEWS
+      ========================================================= */
 
       CMS.registerPreviewTemplate("voorstellingen", PostPreview);
       CMS.registerPreviewTemplate("nieuws", PostPreview);
 
+      /* =========================================================
+         NETLIFY IDENTITY
+      ========================================================= */
+
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
+        window.netlifyIdentity.on("init", (user) => {
           if (!user) {
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
