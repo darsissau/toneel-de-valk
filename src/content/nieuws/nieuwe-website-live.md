@@ -8,6 +8,6 @@ Met trots presenteren wij de gloednieuwe website van Toneelgroep De Valk. Vanaf 
 
 We hebben hard gewerkt aan een digitale omgeving die de sfeer van ons theater ademt: klassiek, stijlvol en met oog voor detail. Of u nu op zoek bent naar informatie over onze 175ste productie of gewoon benieuwd bent naar wat er achter de schermen gebeurt, u bent hier aan het juiste adres.
 
-Blijf ons volgen via de 'Journal' voor updates over onze komende producties zoals _De Olifantman_ en _Minor Swing_.
+Blijf ons volgen via de 'Nieuws' voor updates over onze komende producties zoals _De Olifantman_ en _Minor Swing_.
 
 Welkom op onze nieuwe plek!
