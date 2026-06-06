@@ -26,30 +26,30 @@ const {
 ---
 
 <Layout title={title}>
-	<article class="pt-48 pb-32">
+	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom">
 			<!-- Header with Vertical Poster Support -->
-			<header class="mb-32 grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
+			<header class="mb-16 md:mb-32 grid lg:grid-cols-12 gap-10 md:gap-24 items-start">
 				<div class="lg:col-span-7 order-2 lg:order-1">
-					<p class="text-accent-gold font-bold uppercase tracking-[0.6em] text-[10px] mb-12">{date}</p>
-					<h1 class="text-6xl md:text-[100px] text-primary-text leading-[0.85] tracking-tighter mb-12 break-all">{title}</h1>
+					<p class="text-accent-gold font-bold uppercase tracking-[0.6em] text-[9px] md:text-[10px] mb-8 md:mb-12">{date}</p>
+					<h1 class="text-5xl md:text-[100px] text-primary-text leading-[0.85] tracking-tighter mb-8 md:mb-12 break-word">{title}</h1>
 					
-					<div class="prose prose-lg prose-serif text-primary-text/60 italic mb-12 max-w-xl border-l-2 border-accent-gold/20 pl-8">
+					<div class="prose prose-lg prose-serif text-primary-text/60 italic mb-10 md:mb-12 max-w-xl border-l-2 border-accent-gold/20 pl-6 md:pl-8">
 						{author && <p class="mb-2">Door: {author}</p>}
 						{director && <p>Regie: {director}</p>}
 					</div>
 
-					<div class="flex flex-wrap gap-6 mb-16">
+					<div class="flex flex-wrap gap-6 mb-12 md:mb-16">
 						{ticket_link && (
-							<a href={ticket_link} target="_blank" class="btn-theatre-primary">
+							<a href={ticket_link} target="_blank" class="btn-theatre-primary w-full md:w-auto">
 								{ticket_label || "Tickets Reserveren"}
 							</a>
 						)}
 					</div>
 
 					{location && (
-						<div class="flex items-center gap-4 text-primary-text/40 text-[10px] uppercase tracking-widest font-bold">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<div class="flex items-center gap-4 text-primary-text/40 text-[9px] md:text-[10px] uppercase tracking-widest font-bold">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
 							</svg>
@@ -59,24 +59,24 @@ const {
 				</div>
 
 				<div class="lg:col-span-5 order-1 lg:order-2">
-					<div class="aspect-[3/4] overflow-hidden bg-gray-100 shadow-2xl relative group">
+					<div class="aspect-[2/3] overflow-hidden bg-gray-100 shadow-xl md:shadow-2xl relative group max-w-[450px] mx-auto lg:max-w-none">
 						<img 
 							src={image} 
 							alt={title} 
 							class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-1000" 
 							onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2000&auto=format&fit=crop';"
 						/>
-						<div class="absolute inset-0 border-[20px] border-white/5 pointer-events-none"></div>
+						<div class="absolute inset-0 border-[10px] md:border-[20px] border-white/5 pointer-events-none"></div>
 					</div>
 				</div>
 			</header>
 
-			<div class="grid lg:grid-cols-12 gap-24 border-t border-ui-border pt-24">
+			<div class="grid lg:grid-cols-12 gap-16 md:gap-24 border-t border-ui-border pt-16 md:pt-24">
 				<!-- Sidebar Info -->
-				<aside class="lg:col-span-4 space-y-16">
+				<aside class="lg:col-span-4 space-y-12 md:space-y-16">
 					{schedule && schedule.length > 0 && (
 						<div>
-							<h3 class="text-accent-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-8">Data & Tijden</h3>
+							<h3 class="text-accent-gold text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold mb-6 md:mb-8">Data & Tijden</h3>
 							<ul class="space-y-4 text-primary-text/70 font-serif text-lg">
 								{schedule.map((item) => (
 									<li class="border-b border-ui-border pb-2 last:border-0">{item.time}</li>
@@ -85,16 +85,16 @@ const {
 						</div>
 					)}
 
-					<div class="pt-12">
-						<a href="/voorstellingen" class="text-[11px] font-bold uppercase tracking-[0.4em] hover:text-accent-gold transition-colors inline-flex items-center gap-6">
-							<span class="w-12 h-px bg-primary-text/20"></span> Terug naar programma
+					<div class="pt-4 md:pt-12">
+						<a href="/voorstellingen" class="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] hover:text-accent-gold transition-colors inline-flex items-center gap-6">
+							<span class="w-8 md:w-12 h-px bg-primary-text/20"></span> Terug naar programma
 						</a>
 					</div>
 				</aside>
 
 				<!-- Main Content -->
 				<div class="lg:col-span-8">
-					<div class="prose prose-xl prose-serif max-w-none text-primary-text/80 leading-relaxed drop-cap">
+					<div class="prose prose-lg md:prose-xl prose-serif max-w-none text-primary-text/80 leading-relaxed drop-cap">
 						<Content />
 					</div>
 				</div>

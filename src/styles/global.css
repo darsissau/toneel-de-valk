@@ -26,39 +26,41 @@
   h1 {
     font-family: var(--font-serif);
     font-weight: 700;
-    line-height: 0.95;
+    line-height: 1.1;
     letter-spacing: var(--tracking-poster);
+    @apply text-balance;
   }
 
   h2, h3 {
     font-family: var(--font-serif);
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -0.02em;
+    @apply text-balance;
   }
 
   body {
-    @apply antialiased text-[17px] leading-relaxed;
+    @apply antialiased text-base md:text-[17px] leading-relaxed;
   }
 }
 
 @layer components {
   .container-custom {
-    @apply max-w-[1140px] mx-auto px-8;
+    @apply max-w-[1140px] mx-auto px-6 md:px-8;
   }
 
-  /* DRAMATIC SECTIONING */
+  /* DRAMATIC SECTIONING - RESPONSIVE */
   .act-section {
-    @apply py-32 md:py-48;
+    @apply py-20 md:py-32 lg:py-48;
   }
 
   /* POSTER-GRADE BUTTONS */
   .btn-theatre-primary {
-    @apply px-10 py-5 bg-accent-gold text-white rounded-none font-bold transition-all duration-500 hover:bg-accent-burgundy active:scale-95 inline-block tracking-[0.2em] uppercase text-[11px];
+    @apply px-8 md:px-10 py-4 md:py-5 bg-accent-gold text-white rounded-none font-bold transition-all duration-500 hover:bg-accent-burgundy active:scale-95 inline-block tracking-[0.2em] uppercase text-[10px] md:text-[11px] text-center;
   }
 
   .btn-theatre-outline {
-    @apply px-10 py-5 border border-primary-text/20 text-primary-text rounded-none font-bold transition-all duration-500 hover:border-accent-gold hover:text-accent-gold active:scale-95 inline-block tracking-[0.2em] uppercase text-[11px];
+    @apply px-8 md:px-10 py-4 md:py-5 border border-primary-text/20 text-primary-text rounded-none font-bold transition-all duration-500 hover:border-accent-gold hover:text-accent-gold active:scale-95 inline-block tracking-[0.2em] uppercase text-[10px] md:text-[11px] text-center;
   }
 
   /* SIMPLIFIED CARDS */
@@ -67,11 +69,11 @@
   }
 
   .theatre-card-image {
-    @apply aspect-[3/4] overflow-hidden mb-8 relative;
+    @apply aspect-[2/3] overflow-hidden mb-6 md:mb-8 relative;
   }
 
   .theatre-card-image img {
-    @apply w-full h-full transition-transform duration-1000 group-hover:scale-105 grayscale-[0.3] group-hover:grayscale-0;
+    @apply w-full h-full transition-transform duration-1000 group-hover:scale-105 grayscale-[0.3] group-hover:grayscale-0 object-cover object-center;
   }
 
   .theatre-card-content {
@@ -94,6 +96,7 @@
   }
 
   .text-poster {
-    @apply text-7xl md:text-[140px] lg:text-[180px];
+    font-size: clamp(3.5rem, 12vw, 11.25rem);
+    line-height: 0.9;
   }
 }
