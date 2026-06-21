@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import koenraadImage from '../assets/koenraad.jpg';
+import koenraadMobileImage from '../assets/koenraad-mobile.png';
 
 const voorstellingen = await getCollection('voorstellingen');
 const nieuws = await getCollection('nieuws');
@@ -53,14 +55,17 @@ const sortedNieuws = nieuws.sort((a, b) => {
 <Layout title="Home" transparentNav={true}>
 	<section class="relative h-svh md:h-screen flex items-end overflow-hidden bg-primary-text">
 		<div class="absolute inset-0 z-0">
-			<img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=2400&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-40" alt="Theatre stage" />
+			<picture>
+				<source media="(min-width: 768px)" srcset={koenraadImage.src} />
+				<img src={koenraadMobileImage.src} class="w-full h-full object-cover object-left grayscale opacity-40" alt="Theatre stage" />
+			</picture>
 			<div class="absolute inset-0 bg-gradient-to-t from-primary-text via-transparent to-transparent"></div>
 		</div>
 		
 		<div class="container-custom relative z-10 pb-16 md:pb-32 w-full">
 			<div class="fade-in max-w-4xl">
-				<h1 class="text-poster text-bg-ivory mb-8 md:mb-12 uppercase">
-					80 JAAR<br/><span class="italic font-normal">DE VALK</span>
+				<h1 class="text-poster text-bg-ivory mb-8 md:mb-12">
+					Blijf verwonderd!
 				</h1>
 				<div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
 					<a href={volgendeVoorstelling ? `/voorstellingen/${volgendeVoorstelling.id}` : "/voorstellingen"} class="btn-theatre-primary w-full md:w-auto">
@@ -135,11 +140,11 @@ const sortedNieuws = nieuws.sort((a, b) => {
 		<div class="container-custom text-center">
 			<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>
 			<h2 class="text-4xl md:text-7xl mb-16 italic font-normal tracking-tight leading-tight max-w-4xl mx-auto">
-				"In 1945 werd onder de kerktoren van Sint-Baafs een theaterlijk valkenei uitgebroed."
+				Elk seizoen opnieuw in november en maart legt DE VALK een theaterlijk ei
 			</h2>
 			<div class="w-12 h-px bg-primary-text/20 mx-auto mb-16"></div>
 			<p class="text-primary-text/60 max-w-xl mx-auto text-sm leading-loose uppercase tracking-widest">
-				80 jaar later is De Valk een blijver in het Brugse landschap.
+				en is daarmee een blijver in het Brugse toneellandschap.
 			</p>
 		</div>
 	</section>
