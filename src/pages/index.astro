@@ -25,7 +25,7 @@ const parseTheatreDate = (dateStr: string) => {
   return new Date(dateStr.split('-').reverse().join('-'));
 };
 
-const sortedVoorstellingen = voorstellingen.sort((a, b) => {
+const sortedVoorstellingenAsc = voorstellingen.sort((a, b) => {
   const dateA = parseTheatreDate(a.data.date);
   const dateB = parseTheatreDate(b.data.date);
   return dateA.getTime() - dateB.getTime();
@@ -33,7 +33,7 @@ const sortedVoorstellingen = voorstellingen.sort((a, b) => {
 
 const today = new Date();
 // Zoek de eerste voorstelling die vandaag of in de toekomst is
-let volgendeVoorstelling = sortedVoorstellingen.find(v => {
+let volgendeVoorstelling = sortedVoorstellingenAsc.find(v => {
   const vDate = parseTheatreDate(v.data.date);
   // Zet de datum naar het einde van de maand voor de check
   const endOfMonth = new Date(vDate.getFullYear(), vDate.getMonth() + 1, 0);
@@ -41,9 +41,11 @@ let volgendeVoorstelling = sortedVoorstellingen.find(v => {
 });
 
 // Als er geen toekomstige voorstellingen zijn, toon dan de meest recente uit het verleden
-if (!volgendeVoorstelling && sortedVoorstellingen.length > 0) {
-  volgendeVoorstelling = sortedVoorstellingen[sortedVoorstellingen.length - 1];
+if (!volgendeVoorstelling && sortedVoorstellingenAsc.length > 0) {
+  volgendeVoorstelling = sortedVoorstellingenAsc[sortedVoorstellingenAsc.length - 1];
 }
+
+const sortedVoorstellingen = [...sortedVoorstellingenAsc].reverse();
 
 const sortedNieuws = nieuws.sort((a, b) => {
   const dateA = new Date(a.data.date.split('-').reverse().join('-'));
@@ -64,8 +66,8 @@ const sortedNieuws = nieuws.sort((a, b) => {
 		
 		<div class="container-custom relative z-10 pb-16 md:pb-32 w-full">
 			<div class="fade-in max-w-4xl">
-				<h1 class="text-poster text-bg-ivory mb-8 md:mb-12">
-					Blijf verwonderd!
+				<h1 class="text-poster text-bg-ivory mb-8 md:mb-12 leading-[0.9] tracking-tight">
+					Blijf <br class="md:hidden"/>verwonderd!
 				</h1>
 				<div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
 					<a href={volgendeVoorstelling ? `/voorstellingen/${volgendeVoorstelling.id}` : "/voorstellingen"} class="btn-theatre-primary w-full md:w-auto">
@@ -115,7 +117,7 @@ const sortedNieuws = nieuws.sort((a, b) => {
 			<div class="max-w-xl mb-16 md:mb-24">
 				<h2 class="text-4xl md:text-6xl mb-8">Programma</h2>
 				<p class="text-primary-text/50 text-sm tracking-wide leading-relaxed">
-					Een jubileumseizoen vol nostalgie en actualiteit.
+					Een seizoen vol nostalgie en actualiteit.
 				</p>
 			</div>
 			
@@ -151,5 +153,12 @@ const sortedNieuws = nieuws.sort((a, b) => {
 </Layout>
 
 <style>
-	.text-poster { font-size: clamp(4rem, 15vw, 12rem); }
+	.text-poster { 
+		font-size: clamp(2rem, 12vw, 4.5rem); 
+	}
+	@media (min-width: 768px) {
+		.text-poster {
+			font-size: clamp(4rem, 15vw, 12rem);
+		}
+	}
 </style>
