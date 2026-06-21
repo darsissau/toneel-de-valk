@@ -7,7 +7,7 @@ interface Props {
 	transparentNav?: boolean;
 }
 
-const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", transparentNav = false } = Astro.props;
+const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,7 +18,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Toneelgroep De Valk</title>
+		<title>{title} | Koninklijke Toneelvereniging De Valk</title>
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,10 +52,14 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 		<header id="main-header" class={`fixed top-0 w-full z-50 transition-[background-color,padding,border-color,color] duration-500 ${transparentNav ? 'bg-transparent py-6 md:py-8 text-white' : 'bg-bg-ivory/95 backdrop-blur-sm py-3 md:py-4 border-b border-ui-border text-primary-text'}`}>
 			<nav class="container-custom flex justify-between items-center">
 				<div class="flex flex-col">
-					<a href="/" id="nav-logo" class="text-lg md:text-2xl font-serif font-bold tracking-tighter transition-colors ">
-						Toneelgroep <span id="nav-logo-accent" class={`transition-colors  ${transparentNav ? 'text-white' : 'text-accent-burgundy'}`}>De Valk</span>
+					<a href="/" id="nav-logo" class="flex flex-col items-start leading-none group">
+						<span id="nav-logo-accent" class={`text-2xl md:text-3xl font-serif font-bold tracking-tight transition-colors ${transparentNav ? 'text-white' : 'text-accent-burgundy'}`}>
+							De Valk
+						</span>
+						<span id="nav-tagline" class={`text-[8px] md:text-[9px] tracking-[0.04em] font-sans font-bold uppercase transition-colors ${transparentNav ? 'text-white/60' : 'text-accent-gold/80'}`}>
+							Koninklijke Toneelvereniging
+						</span>
 					</a>
-					<span id="nav-tagline" class={`hidden md:block text-[9px] uppercase tracking-[0.3em] font-bold mt-1 transition-colors  ${transparentNav ? 'text-white/60' : 'text-accent-gold/80'}`}>Brugge — Sinds 1945</span>
 				</div>
 
 				
@@ -82,7 +86,10 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 			<div class="container-custom">
 				<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
 					<div class="md:col-span-5">
-						<h3 class="text-3xl font-serif font-bold mb-6 text-accent-gold tracking-tight">Toneelgroep De Valk</h3>
+						<div class="mb-6 flex flex-col items-start leading-none">
+							<span class="text-3xl font-serif font-bold text-accent-gold tracking-tight">De Valk</span>
+							<span class="text-[10px] tracking-[0.08em] font-sans font-bold uppercase text-bg-ivory/40 mt-1.5">Koninklijke Toneelvereniging</span>
+						</div>
 						<p class="text-bg-ivory/60 leading-relaxed max-w-md">
 							Passie voor theater onder de Brugse kerktoren. Van een uitgebroed valkenei in 1945 tot een blijver in het culturele landschap.
 						</p>
@@ -103,7 +110,7 @@ const { title, description = "Toneelgroep De Valk - Beleef theater dat raakt", t
 				</div>
 				<div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
 					<p class="text-xs text-bg-ivory/40 uppercase tracking-widest">
-						&copy; {new Date().getFullYear()} Toneelgroep De Valk.
+						&copy; {new Date().getFullYear()} Koninklijke Toneelvereniging De Valk.
 					</p>
 					<div class="flex space-x-8">
 						<a href="https://www.instagram.com/devalkbrugge/" target="_blank" rel="noopener noreferrer" class="text-xs uppercase tracking-widest text-bg-ivory/40 hover:text-white transition-colors">Instagram</a>
