@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import koenraadImage from '../assets/koenraad_right.png';
 import koenraadMobileImage from '../assets/koenraad-mobile.png';
+import logoWhite from '../assets/logo_white.svg';
 
 const voorstellingen = await getCollection('voorstellingen');
 const nieuws = await getCollection('nieuws');
@@ -138,8 +139,11 @@ const sortedNieuws = nieuws.sort((a, b) => {
 		</div>
 	</section>
 
-	<section class="act-section bg-bg-ivory">
-		<div class="container-custom text-center">
+	<section class="act-section bg-bg-ivory relative overflow-hidden">
+		<div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+			<img src={logoWhite.src} alt="" class="w-[80vw] max-w-[800px] h-auto invert" />
+		</div>
+		<div class="container-custom text-center relative z-10">
 			<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>
 			<h2 class="text-4xl md:text-7xl mb-16 italic font-normal tracking-tight leading-tight max-w-4xl mx-auto">
 				Elk seizoen opnieuw in november en maart legt DE VALK een theaterlijk ei
