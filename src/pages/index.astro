@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import koenraadImage from '../assets/koenraad.jpg';
+import koenraadImage from '../assets/koenraad_right.png';
 import koenraadMobileImage from '../assets/koenraad-mobile.png';
 
 const voorstellingen = await getCollection('voorstellingen');
@@ -71,7 +71,7 @@ const sortedNieuws = nieuws.sort((a, b) => {
 				</h1>
 				<div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12">
 					<a href={volgendeVoorstelling ? `/voorstellingen/${volgendeVoorstelling.id}` : "/voorstellingen"} class="btn-theatre-primary w-full md:w-auto">
-						Bekijk de 175ste productie
+						Onze volgende show
 					</a>
 					<p class="text-bg-ivory/40 text-[9px] md:text-[10px] uppercase tracking-[0.3em] max-w-sm leading-loose">
 						Sinds 1945 drama, humor, spanning en schoonheid op de planken

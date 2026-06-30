@@ -16,8 +16,9 @@ schedule:
   - time: 23 November 2025 - 17:15 (Dinerevent)
 image: /images/olifantman.jpg
 ticket_link: https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=165831#
-ticket_label: Tickets Dinerevent
+ticket_label: Tickets
 ---
+
 De Olifantman is het waargebeurde verhaal van Joseph 'John' Merrick, een man met ernstige misvormingen die in de 19de eeuw als kermisattractie werd opgevoerd. Hij ging letterlijk en figuurlijk zwaar gebukt onder zijn misvormingen.
 
 John Merrick wordt door zijn manager beroofd en gaat op straat tevergeefs op zoek naar hulp. Uitgeput belandt hij in het Royal London Hospital waar hij tot het einde van zijn leven verblijft onder de hoede van dokter Treves die gaandeweg de mens achter het afzichtelijke uiterlijk ontdekt.

@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Foto's" transparentNav={true}>
+	<!-- Hero Section -->
+	<section class="relative h-[50svh] md:h-[60vh] flex items-center bg-primary-text overflow-hidden">
+		<div class="absolute inset-0 z-0">
+			<div class="absolute inset-0 bg-primary-text/20"></div>
+		</div>
+		
+		<div class="container-custom relative z-10 w-full">
+			<div class="fade-in pt-12 md:pt-0">
+				<span class="text-accent-gold uppercase tracking-[0.6em] text-[9px] md:text-[10px] font-bold mb-4 md:mb-6 block">Sfeerbeelden</span>
+				<h1 class="text-6xl md:text-9xl text-bg-ivory leading-none tracking-tighter uppercase">
+					FO<span class="italic font-normal">TO'S</span>
+				</h1>
+			</div>
+		</div>
+	</section>
+
+	<!-- Content Section -->
+	<section class="py-16 md:py-32 bg-bg-ivory">
+		<div class="container-custom">
+			<div class="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+				<h2 class="text-3xl md:text-5xl font-serif mb-6 tracking-tight">Kijkje achter de schermen</h2>
+				<p class="text-primary-text/60 leading-relaxed italic max-w-xl mx-auto text-sm md:text-base">
+					"Theater is vluchtig, maar de herinnering blijft. Blader door onze albums en herbeleef de magie van onze producties."
+				</p>
+			</div>
+
+			<!-- Album Embed Box -->
+			<div class="bg-white p-4 md:p-8 border border-primary-text/5 shadow-md max-w-5xl mx-auto">
+				<!-- Placeholder / Instructie Box -->
+				<div class="aspect-video bg-primary-text/5 flex flex-col items-center justify-center text-center p-8 border border-dashed border-primary-text/20">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-accent-gold mb-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					</svg>
+					<h3 class="text-xl md:text-2xl font-serif mb-4 text-primary-text">Google Photos Album Insluiten</h3>
+					<p class="text-sm text-primary-text/60 max-w-md mb-8 leading-relaxed">
+						Hier komt uw openbare fotogalerij. U kunt eenvoudig een embed-code genereren via een gratis dienst zoals <a href="https://www.publicalbum.org/" target="_blank" class="text-accent-gold hover:underline font-bold">PublicAlbum.org</a> door de link van uw gedeelde Google Photos album in te vullen.
+					</p>
+					<div class="text-xs font-mono bg-bg-ivory p-4 text-primary-text/80 select-all border border-primary-text/5 rounded max-w-lg overflow-x-auto text-left leading-relaxed">
+						&lt;!-- Vervang deze placeholder in src/pages/fotos.astro met de gegenereerde iframe code --&gt;
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
