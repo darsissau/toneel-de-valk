@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import logoWhite from '../assets/logo_white.svg';
 
 interface Props {
 	title: string;
@@ -87,6 +88,7 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 				<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
 					<div class="md:col-span-5">
 						<div class="mb-6 flex flex-col items-start leading-none">
+							<img src={logoWhite.src} alt="De Valk Logo" class="h-16 mb-4 w-auto" />
 							<span class="text-3xl font-serif font-bold text-accent-gold tracking-tight">De Valk</span>
 							<span class="text-[10px] tracking-[0.08em] font-sans font-bold uppercase text-bg-ivory/40 mt-1.5">Koninklijke Toneelvereniging</span>
 						</div>
