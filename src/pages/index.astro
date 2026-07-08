@@ -117,7 +117,8 @@ const sortedNieuws = nieuws.sort((a, b) => {
 						</div>
 						<div class="theatre-card-content text-center md:text-left md:pt-4 w-full">
 							<h3 class="text-2xl mb-2 group-hover:text-accent-gold transition-colors">{item.data.title}</h3>
-							<p class="text-primary-text/40 text-[10px] uppercase tracking-[0.2em] font-bold">{item.data.date}</p>
+							<p class="text-primary-text/40 text-[10px] uppercase tracking-[0.2em] font-bold mb-3">{item.data.date}</p>
+							{item.data.summary && <p class="text-primary-text/60 text-sm line-clamp-3 mb-0">{item.data.summary}</p>}
 						</div>
 					</a>
 				))}

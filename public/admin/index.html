@@ -245,6 +245,7 @@
           var schedule = entry.getIn(['data', 'schedule']);
           var ticket_link = entry.getIn(['data', 'ticket_link']);
           var ticket_label = entry.getIn(['data', 'ticket_label']);
+          var summary = entry.getIn(['data', 'summary']);
           var body = this.props.widgetFor('body');
 
           return h('div', { className: 'preview-container' },
@@ -252,6 +253,7 @@
               h('div', { className: 'header-left' },
                 h('p', { className: 'date-label text-gold' }, date),
                 h('h1', { className: 'main-title font-serif' }, title),
+                summary ? h('p', { style: { fontSize: '20px', lineHeight: '1.6', marginBottom: '40px', color: 'rgba(28, 28, 28, 0.8)' } }, summary) : null,
                 h('div', { className: 'credits-box' }, 
                   author ? h('p', { style: { margin: '0 0 5px 0' } }, 'Auteur: ' + author) : null,
                   director ? h('p', { style: { margin: '0' } }, 'Regie: ' + director) : null
