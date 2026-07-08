@@ -110,12 +110,12 @@ const sortedNieuws = nieuws.sort((a, b) => {
 			
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
 				{sortedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.id}`} class="theatre-card">
-						<div class="theatre-card-image bg-primary-text/5">
+					<a href={`/voorstellingen/${item.id}`} class="theatre-card group flex flex-col md:flex-row gap-6 lg:gap-8 items-center md:items-start">
+						<div class="theatre-card-image bg-primary-text/5 w-2/3 md:w-2/5 shrink-0">
 							<img src={item.data.image} alt={item.data.title} />
 							<div class="absolute inset-0 bg-accent-burgundy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 						</div>
-						<div class="theatre-card-content">
+						<div class="theatre-card-content text-center md:text-left md:pt-4">
 							<h3 class="text-2xl mb-2 group-hover:text-accent-gold transition-colors">{item.data.title}</h3>
 							<p class="text-primary-text/40 text-[10px] uppercase tracking-[0.2em] font-bold">{item.data.date}</p>
 						</div>

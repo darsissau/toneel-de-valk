@@ -58,20 +58,20 @@ const groupedVoorstellingen = sortedSeasons.flatMap(season => seasons.get(season
 		<div class="container-custom">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-32">
 				{groupedVoorstellingen.map((item) => (
-					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card group">
-						<div class="theatre-card-content mb-8">
-							<p class="text-accent-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-4">{item.data.date}</p>
-							<h2 class="text-3xl mb-6 group-hover:text-accent-gold transition-colors tracking-tight leading-tight">{item.data.title}</h2>
-							<p class="text-primary-text/40 text-xs uppercase tracking-widest font-bold flex items-center gap-4">
-								Ontdek <span class="w-8 h-px bg-primary-text/10 group-hover:bg-accent-gold group-hover:w-12 transition-all"></span>
-							</p>
-						</div>
-						<div class="theatre-card-image bg-primary-text/5 max-w-[320px] mx-auto md:mx-0">
+					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card group flex flex-col md:flex-row gap-6 lg:gap-8 items-center md:items-start">
+						<div class="theatre-card-image bg-primary-text/5 w-2/3 md:w-2/5 shrink-0 order-1 md:order-1">
 							<img 
 								src={item.data.image} 
 								alt={item.data.title} 
 								onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=1000&auto=format&fit=crop';"
 							/>
+						</div>
+						<div class="theatre-card-content text-center md:text-left order-2 md:order-2 md:pt-4">
+							<p class="text-accent-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-4">{item.data.date}</p>
+							<h2 class="text-3xl mb-6 group-hover:text-accent-gold transition-colors tracking-tight leading-tight">{item.data.title}</h2>
+							<p class="text-primary-text/40 text-xs uppercase tracking-widest font-bold flex items-center justify-center md:justify-start gap-4">
+								Ontdek <span class="w-8 h-px bg-primary-text/10 group-hover:bg-accent-gold group-hover:w-12 transition-all"></span>
+							</p>
 						</div>
 					</a>
 				))}

@@ -69,7 +69,7 @@
   }
 
   .theatre-card-image {
-    @apply aspect-[2/3] overflow-hidden mb-6 md:mb-8 relative;
+    @apply aspect-[2/3] overflow-hidden relative rounded-sm;
   }
 
   .theatre-card-image img {
