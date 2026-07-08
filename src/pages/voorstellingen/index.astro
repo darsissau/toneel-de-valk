@@ -21,11 +21,26 @@ const parseTheatreDate = (dateStr: string) => {
   return new Date(dateStr.split('-').reverse().join('-'));
 };
 
-const sortedVoorstellingen = voorstellingen.sort((a, b) => {
+const sortedVoorstellingenAsc = voorstellingen.sort((a, b) => {
   const dateA = parseTheatreDate(a.data.date);
   const dateB = parseTheatreDate(b.data.date);
-  return dateB.getTime() - dateA.getTime();
+  return dateA.getTime() - dateB.getTime();
 });
+
+const getSeason = (date: Date) => {
+  return date.getMonth() >= 6 ? date.getFullYear() : date.getFullYear() - 1;
+};
+
+const seasons = new Map<number, any[]>();
+sortedVoorstellingenAsc.forEach(v => {
+  const d = parseTheatreDate(v.data.date);
+  const season = getSeason(d);
+  if (!seasons.has(season)) seasons.set(season, []);
+  seasons.get(season)!.push(v);
+});
+
+const sortedSeasons = Array.from(seasons.keys()).sort((a, b) => b - a);
+const groupedVoorstellingen = sortedSeasons.flatMap(season => seasons.get(season)!);
 ---
 
 <Layout title="Voorstellingen">
@@ -41,8 +56,8 @@ const sortedVoorstellingen = voorstellingen.sort((a, b) => {
 
 	<section class="py-20 md:py-32 bg-white">
 		<div class="container-custom">
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 md:gap-y-32">
-				{sortedVoorstellingen.map((item) => (
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-32">
+				{groupedVoorstellingen.map((item) => (
 					<a href={`/voorstellingen/${item.id || item.slug}`} class="theatre-card group">
 						<div class="theatre-card-content mb-8">
 							<p class="text-accent-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-4">{item.data.date}</p>
