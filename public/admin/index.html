@@ -244,6 +244,7 @@
           var image = entry.getIn(['data', 'image']);
           var schedule = entry.getIn(['data', 'schedule']);
           var ticket_link = entry.getIn(['data', 'ticket_link']);
+          var ticket_label = entry.getIn(['data', 'ticket_label']);
           var body = this.props.widgetFor('body');
 
           return h('div', { className: 'preview-container' },
@@ -256,7 +257,7 @@
                   director ? h('p', { style: { margin: '0' } }, 'Regie: ' + director) : null
                 ),
                 h('div', { style: { margin: '40px 0' } },
-                  ticket_link ? h('a', { className: 'btn-preview', href: '#' }, 'Tickets kopen') : null
+                  ticket_link ? h('a', { className: 'btn-preview', href: '#' }, ticket_label || 'Tickets kopen') : null
                 ),
                 location ? h('div', { style: { marginTop: '20px', opacity: 0.4, fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '10px' } }, 
                   h('span', {}, '📍'), 
