@@ -13,6 +13,7 @@ schedule:
   - time: 28 November 2026 - 20:00
 image: /images/le-lavoir_voorzijde-flyer_2026-versie9.jpg-1-.jpeg
 ticket_link: www.test.com
-ticket_label: Tickets Reserveren
+ticket_label: Tickets kopen
 ---
+
 Volledige beschrijving

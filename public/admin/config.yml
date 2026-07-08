@@ -56,7 +56,7 @@ collections:
       - label: "Ticket Knop Tekst"
         name: "ticket_label"
         widget: "string"
-        default: "Tickets Reserveren"
+        default: "Tickets kopen"
         required: false
       - label: "Volledige Beschrijving"
         name: "body"
