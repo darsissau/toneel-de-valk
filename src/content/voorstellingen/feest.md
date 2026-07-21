@@ -12,7 +12,7 @@ schedule:
   - time: 19 Maart 2027 - 20:00
   - time: 20 Maart 2027 - 20:00
 image: /images/feest-flyer-versie1.jpg.jpeg
-ticket_link: ""
+ticket_link: "https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=181756"
 ticket_label: ""
 ---
 

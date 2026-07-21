@@ -12,13 +12,13 @@ schedule:
   - time: 27 November 2026 - 20:00
   - time: 28 November 2026 - 20:00
 image: /images/le-lavoir_voorzijde-flyer_2026-versie9.jpg-1-.jpeg
-ticket_link: ""
-ticket_label: Tickets kopen
+ticket_link: "https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=179026"
+ticket_label: ""
 ---
 
 Een ochtend in juli 1914 in Jambles, een Frans dorpje in Bourgondië. Er heerst een hittegolf. Ook aan de grens met Duitsland loopt de temperatuur hoog op. Er hangt oorlog in de lucht. Als die maar ver weg blijft, zucht Madeleine.
 
-De lavoir is de ontmoetingsplaats bij uitstek. Madeleine, Flavie, Marie, Simone, Céline en Rosalie komen er niet alleen de was doen, ze ventileren er ook hun besognes en bezorgd-heden, storten er hun hart uit en zoeken er verkoeling. Eerst gaat het nog over alledaagse dingen zoals de wijngaard, de druivenpluk, de echtgenoten, de jonge mannen … Op Saint Jean, de midzomerzonnewende, lonken de meisjes naar de jongens op zoek naar een flirt of een lief. Maar de jongens worden een voor een gemobiliseerd. De vrouwen blijven alleen achter en zijn op elkaar aangewezen voor de druivenpluk, de wijnproductie, de was en de plas. Voor de vendange zullen ze wel terug zijn, maken de jongens zich sterk of toch zeker tegen Kerst. Helaas steeds vaker brengt de postbode slecht nieuws van het front. Hoop maakt plaats voor verdriet en melancholie. De vrolijke Marie wordt ongeduldig, ze hunkert hard naar een kus. Wat blijft er over van de liefde na vier jaar oorlog?
+De lavoir is de ontmoetingsplaats bij uitstek. Madeleine, Flavie, Marie, Simone, Céline en Rosalie komen er niet alleen de was doen, ze ventileren er ook hun besognes en bezorgdheden, storten er hun hart uit en zoeken er verkoeling. Eerst gaat het nog over alledaagse dingen zoals de wijngaard, de druivenpluk, de echtgenoten, de jonge mannen … Op Saint Jean, de midzomerzonnewende, lonken de meisjes naar de jongens op zoek naar een flirt of een lief. Maar de jongens worden een voor een gemobiliseerd. De vrouwen blijven alleen achter en zijn op elkaar aangewezen voor de druivenpluk, de wijnproductie, de was en de plas. Voor de vendange zullen ze wel terug zijn, maken de jongens zich sterk of toch zeker tegen Kerst. Helaas steeds vaker brengt de postbode slecht nieuws van het front. Hoop maakt plaats voor verdriet en melancholie. De vrolijke Marie wordt ongeduldig, ze hunkert hard naar een kus. Wat blijft er over van de liefde na vier jaar oorlog?
 
 Le Lavoir is de oorlog gezien door de ogen van de vrouwen op het thuisfront. Hun leven is hard, de oorlog meedogenloos. Le Lavoir is een aangrijpend verhaal over liefde en dood, over verdriet en hoop.
 
