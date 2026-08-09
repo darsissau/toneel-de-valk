@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Tickets" transparentNav={false}>
+	<section class="min-h-[70svh] flex items-center bg-bg-ivory py-24">
+		<div class="container-custom text-center">
+			<div class="fade-in max-w-5xl mx-auto">
+				<span class="text-accent-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-8 block">TICKETS BESTELLEN</span>
+				<h1 class="text-5xl md:text-8xl mb-12 tracking-tighter leading-none">Kies uw<br/><span class="italic font-normal">ticket type</span></h1>
+				<div class="w-16 h-px bg-accent-gold mx-auto mb-16"></div>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<!-- Abonnement Card -->
+					<div class="bg-white p-12 md:p-16 border border-ui-border flex flex-col items-center hover:border-accent-gold transition-colors duration-300">
+						<h2 class="text-3xl font-serif font-bold text-accent-burgundy mb-4">Abonnement</h2>
+						<p class="text-primary-text/60 mb-10 italic font-serif leading-relaxed h-full">Koop uw abonnement voor het volledige seizoen en mis geen enkele voorstelling.</p>
+						<a href="https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1414" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
+							Abonnement kopen
+						</a>
+					</div>
+					
+					<!-- Individuele Tickets Card -->
+					<div class="bg-white p-12 md:p-16 border border-ui-border flex flex-col items-center hover:border-accent-gold transition-colors duration-300">
+						<h2 class="text-3xl font-serif font-bold text-accent-burgundy mb-4">Voorstelling</h2>
+						<p class="text-primary-text/60 mb-10 italic font-serif leading-relaxed h-full">Koop losse tickets voor een specifieke voorstelling naar keuze.</p>
+						<a href="https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637#" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
+							Tickets per voorstelling
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
