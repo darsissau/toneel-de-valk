@@ -94,15 +94,19 @@ collections:
             widget: "number"
             value_type: "int"
             default: 26
-          - label: "Link Abonnement"
-            name: "abonnement_link"
-            widget: "string"
-            default: "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1414"
           - label: "Prijs Voorstelling (in Euro)"
             name: "ticket_price"
             widget: "number"
             value_type: "int"
             default: 15
+      - label: "Ticket Links"
+        name: "ticket_links"
+        file: "src/data/ticket_links.json"
+        fields:
+          - label: "Link Abonnement"
+            name: "abonnement_link"
+            widget: "string"
+            default: "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1414"
           - label: "Link Voorstelling"
             name: "ticket_link"
             widget: "string"
