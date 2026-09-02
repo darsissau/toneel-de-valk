@@ -15,7 +15,7 @@ const { Content } = await render(post);
 const { title, date, image } = post.data;
 ---
 
-<Layout title={title}>
+<Layout title={title} noindex={true}>
 	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom max-w-4xl px-6 md:px-8">
 			<header class="mb-12 md:mb-24">
