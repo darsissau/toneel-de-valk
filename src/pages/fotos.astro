@@ -29,22 +29,62 @@ import Layout from '../layouts/Layout.astro';
 				</p>
 			</div>
 
-			<!-- Album Embed Box -->
-			<div class="bg-white p-4 md:p-8 border border-primary-text/5 shadow-md max-w-5xl mx-auto">
-				<!-- Placeholder / Instructie Box -->
-				<div class="aspect-video bg-primary-text/5 flex flex-col items-center justify-center text-center p-8 border border-dashed border-primary-text/20">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-accent-gold mb-6 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-					</svg>
-					<h3 class="text-xl md:text-2xl font-serif mb-4 text-primary-text">Google Photos Album Insluiten</h3>
-					<p class="text-sm text-primary-text/60 max-w-md mb-8 leading-relaxed">
-						Hier komt uw openbare fotogalerij. U kunt eenvoudig een embed-code genereren via een gratis dienst zoals <a href="https://www.publicalbum.org/" target="_blank" class="text-accent-gold hover:underline font-bold">PublicAlbum.org</a> door de link van uw gedeelde Google Photos album in te vullen.
-					</p>
-					<div class="text-xs font-mono bg-bg-ivory p-4 text-primary-text/80 select-all border border-primary-text/5 rounded max-w-lg overflow-x-auto text-left leading-relaxed">
-						&lt;!-- Vervang deze placeholder in src/pages/fotos.astro met de gegenereerde iframe code --&gt;
-					</div>
+			<div id="photos-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+				<div class="col-span-full py-20 text-center">
+					<p class="text-primary-text/40 text-sm uppercase tracking-widest">Album wordt geladen...</p>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<script>
+		const grid = document.getElementById('photos-grid');
+
+		const thumbFor = (url) => url.replace(/=w\d+-h\d+-k-no/, '=w400-h533-k-no');
+
+		async function loadPhotos() {
+			const endpoint = '/api/photos';
+			try {
+				const res = await fetch(endpoint);
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
+				const data = await res.json();
+				render(data.photos);
+			} catch {
+				grid.innerHTML =
+					'<div class="col-span-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Kon het album niet laden. Probeer later opnieuw.</div>';
+			}
+		}
+
+		function makeItem(src, index) {
+			const a = document.createElement('a');
+			a.href = src;
+			a.target = '_blank';
+			a.rel = 'noopener noreferrer';
+			a.className = 'group block overflow-hidden bg-primary-text/5';
+			const img = document.createElement('img');
+			img.src = src;
+			img.alt = `Foto ${index + 1}`;
+			img.loading = 'lazy';
+			img.decoding = 'async';
+			img.fetchpriority = index < 4 ? 'high' : 'low';
+			img.className =
+				'w-full aspect-[3/4] object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700';
+			a.appendChild(img);
+			return a;
+		}
+
+		function render(photos) {
+			grid.innerHTML = '';
+			if (!Array.isArray(photos) || photos.length === 0) {
+				grid.innerHTML =
+					'<div class="col-span-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Geen foto\'s gevonden.</div>';
+				return;
+			}
+			photos.forEach((url, i) => {
+				grid.appendChild(makeItem(thumbFor(url), i));
+			});
+		}
+
+		loadPhotos();
+	</script>
 </Layout>
