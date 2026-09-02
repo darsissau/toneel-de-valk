@@ -10,7 +10,8 @@ export default defineConfig({
       !page.includes('/welovedevalk4ever') &&
       !page.includes('/bedankt') &&
       !page.includes('/fotos') &&
-      !page.includes('/nieuws'),
+      !page.includes('/nieuws') &&
+      !page.includes('/privacy'),
   })],
   vite: {
     plugins: [tailwindcss()]

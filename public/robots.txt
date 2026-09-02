@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.toneeldevalk.be/sitemap.xml
+Sitemap: https://toneeldevalk.be/sitemap-index.xml
