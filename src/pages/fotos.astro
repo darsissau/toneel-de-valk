@@ -37,8 +37,45 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 	</section>
 
+	<!-- Lightbox Carousel -->
+	<div id="photo-lightbox" class="hidden fixed inset-0 z-[110] bg-primary-text/95 backdrop-blur-sm items-center justify-center p-4 md:p-8">
+		<button id="lightbox-close" class="absolute top-4 right-4 md:top-6 md:right-6 text-bg-ivory/70 hover:text-white p-3 transition-colors z-10" aria-label="Sluiten">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+
+		<div class="relative w-full h-full flex items-center justify-center">
+			<div class="absolute inset-y-0 left-0 right-0 flex items-center justify-between pointer-events-none">
+				<button id="lightbox-prev" class="pointer-events-auto p-4 md:p-5 text-bg-ivory/70 hover:text-white transition-colors" aria-label="Vorige foto">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+					</svg>
+				</button>
+				<button id="lightbox-next" class="pointer-events-auto p-4 md:p-5 text-bg-ivory/70 hover:text-white transition-colors" aria-label="Volgende foto">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+					</svg>
+				</button>
+			</div>
+
+			<img id="lightbox-img" class="max-h-full max-w-full object-contain shadow-2xl" alt="" />
+		</div>
+
+		<div id="lightbox-counter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-bg-ivory/60 text-xs uppercase tracking-widest font-bold"></div>
+	</div>
+
 	<script>
 		const grid = document.getElementById('photos-grid');
+		const lightbox = document.getElementById('photo-lightbox');
+		const lightboxImg = document.getElementById('lightbox-img');
+		const lightboxCounter = document.getElementById('lightbox-counter');
+		const lightboxClose = document.getElementById('lightbox-close');
+		const lightboxPrev = document.getElementById('lightbox-prev');
+		const lightboxNext = document.getElementById('lightbox-next');
+
+		let photos = [];
+		let current = 0;
 
 		const thumbFor = (url) => url.replace(/=w\d+-h\d+-k-no/, '=w400-h533-k-no');
 
@@ -56,11 +93,11 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		function makeItem(src, index) {
-			const a = document.createElement('a');
-			a.href = src;
-			a.target = '_blank';
-			a.rel = 'noopener noreferrer';
-			a.className = 'group block overflow-hidden bg-primary-text/5';
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.setAttribute('aria-label', `Foto ${index + 1} vergroten`);
+			btn.className =
+				'group block overflow-hidden bg-primary-text/5 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent-gold w-full';
 			const img = document.createElement('img');
 			img.src = src;
 			img.alt = `Foto ${index + 1}`;
@@ -69,21 +106,67 @@ import Layout from '../layouts/Layout.astro';
 			img.fetchpriority = index < 4 ? 'high' : 'low';
 			img.className =
 				'w-full aspect-[3/4] object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700';
-			a.appendChild(img);
-			return a;
+			btn.appendChild(img);
+			btn.addEventListener('click', () => openLightbox(index));
+			return btn;
 		}
 
-		function render(photos) {
+		function render(dataPhotos) {
 			grid.innerHTML = '';
-			if (!Array.isArray(photos) || photos.length === 0) {
+			if (!Array.isArray(dataPhotos) || dataPhotos.length === 0) {
 				grid.innerHTML =
 					'<div class="col-span-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Geen foto\'s gevonden.</div>';
 				return;
 			}
+			photos = dataPhotos;
 			photos.forEach((url, i) => {
 				grid.appendChild(makeItem(thumbFor(url), i));
 			});
 		}
+
+		function openLightbox(index) {
+			current = index;
+			updateLightbox();
+			lightbox.classList.remove('hidden');
+			lightbox.classList.add('flex');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox() {
+			lightbox.classList.add('hidden');
+			lightbox.classList.remove('flex');
+			document.body.style.overflow = '';
+		}
+
+		function updateLightbox() {
+			lightboxImg.src = photos[current];
+			lightboxImg.alt = `Foto ${current + 1}`;
+			lightboxCounter.textContent = `${current + 1} / ${photos.length}`;
+		}
+
+		function nextPhoto() {
+			current = (current + 1) % photos.length;
+			updateLightbox();
+		}
+
+		function prevPhoto() {
+			current = (current - 1 + photos.length) % photos.length;
+			updateLightbox();
+		}
+
+		lightboxClose.addEventListener('click', closeLightbox);
+		lightboxPrev.addEventListener('click', prevPhoto);
+		lightboxNext.addEventListener('click', nextPhoto);
+		lightbox.addEventListener('click', (e) => {
+			if (e.target === lightbox) closeLightbox();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (lightbox.classList.contains('hidden')) return;
+			if (e.key === 'Escape') closeLightbox();
+			if (e.key === 'ArrowRight') nextPhoto();
+			if (e.key === 'ArrowLeft') prevPhoto();
+		});
 
 		loadPhotos();
 	</script>
