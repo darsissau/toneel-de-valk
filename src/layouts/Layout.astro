@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import logoWhite from '../assets/logo_white.svg';
+import opendoekLogo from '../assets/sponsors/OPENDOEK_secundairlogo_Wit.png';
+import vlaanderenLogo from '../assets/sponsors/Vlaanderen verbeelding werkt_donkere achtergrond.png';
 
 interface Props {
 	title: string;
@@ -116,7 +118,18 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 						<p class="text-bg-ivory/60">Brugge, België</p>
 					</div>
 				</div>
-				<div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+				<div class="mt-16 pt-10 border-t border-white/5">
+					<p class="text-[10px] uppercase tracking-[0.3em] font-bold text-bg-ivory/30 mb-6 text-center">Onze Sponsors</p>
+					<div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+						<a href="https://www.opendoek.be/" target="_blank" rel="noopener noreferrer">
+							<img src={opendoekLogo.src} alt="Open Doek" class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+						</a>
+						<a href="https://www.vlaanderen.be/cjm/nl" target="_blank" rel="noopener noreferrer">
+							<img src={vlaanderenLogo.src} alt="Vlaanderen verbeelding werkt" class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+						</a>
+					</div>
+				</div>
+				<div class="mt-10 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
 					<p class="text-xs text-bg-ivory/40 uppercase tracking-widest">
 						&copy; {new Date().getFullYear()} Koninklijke Toneelvereniging De Valk.
 					</p>
