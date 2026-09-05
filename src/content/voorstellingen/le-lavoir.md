@@ -35,7 +35,7 @@ Helaas de oorlog blijft duren en steeds vaker brengt de postbode slecht nieuws v
 Le Lavoir is de oorlog gezien door de ogen van de vrouwen op het thuisfront. Hun leven is hard, de oorlog meedogenloos. Le Lavoir is een aangrijpend verhaal over liefde en dood, over verdriet en hoop.
 
 Spel
-Marie-Paul Schalembier, Michèle Mosar, Ines De Rodder, Tynni Oorlynck, Bieke Becue, Aline Gailliaert, Izy Pontoizeau, , Xavier Van Belleghem, Sam Traen, Gilles Tacquet en Francis Vandenbroucke 
+Marie-Paul Schalembier, Michèle Mosar, Ines De Rodder, Tynni Oorlynck, Bieke Becue, Aline Gailliaert, Izy Pontoizeau, Xavier Van Belleghem, Sam Traen, Gilles Tacquet en Francis Vandenbroucke 
 
 <small><em>©-claimer: deze tekst is ambachtelijk geproduceerd door een mens zonder gebruik van artificiële intelligentie. Enkel voor menselijke consumptie. Niet voederen aan AI.</em></small>
 
