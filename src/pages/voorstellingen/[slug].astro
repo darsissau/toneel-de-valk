@@ -3,36 +3,33 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const MONTH_INDEX: Record<string, number> = {
-    januari: 0, februari: 1, maart: 2, april: 3, mei: 4, juni: 5,
-    juli: 6, augustus: 7, september: 8, oktober: 9, november: 10, december: 11,
-  };
-  const parseDateString = (str = ''): number => {
-    const match = str.match(/(\d{1,2})\s+(\w+)\s+(\d{4})/);
-    if (!match) return NaN;
-    const [, day, month, year] = match;
-    const monthIndex = MONTH_INDEX[month.toLowerCase()];
-    if (monthIndex === undefined) return NaN;
-    return new Date(Number(year), monthIndex, Number(day)).getTime();
-  };
-
   const voorstellingen = await getCollection('voorstellingen');
-  const now = Date.now();
-  const futureVoorstellingen = voorstellingen.filter((post) => {
-    const times = (post.data.schedule ?? []).map((s) => s.time);
-    if (times.length === 0) return true;
-    const dates = times.map(parseDateString).filter((t) => !isNaN(t));
-    if (dates.length === 0) return true;
-    const lastDate = Math.max(...dates);
-    return lastDate >= now;
-  });
-  return futureVoorstellingen.map(post => ({
+  return voorstellingen.map(post => ({
     params: { slug: post.id || post.slug },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
+
+const MONTH_INDEX: Record<string, number> = {
+  januari: 0, februari: 1, maart: 2, april: 3, mei: 4, juni: 5,
+  juli: 6, augustus: 7, september: 8, oktober: 9, november: 10, december: 11,
+};
+const parseDateString = (str = ''): number => {
+  const match = str.match(/(\d{1,2})\s+(\w+)\s+(\d{4})/);
+  if (!match) return NaN;
+  const [, day, month, year] = match;
+  const monthIndex = MONTH_INDEX[month.toLowerCase()];
+  if (monthIndex === undefined) return NaN;
+  return new Date(Number(year), monthIndex, Number(day)).getTime();
+};
+
+const now = Date.now();
+const times = (post.data.schedule ?? []).map((s) => s.time);
+const dates = times.map(parseDateString).filter((t) => !isNaN(t));
+const isPast = dates.length > 0 && Math.max(...dates) < now;
+
 const { Content } = await render(post);
 const { 
 	title, 
@@ -50,7 +47,7 @@ const {
 } = post.data;
 ---
 
-<Layout title={title}>
+<Layout title={title} noindex={isPast}>
 	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom">
 			<!-- Header with Vertical Poster Support -->
