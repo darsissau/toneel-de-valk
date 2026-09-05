@@ -15,7 +15,6 @@ schedule:
 image: /images/le-lavoir_voorzijde-flyer_2026-versie9.jpg-1-.jpeg
 ticket_link: https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=179026
 ticket_label: ""
-<<<<<<< HEAD
 support_label: Gerealiseerd met de steun van
 support_partners:
   - name: Vlaamse Gemeenschap
@@ -24,15 +23,6 @@ support_partners:
   - name: Opendoek
     logo: /images/opendoek_basislogo_monotintpetrol.png
     url: https://www.opendoek.be
-=======
-support_partners:
-  - logo: /images/vlaanderen-verbeelding-werkt_donkere-achtergrond.png
-    name: Vlaanderen
-    url: https://www.vlaanderen.be/cjm/nl
-  - logo: /images/opendoek_secundairlogo_wit.png
-    url: https://www.opendoek.be/
-    name: Opendoek
->>>>>>> 91c6f8a0793353c2d509d0cb3c8eb2e5683bdeca
 ---
 Een ochtend in juli 1914 in Jambles, een Frans dorpje in Bourgondië. Er heerst een hittegolf. Ook aan de grens met Duitsland loopt de temperatuur hoog op. Er hangt oorlog in de lucht. Als die maar ver weg blijft, zucht Madeleine. 
 
