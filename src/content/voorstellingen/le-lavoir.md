@@ -23,15 +23,18 @@ support_partners:
     url: https://www.opendoek.be/
     name: Opendoek
 ---
+Een ochtend in juli 1914 in Jambles, een Frans dorpje in Bourgondië. Er heerst een hittegolf. Ook aan de grens met Duitsland loopt de temperatuur hoog op. Er hangt oorlog in de lucht. Als die maar ver weg blijft, zucht Madeleine. 
 
-Een ochtend in juli 1914 in Jambles, een Frans dorpje in Bourgondië. Er heerst een hittegolf. Ook aan de grens met Duitsland loopt de temperatuur hoog op. Er hangt oorlog in de lucht. Als die maar ver weg blijft, zucht Madeleine.
+De lavoir is de ontmoetingsplaats bij uitstek. Madeleine, Flavie, Marie, Simone, Céline en Rosalie komen er niet alleen de was doen, ze ventileren er ook hun besognes en bezorgdheden, storten er hun hart uit en zoeken er verkoeling. Eerst gaat het nog over alledaagse dingen zoals de wijngaard, de druivenpluk, de echtgenoten, de jonge mannen … 
 
-De lavoir is de ontmoetingsplaats bij uitstek. Madeleine, Flavie, Marie, Simone, Céline en Rosalie komen er niet alleen de was doen, ze ventileren er ook hun besognes en bezorgdheden, storten er hun hart uit en zoeken er verkoeling. Eerst gaat het nog over alledaagse dingen zoals de wijngaard, de druivenpluk, de echtgenoten, de jonge mannen … Op Saint Jean, de midzomerzonnewende, lonken de meisjes naar de jongens op zoek naar een flirt of een lief. Maar de jongens worden een voor een gemobiliseerd. De vrouwen blijven alleen achter en zijn op elkaar aangewezen voor de druivenpluk, de wijnproductie, de was en de plas. Voor de vendange zullen ze wel terug zijn, maken de jongens zich sterk of toch zeker tegen Kerst. Helaas steeds vaker brengt de postbode slecht nieuws van het front. Hoop maakt plaats voor verdriet en melancholie. De vrolijke Marie wordt ongeduldig, ze hunkert hard naar een kus. Wat blijft er over van de liefde na vier jaar oorlog?
+Op Saint Jean, de midzomerzonnewende, lonken de meisjes naar de jongens op zoek naar een flirt of een lief. Maar de jongens worden een voor een gemobiliseerd. De vrouwen blijven alleen achter en zijn op elkaar aangewezen voor de druivenpluk, de wijnproductie, de was en de plas. Voor de vendange zullen ze wel terug zijn, maken de jongens zich sterk of toch zeker tegen Kerst. 
+
+Helaas de oorlog blijft duren en steeds vaker brengt de postbode slecht nieuws van aan het front. Hoop maakt plaats voor verdriet en melancholie. De vrolijke Marie wordt ongeduldig, ze hunkert heel hard naar een kus. Wat blijft er over van een mens en van de liefde na vier jaar oorlog? 
 
 Le Lavoir is de oorlog gezien door de ogen van de vrouwen op het thuisfront. Hun leven is hard, de oorlog meedogenloos. Le Lavoir is een aangrijpend verhaal over liefde en dood, over verdriet en hoop.
 
 Spel
-Marie-Paul Schalembier, Michèle Mosar, Ines De Rodder, Tynni Oorlynck, Bieke Becue, Aline Gailliaert, Izy Pontoizeau, Daan Cordemans, Sam Traen, Gilles Tacquet en Amadeo Dierickx
+Marie-Paul Schalembier, Michèle Mosar, Ines De Rodder, Tynni Oorlynck, Bieke Becue, Aline Gailliaert, Izy Pontoizeau, , Xavier Van Belleghem, Sam Traen, Gilles Tacquet en Francis Vandenbroucke 
 
 <small><em>©-claimer: deze tekst is ambachtelijk geproduceerd door een mens zonder gebruik van artificiële intelligentie. Enkel voor menselijke consumptie. Niet voederen aan AI.</em></small>
 
