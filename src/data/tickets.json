@@ -1,6 +1,13 @@
 {
+<<<<<<< HEAD
   "abonnement_price": 26,
   "abonnement_link": "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1414",
   "ticket_price": 15,
   "ticket_link": "https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637#"
+=======
+  "abonnement_link": "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1414",
+  "ticket_link": "https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637#",
+  "abonnement_price": 26,
+  "ticket_price": 15
+>>>>>>> 91c6f8a0793353c2d509d0cb3c8eb2e5683bdeca
 }
