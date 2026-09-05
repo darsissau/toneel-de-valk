@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ticketPrices from '../data/ticket_prices.json';
-import ticketLinks from '../data/ticket_links.json';
+import tickets from '../data/tickets.json';
 ---
 
 <Layout title="Tickets" transparentNav={false}>
@@ -18,11 +17,11 @@ import ticketLinks from '../data/ticket_links.json';
 						<h2 class="text-3xl font-serif font-bold text-accent-burgundy mb-4">Abonnement</h2>
 						<p class="text-primary-text/60 mb-4 italic font-serif leading-relaxed h-full">Koop uw abonnement voor het volledige seizoen en mis geen enkele voorstelling.</p>
 						<div class="mb-10 text-center">
-							<span class="text-3xl font-serif font-bold text-accent-gold">€{ticketPrices.abonnement_price}</span>
-							<span class="text-primary-text/60 italic font-serif"> / seizoen</span>
-						</div>
-						<a href={ticketLinks.abonnement_link} target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
-							Abonnement kopen
+					<span class="text-3xl font-serif font-bold text-accent-gold">€{tickets.abonnement_price}</span>
+						<span class="text-primary-text/60 italic font-serif"> / seizoen</span>
+					</div>
+					<a href={tickets.abonnement_link} target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
+						Abonnement kopen
 						</a>
 					</div>
 					
@@ -31,11 +30,11 @@ import ticketLinks from '../data/ticket_links.json';
 						<h2 class="text-3xl font-serif font-bold text-accent-burgundy mb-4">Voorstelling</h2>
 						<p class="text-primary-text/60 mb-4 italic font-serif leading-relaxed h-full">Koop losse tickets voor een specifieke voorstelling naar keuze.</p>
 						<div class="mb-10 text-center">
-							<span class="text-3xl font-serif font-bold text-accent-gold">€{ticketPrices.ticket_price}</span>
-							<span class="text-primary-text/60 italic font-serif"> / voorstelling</span>
-						</div>
-						<a href={ticketLinks.ticket_link} target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
-							Tickets per voorstelling
+					<span class="text-3xl font-serif font-bold text-accent-gold">€{tickets.ticket_price}</span>
+						<span class="text-primary-text/60 italic font-serif"> / voorstelling</span>
+					</div>
+					<a href={tickets.ticket_link} target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500 w-full text-center">
+						Tickets per voorstelling
 						</a>
 					</div>
 				</div>

@@ -44,7 +44,9 @@ const {
 	director, 
 	location, 
 	schedule,
-	summary
+	summary,
+	support_label,
+	support_partners,
 } = post.data;
 ---
 
@@ -122,6 +124,25 @@ const {
 					<div class="prose prose-lg md:prose-xl prose-serif max-w-none text-primary-text/80 leading-relaxed drop-cap">
 						<Content />
 					</div>
+
+					{support_partners && support_partners.length > 0 && (
+						<div class="mt-12 pt-8 border-t border-ui-border">
+							<p class="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] text-primary-text/40 mb-6">
+								{support_label || "Gerealiseerd met de steun van:"}
+							</p>
+							<div class="flex gap-8 items-center flex-wrap">
+								{support_partners.map(partner => (
+									<a href={partner.url} target="_blank" rel="noopener noreferrer" title={partner.name}>
+										<img 
+											src={partner.logo} 
+											alt={partner.name} 
+											class="h-[60px] w-auto object-contain"
+										/>
+									</a>
+								))}
+							</div>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -1,8 +1,7 @@
 ---
 import '../styles/global.css';
 import logoWhite from '../assets/logo_white.svg';
-import opendoekLogo from '../assets/sponsors/OPENDOEK_secundairlogo_Wit.png';
-import vlaanderenLogo from '../assets/sponsors/Vlaanderen verbeelding werkt_donkere achtergrond.png';
+import sponsorsData from '../data/sponsors.json';
 
 interface Props {
 	title: string;
@@ -12,6 +11,7 @@ interface Props {
 }
 
 const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false, noindex = false } = Astro.props;
+const { sponsors } = sponsorsData;
 ---
 
 <!doctype html>
@@ -36,23 +36,25 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 	<body class="min-h-screen flex flex-col selection:bg-accent-gold selection:text-white overflow-x-hidden">
 		
 		<!-- Mobile Menu Overlay -->
-		<div id="mobile-menu" class="fixed inset-0 bg-primary-text z-[100] hidden flex-col items-center justify-center space-y-10 w-full h-[100dvh]">
+		<div id="mobile-menu" class="fixed inset-0 bg-primary-text z-[100] hidden flex-col items-center justify-center w-full h-[100dvh] overflow-y-auto">
 			<button id="menu-close" class="absolute top-8 right-8 text-bg-ivory p-4">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
 				</svg>
 			</button>
-			<nav class="flex flex-col items-center space-y-8">
-				<a href="/" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Home</a>
-				<a href="/voorstellingen" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Voorstellingen</a>
-				<a href="/nieuws" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Nieuws</a>
-				<a href="/contact" class="text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Contact</a>
-				<a href="/tickets" class="mt-4 px-8 py-4 bg-accent-gold text-bg-ivory text-4xl font-serif font-bold hover:bg-white hover:text-accent-burgundy transition-all duration-300">Tickets</a>
+			<nav class="flex flex-col items-center space-y-5 md:space-y-6 py-6 md:py-0">
+				<a href="/" class="text-3xl md:text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Home</a>
+				<a href="/voorstellingen" class="text-3xl md:text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Voorstellingen</a>
+				<a href="/nieuws" class="text-3xl md:text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Nieuws</a>
+				<a href="/fotos" class="text-3xl md:text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Foto's</a>
+				<a href="/contact" class="text-3xl md:text-4xl font-serif font-bold text-bg-ivory hover:text-accent-gold transition-colors">Contact</a>
+				<a href="/tickets" class="mt-2 px-8 py-3 bg-accent-gold text-bg-ivory text-3xl md:text-4xl font-serif font-bold hover:bg-white hover:text-accent-burgundy transition-all duration-300">Tickets</a>
 			</nav>
-			<div class="pt-12 flex flex-col items-center space-y-4">
+			<div class="pt-8 md:pt-12 flex flex-col items-center space-y-4">
 				<div class="w-12 h-px bg-accent-gold/30"></div>
 				<span class="text-[10px] uppercase tracking-[0.4em] font-bold text-accent-gold">Brugge — Sinds 1945</span>
 			</div>
+	
 		</div>
 
 		<header id="main-header" class={`fixed top-0 w-full z-50 transition-[background-color,padding,border-color,color] duration-500 ${transparentNav ? 'bg-transparent py-6 md:py-8 text-white' : 'bg-bg-ivory/95 backdrop-blur-sm py-3 md:py-4 border-b border-ui-border text-primary-text'}`}>
@@ -72,15 +74,16 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 				</div>
 
 				
-				<ul class="hidden md:flex space-x-10 items-center">
+				<ul class="hidden lg:flex space-x-7 xl:space-x-10 items-center">
 					<li><a href="/" class="nav-link">Home</a></li>
 					<li><a href="/voorstellingen" class="nav-link">Voorstellingen</a></li>
 					<li><a href="/nieuws" class="nav-link">Nieuws</a></li>
+					<li><a href="/fotos" class="nav-link">Foto's</a></li>
 					<li><a href="/contact" class="nav-link">Contact</a></li>
 					<li><a href="/tickets" class="px-6 py-3 bg-accent-gold text-white font-sans font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-accent-burgundy transition-colors duration-500">Tickets</a></li>
 				</ul>
 
-				<button id="menu-toggle" class="md:hidden p-2 -mr-2 transition-colors duration-500 aria-label='Open menu'">
+				<button id="menu-toggle" class="lg:hidden p-2 -mr-2 transition-colors duration-500 aria-label='Open menu'">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
 					</svg>
@@ -109,8 +112,9 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 						<h4 class="text-sm uppercase tracking-widest font-bold mb-6 text-accent-gold">Menu</h4>
 						<ul class="space-y-4">
 							<li><a href="/voorstellingen" class="text-bg-ivory/60 hover:text-white transition-colors">Alle Voorstellingen</a></li>
-							<li><a href="/nieuws" class="text-bg-ivory/60 hover:text-white transition-colors">Laatste Nieuws</a></li>
-							<li><a href="/contact" class="text-bg-ivory/60 hover:text-white transition-colors">Contact</a></li>
+						<li><a href="/nieuws" class="text-bg-ivory/60 hover:text-white transition-colors">Laatste Nieuws</a></li>
+						<li><a href="/fotos" class="text-bg-ivory/60 hover:text-white transition-colors">Foto's</a></li>
+						<li><a href="/contact" class="text-bg-ivory/60 hover:text-white transition-colors">Contact</a></li>
 							<li><a href="/tickets" class="text-bg-ivory/60 hover:text-white transition-colors">Tickets</a></li>
 							<li><a href="/privacy" class="text-bg-ivory/60 hover:text-white transition-colors">Privacybeleid</a></li>
 						</ul>
@@ -121,17 +125,18 @@ const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef thea
 						<p class="text-bg-ivory/60">Brugge, België</p>
 					</div>
 				</div>
+			{sponsors && sponsors.length > 0 && (
 				<div class="mt-16 pt-10 border-t border-white/5">
 					<p class="text-[10px] uppercase tracking-[0.3em] font-bold text-bg-ivory/30 mb-6 text-center">Onze Sponsors</p>
 					<div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-						<a href="https://www.opendoek.be/" target="_blank" rel="noopener noreferrer">
-							<img src={opendoekLogo.src} alt="Open Doek" class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-						</a>
-						<a href="https://www.vlaanderen.be/cjm/nl" target="_blank" rel="noopener noreferrer">
-							<img src={vlaanderenLogo.src} alt="Vlaanderen verbeelding werkt" class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-						</a>
+						{sponsors.map(partner => (
+							<a href={partner.url} target="_blank" rel="noopener noreferrer">
+								<img src={partner.logo} alt={partner.name} class="h-10 md:h-12 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+							</a>
+						))}
 					</div>
 				</div>
+			)}
 				<div class="mt-10 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
 					<p class="text-xs text-bg-ivory/40 uppercase tracking-widest">
 						&copy; {new Date().getFullYear()} Koninklijke Toneelvereniging De Valk.

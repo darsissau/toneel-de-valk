@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import sponsorsData from '../data/sponsors.json';
+
+const { page_title, page_intro, sponsors } = sponsorsData;
+---
+
+<Layout title={page_title} transparentNav={true}>
+	<section class="relative h-[50svh] md:h-[60vh] flex items-center bg-primary-text overflow-hidden">
+		<div class="absolute inset-0 z-0">
+			<div class="absolute inset-0 bg-primary-text/20"></div>
+		</div>
+		
+		<div class="container-custom relative z-10 w-full">
+			<div class="fade-in pt-12 md:pt-0">
+				<span class="text-accent-gold uppercase tracking-[0.6em] text-[9px] md:text-[10px] font-bold mb-4 md:mb-6 block">PARTNERS & SUBSIDIE</span>
+				<h1 class="text-5xl md:text-9xl text-bg-ivory leading-none tracking-tighter uppercase">
+					STE<span class="italic font-normal">UN</span>
+				</h1>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-16 md:py-32 bg-bg-ivory">
+		<div class="container-custom">
+			<div class="max-w-3xl mx-auto text-center mb-16 md:mb-24">
+				<p class="text-primary-text/60 text-lg md:text-xl leading-relaxed italic border-l-2 border-accent-gold/20 pl-6 text-left">
+					{page_intro}
+				</p>
+			</div>
+
+			{sponsors && sponsors.length > 0 && (
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-4xl mx-auto">
+					{sponsors.map(partner => (
+						<a 
+							href={partner.url} 
+							target="_blank" 
+							rel="noopener noreferrer"
+							class="group flex flex-col items-center justify-center p-10 md:p-14 bg-white border border-primary-text/5 hover:border-accent-gold/30 transition-all duration-500 shadow-sm hover:shadow-md"
+						>
+							<img 
+								src={partner.logo} 
+								alt={partner.name} 
+								class="h-16 md:h-20 w-auto object-contain mb-6 group-hover:scale-105 transition-transform duration-500"
+							/>
+							<span class="text-[10px] uppercase tracking-[0.3em] font-bold text-primary-text/30 group-hover:text-accent-gold transition-colors">
+								{partner.name}
+							</span>
+						</a>
+					))}
+				</div>
+			)}
+		</div>
+	</section>
+</Layout>

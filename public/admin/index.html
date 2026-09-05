@@ -230,6 +230,45 @@
           color: #C8A24A;
           font-weight: 700;
         }
+        .support-section {
+          margin-top: 60px;
+          padding-top: 40px;
+          border-top: 1px solid #eee;
+        }
+        .support-label {
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.4em;
+          font-weight: 700;
+          color: rgba(28, 28, 28, 0.4);
+          margin-bottom: 20px;
+        }
+        .support-logos {
+          display: flex;
+          gap: 40px;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        .support-logos img {
+          height: 60px;
+          width: auto;
+          object-fit: contain;
+        }
+        .support-placeholder {
+          height: 60px;
+          min-width: 160px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px dashed rgba(28, 28, 28, 0.25);
+          color: rgba(28, 28, 28, 0.4);
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          background: rgba(200, 162, 74, 0.05);
+          padding: 0 12px;
+        }
       `, { raw: true });
 
       // 3. De Preview Component
@@ -246,6 +285,8 @@
           var ticket_link = entry.getIn(['data', 'ticket_link']);
           var ticket_label = entry.getIn(['data', 'ticket_label']);
           var summary = entry.getIn(['data', 'summary']);
+          var support_label = entry.getIn(['data', 'support_label']);
+          var support_partners = entry.getIn(['data', 'support_partners']);
           var body = this.props.widgetFor('body');
 
           return h('div', { className: 'preview-container' },
@@ -280,13 +321,301 @@
                 }) : h('li', {}, 'Geen data ingevoerd'))
               ),
               h('div', { className: 'content-body' }, body)
-            )
+            ),
+            support_partners && support_partners.size > 0 ? h('div', { className: 'support-section' },
+              h('p', { className: 'support-label' }, support_label || 'Gerealiseerd met de steun van:'),
+              h('div', { className: 'support-logos' },
+                support_partners.map(function(partner, i) {
+                  var logo = partner.get('logo');
+                  var name = partner.get('name') || '';
+                  var url = partner.get('url') || '#';
+                  return h('a', { key: i, href: url, target: '_blank', rel: 'noopener noreferrer', title: name, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' } },
+                    logo ? h('img', { src: this.props.getAsset(logo), alt: name }) : h('span', { className: 'support-placeholder' }, 'Opslaan om logo te zien')
+                  );
+                }.bind(this))
+              )
+            ) : null
           );
         }
       });
 
       CMS.registerPreviewTemplate("voorstellingen", PostPreview);
       CMS.registerPreviewTemplate("nieuws", PostPreview);
+
+      // Sponsors Preview
+      CMS.registerPreviewStyle(`
+        .sponsors-preview {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 60px 40px;
+          font-family: 'Inter', sans-serif;
+        }
+        .sponsors-hero {
+          background-color: #1C1C1C;
+          padding: 80px 40px;
+          margin: -60px -40px 60px -40px;
+          text-align: left;
+        }
+        .sponsors-hero .sponsors-label {
+          color: #C8A24A;
+          text-transform: uppercase;
+          letter-spacing: 0.6em;
+          font-size: 10px;
+          font-weight: 700;
+          margin-bottom: 16px;
+        }
+        .sponsors-hero h1 {
+          color: #FCFBF7;
+          font-size: 90px;
+          line-height: 0.85;
+          letter-spacing: -0.04em;
+          margin: 0;
+          font-family: 'Playfair Display', serif;
+        }
+        .sponsors-hero h1 em {
+          font-style: italic;
+          font-weight: 400;
+        }
+        .sponsors-intro {
+          font-size: 18px;
+          line-height: 1.7;
+          color: rgba(28, 28, 28, 0.6);
+          font-style: italic;
+          border-left: 2px solid rgba(200, 162, 74, 0.2);
+          padding-left: 24px;
+          margin-bottom: 60px;
+          max-width: 700px;
+        }
+        .sponsors-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          max-width: 700px;
+          margin: 0 auto;
+        }
+        .sponsor-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 50px 40px;
+          background: white;
+          border: 1px solid rgba(28, 28, 28, 0.05);
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        .sponsor-card:hover {
+          border-color: rgba(200, 162, 74, 0.3);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .sponsor-card img {
+          height: 80px;
+          width: auto;
+          object-fit: contain;
+          margin-bottom: 20px;
+        }
+        .sponsor-card .sponsor-name {
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.3em;
+          font-weight: 700;
+          color: rgba(28, 28, 28, 0.3);
+        }
+        .sponsors-empty {
+          text-align: center;
+          padding: 60px 20px;
+          color: rgba(28, 28, 28, 0.3);
+          font-style: italic;
+        }
+      `, { raw: true });
+
+      var SponsorsPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var page_title = entry.getIn(['data', 'page_title']) || 'Steun ons';
+          var page_intro = entry.getIn(['data', 'page_intro']) || '';
+          var sponsors = entry.getIn(['data', 'sponsors']);
+
+          var sponsorCards = null;
+          if (sponsors && sponsors.size > 0) {
+            sponsorCards = h('div', { className: 'sponsors-grid' },
+              sponsors.map(function(sponsor, i) {
+                var logo = sponsor.get('logo');
+                var name = sponsor.get('name') || '';
+                var url = sponsor.get('url') || '#';
+                return h('a', { key: i, className: 'sponsor-card', href: url, target: '_blank', rel: 'noopener noreferrer' },
+                  logo ? h('img', { src: this.props.getAsset(logo), alt: name }) : h('div', { className: 'support-placeholder' }, 'Opslaan om logo te zien'),
+                  h('span', { className: 'sponsor-name' }, name)
+                );
+              }.bind(this))
+            );
+          } else {
+            sponsorCards = h('div', { className: 'sponsors-empty' }, 'Nog geen sponsoren toegevoegd.');
+          }
+
+          return h('div', {},
+            h('div', { className: 'sponsors-hero' },
+              h('div', { className: 'sponsors-label' }, 'PARTNERS & SUBSIDIE'),
+              h('h1', { dangerouslySetInnerHTML: { __html: 'STE<span style="font-style:italic;font-weight:400">UN</span>' } })
+            ),
+            h('div', { className: 'sponsors-preview' },
+              page_intro ? h('p', { className: 'sponsors-intro' }, page_intro) : null,
+              sponsorCards
+            )
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate("sponsors", SponsorsPreview);
+
+      // Tickets Preview
+      CMS.registerPreviewStyle(`
+        .tickets-preview {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 40px;
+          font-family: 'Inter', sans-serif;
+          background: #FCFBF7;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .tickets-inner {
+          text-align: center;
+          width: 100%;
+        }
+        .tickets-label {
+          color: #C8A24A;
+          text-transform: uppercase;
+          letter-spacing: 0.6em;
+          font-size: 10px;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+        .tickets-title {
+          font-size: 70px;
+          line-height: 0.9;
+          letter-spacing: -0.04em;
+          margin-bottom: 30px;
+          font-family: 'Playfair Display', serif;
+          color: #1C1C1C;
+        }
+        .tickets-title em {
+          font-style: italic;
+          font-weight: 400;
+        }
+        .tickets-divider {
+          width: 60px;
+          height: 1px;
+          background: #C8A24A;
+          margin: 0 auto 50px auto;
+        }
+        .tickets-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+        }
+        .ticket-card {
+          background: white;
+          border: 1px solid rgba(28, 28, 28, 0.06);
+          padding: 50px 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transition: border-color 0.3s;
+        }
+        .ticket-card:hover {
+          border-color: #C8A24A;
+        }
+        .ticket-card h2 {
+          font-size: 28px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          color: #6B1D2A;
+          margin: 0 0 12px 0;
+        }
+        .ticket-card p {
+          color: rgba(28, 28, 28, 0.6);
+          font-style: italic;
+          font-family: 'Playfair Display', serif;
+          line-height: 1.6;
+          margin: 0 0 24px 0;
+        }
+        .ticket-price {
+          margin-bottom: 30px;
+          text-align: center;
+        }
+        .ticket-price .amount {
+          font-size: 28px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          color: #C8A24A;
+        }
+        .ticket-price .period {
+          color: rgba(28, 28, 28, 0.6);
+          font-style: italic;
+          font-family: 'Playfair Display', serif;
+        }
+        .ticket-btn {
+          display: block;
+          width: 100%;
+          text-align: center;
+          background: #C8A24A;
+          color: white;
+          padding: 14px 24px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          font-size: 11px;
+          font-family: 'Inter', sans-serif;
+          text-decoration: none;
+          transition: background 0.3s;
+        }
+        .ticket-btn:hover {
+          background: #6B1D2A;
+        }
+      `, { raw: true });
+
+      var TicketsPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var abonnement_price = entry.getIn(['data', 'abonnement_price']);
+          var abonnement_link = entry.getIn(['data', 'abonnement_link']) || '#';
+          var ticket_price = entry.getIn(['data', 'ticket_price']);
+          var ticket_link = entry.getIn(['data', 'ticket_link']) || '#';
+
+          return h('div', { className: 'tickets-preview' },
+            h('div', { className: 'tickets-inner' },
+              h('p', { className: 'tickets-label' }, 'TICKETS BESTELLEN'),
+              h('h1', { className: 'tickets-title', dangerouslySetInnerHTML: { __html: 'Kies uw<br/><em>ticket type</em>' } }),
+              h('div', { className: 'tickets-divider' }),
+              h('div', { className: 'tickets-grid' },
+                h('div', { className: 'ticket-card' },
+                  h('h2', {}, 'Abonnement'),
+                  h('p', {}, 'Koop uw abonnement voor het volledige seizoen en mis geen enkele voorstelling.'),
+                  h('div', { className: 'ticket-price' },
+                    h('span', { className: 'amount' }, '€' + (abonnement_price || '—')),
+                    h('span', { className: 'period' }, ' / seizoen')
+                  ),
+                  h('a', { className: 'ticket-btn', href: abonnement_link, target: '_blank' }, 'Abonnement kopen')
+                ),
+                h('div', { className: 'ticket-card' },
+                  h('h2', {}, 'Voorstelling'),
+                  h('p', {}, 'Koop losse tickets voor een specifieke voorstelling naar keuze.'),
+                  h('div', { className: 'ticket-price' },
+                    h('span', { className: 'amount' }, '€' + (ticket_price || '—')),
+                    h('span', { className: 'period' }, ' / voorstelling')
+                  ),
+                  h('a', { className: 'ticket-btn', href: ticket_link, target: '_blank' }, 'Tickets per voorstelling')
+                )
+              )
+            )
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate("tickets", TicketsPreview);
 
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {

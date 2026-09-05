@@ -1,12 +1,12 @@
-const GOOGLE_PHOTOS_ALBUM_URL = 'https://photos.app.goo.gl/dFwLHePzv4GEXrDDA';
+const GOOGLE_PHOTOS_ALBUM_URL = "https://photos.app.goo.gl/uTnLSD8vKqHBRowG6";
 const IMAGE_WIDTH = 900;
 const IMAGE_HEIGHT = 1200;
 
 export const handler = async () => {
   try {
     const res = await fetch(GOOGLE_PHOTOS_ALBUM_URL, {
-      redirect: 'follow',
-      headers: { 'User-Agent': 'Mozilla/5.0' },
+      redirect: "follow",
+      headers: { "User-Agent": "Mozilla/5.0" },
     });
 
     if (!res.ok) {
@@ -33,15 +33,18 @@ export const handler = async () => {
     return {
       statusCode: 200,
       headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=21600, s-maxage=21600, stale-while-revalidate=86400',
+        "Content-Type": "application/json",
+        "Cache-Control":
+          "public, max-age=21600, s-maxage=21600, stale-while-revalidate=86400",
       },
       body: JSON.stringify({ photos, count: photos.length }),
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: err instanceof Error ? err.message : 'Unknown error' }),
+      body: JSON.stringify({
+        error: err instanceof Error ? err.message : "Unknown error",
+      }),
     };
   }
 };
