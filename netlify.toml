@@ -6,6 +6,101 @@
   directory = "netlify/functions"
 
 [[redirects]]
+  from = "/contact"
+  to = "/contact/"
+  status = 200
+
+[[redirects]]
+  from = "/steun"
+  to = "/steun/"
+  status = 200
+
+[[redirects]]
+  from = "/tickets"
+  to = "/tickets/"
+  status = 200
+
+[[redirects]]
+  from = "/voorstellingen"
+  to = "/voorstellingen/"
+  status = 200
+
+[[redirects]]
+  from = "/nieuws"
+  to = "/nieuws/"
+  status = 200
+
+[[redirects]]
+  from = "/fotos"
+  to = "/fotos/"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/"
+  status = 200
+
+[[redirects]]
+  from = "/bedankt"
+  to = "/bedankt/"
+  status = 200
+
+[[redirects]]
+  from = "/welovedevalk4ever"
+  to = "/welovedevalk4ever/"
+  status = 200
+
+[[redirects]]
+  from = "/voorstellingen/feest"
+  to = "/voorstellingen/feest/"
+  status = 200
+
+[[redirects]]
+  from = "/voorstellingen/le-lavoir"
+  to = "/voorstellingen/le-lavoir/"
+  status = 200
+
+[[redirects]]
+  from = "/voorstellingen/de-olifantman"
+  to = "/voorstellingen/de-olifantman/"
+  status = 200
+
+[[redirects]]
+  from = "/voorstellingen/minor-swing"
+  to = "/voorstellingen/minor-swing/"
+  status = 200
+
+[[redirects]]
+  from = "/nieuws/nieuwe-website-live"
+  to = "/nieuws/nieuwe-website-live/"
+  status = 200
+
+[[redirects]]
   from = "/api/photos"
   to = "/.netlify/functions/photos"
   status = 200
+
+[[redirects]]
+  from = "/events/*"
+  to = "/voorstellingen/"
+  status = 301
+
+[[redirects]]
+  from = "/events"
+  to = "/voorstellingen/"
+  status = 301
+
+[[redirects]]
+  from = "/all-events/*"
+  to = "/voorstellingen/"
+  status = 301
+
+[[redirects]]
+  from = "/all-events"
+  to = "/voorstellingen/"
+  status = 301
+
+[[redirects]]
+  from = "/ticketverkoop-abonnementen"
+  to = "/tickets/"
+  status = 301
