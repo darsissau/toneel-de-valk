@@ -29,8 +29,8 @@ import Layout from '../layouts/Layout.astro';
 				</p>
 			</div>
 
-			<div id="photos-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-				<div class="col-span-full py-20 text-center">
+			<div id="photos-grid" class="columns-2 sm:columns-3 lg:columns-4 gap-3 md:gap-4">
+				<div class="w-full py-20 text-center">
 					<p class="text-primary-text/40 text-sm uppercase tracking-widest">Album wordt geladen...</p>
 				</div>
 			</div>
@@ -77,7 +77,7 @@ import Layout from '../layouts/Layout.astro';
 		let photos = [];
 		let current = 0;
 
-		const thumbFor = (url) => url.replace(/=w\d+-h\d+-k-no/, '=w400-h533-k-no');
+		const thumbFor = (url) => url.replace(/=w\d+-k-no/, '=w800-k-no');
 
 		async function loadPhotos() {
 			const endpoint = '/api/photos';
@@ -87,8 +87,8 @@ import Layout from '../layouts/Layout.astro';
 				const data = await res.json();
 				render(data.photos);
 			} catch {
-				grid.innerHTML =
-					'<div class="col-span-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Kon het album niet laden. Probeer later opnieuw.</div>';
+grid.innerHTML =
+				'<div class="w-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Kon het album niet laden. Probeer later opnieuw.</div>';
 			}
 		}
 
@@ -97,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
 			btn.type = 'button';
 			btn.setAttribute('aria-label', `Foto ${index + 1} vergroten`);
 			btn.className =
-				'group block overflow-hidden bg-primary-text/5 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent-gold w-full';
+				'group block w-full mb-3 md:mb-4 break-inside-avoid overflow-hidden bg-primary-text/5 cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent-gold';
 			const img = document.createElement('img');
 			img.src = src;
 			img.alt = `Foto ${index + 1}`;
@@ -105,7 +105,7 @@ import Layout from '../layouts/Layout.astro';
 			img.decoding = 'async';
 			img.fetchpriority = index < 4 ? 'high' : 'low';
 			img.className =
-				'w-full aspect-[3/4] object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700';
+				'w-full h-auto grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700';
 			btn.appendChild(img);
 			btn.addEventListener('click', () => openLightbox(index));
 			return btn;
@@ -114,8 +114,8 @@ import Layout from '../layouts/Layout.astro';
 		function render(dataPhotos) {
 			grid.innerHTML = '';
 			if (!Array.isArray(dataPhotos) || dataPhotos.length === 0) {
-				grid.innerHTML =
-					'<div class="col-span-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Geen foto\'s gevonden.</div>';
+grid.innerHTML =
+				'<div class="w-full py-20 text-center text-primary-text/40 text-sm uppercase tracking-widest">Geen foto\'s gevonden.</div>';
 				return;
 			}
 			photos = dataPhotos;

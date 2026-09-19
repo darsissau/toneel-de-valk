@@ -44,6 +44,7 @@ export default defineConfig({
       !page.includes('/fotos') &&
       !page.includes('/nieuws') &&
       !page.includes('/privacy') &&
+      !page.includes('/steun') &&
       !pastSlugs.some((slug) => page.includes(slug)),
   })],
   vite: {

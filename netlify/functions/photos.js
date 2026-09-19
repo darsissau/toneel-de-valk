@@ -1,6 +1,5 @@
 const GOOGLE_PHOTOS_ALBUM_URL = "https://photos.app.goo.gl/uTnLSD8vKqHBRowG6";
-const IMAGE_WIDTH = 900;
-const IMAGE_HEIGHT = 1200;
+const IMAGE_WIDTH = 1600;
 
 export const handler = async () => {
   try {
@@ -27,7 +26,7 @@ export const handler = async () => {
 
     const photos = Array.from(tokens).map(
       (token) =>
-        `https://lh3.googleusercontent.com/pw/${token}=w${IMAGE_WIDTH}-h${IMAGE_HEIGHT}-k-no`,
+        `https://lh3.googleusercontent.com/pw/${token}=w${IMAGE_WIDTH}-k-no`,
     );
 
     return {
