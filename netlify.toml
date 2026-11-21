@@ -45,10 +45,18 @@
   to = "/bedankt/"
   status = 200
 
+# Geheime ticketlink: echte serverdoorverwijzing (geen HTML-pagina met meta refresh)
 [[redirects]]
   from = "/welovedevalk4ever"
-  to = "/welovedevalk4ever/"
-  status = 200
+  to = "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1408"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/welovedevalk4ever/"
+  to = "https://be.ticketgang.eu/eventPackSale.php?org=204637&pack=1408"
+  status = 302
+  force = true
 
 [[redirects]]
   from = "/voorstellingen/feest"

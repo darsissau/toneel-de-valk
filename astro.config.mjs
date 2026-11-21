@@ -39,7 +39,6 @@ export default defineConfig({
   site: 'https://toneeldevalk.be', // Pas dit aan naar je uiteindelijke domein
   integrations: [sitemap({
     filter: (page) =>
-      !page.includes('/welovedevalk4ever') &&
       !page.includes('/bedankt') &&
       !page.includes('/fotos') &&
       !page.includes('/nieuws') &&

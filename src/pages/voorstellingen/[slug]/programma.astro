@@ -18,10 +18,12 @@ const { pdf, title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="robots" content="noindex" />
+		<meta name="description" content={`Programmaboekje van ${title}, Toneel De Valk.`} />
 		<meta http-equiv="refresh" content={`0;url=${pdf}`} />
 		<title>Programmaboekje {title} | Toneel De Valk</title>
 	</head>
 	<body style="font-family: sans-serif; padding: 2rem;">
-		<p><a href={pdf}>Open het programmaboekje van {title}</a></p>
+		<h1>Programmaboekje {title}</h1>
+		<p><a href={pdf}>Open het programmaboekje</a></p>
 	</body>
 </html>

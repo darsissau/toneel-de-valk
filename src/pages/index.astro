@@ -128,7 +128,8 @@ const sortedNieuws = nieuws.sort((a, b) => {
 
 	<section class="act-section bg-bg-ivory relative overflow-hidden">
 		<div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-			<img src={logoWhite.src} alt="" class="w-[80vw] max-w-[800px] h-auto invert" />
+			<!-- Decoratief: aria-hidden voor schermlezers, alt-tekst omdat Bing een lege alt als fout meldt -->
+			<img src={logoWhite.src} alt="Logo De Valk" aria-hidden="true" class="w-[80vw] max-w-[800px] h-auto invert" />
 		</div>
 		<div class="container-custom text-center relative z-10">
 			<span class="text-accent-gold text-[10px] uppercase tracking-[0.6em] mb-12 block">Onze Broedplaats</span>

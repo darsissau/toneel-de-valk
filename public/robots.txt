@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+# Beheerpaneel en QR-doorverwijzingen naar PDF's horen niet in zoekmachines
+Disallow: /admin/
+Disallow: /voorstellingen/*/programma/
 
 Sitemap: https://toneeldevalk.be/sitemap-index.xml
