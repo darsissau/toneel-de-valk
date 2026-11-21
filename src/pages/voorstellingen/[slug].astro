@@ -67,11 +67,14 @@ const qrCodes = [
 	{ file: 'qr', label: 'Voorstelling' },
 	...(pdf ? [{ file: 'qr-programma', label: 'Programmaboekje' }] : []),
 ];
+// Deelbeeld 1200x630 uit og.jpg.ts; externe afbeeldingen (URL) gaan ongewijzigd mee
+const ogImage = image.startsWith('/') ? `/voorstellingen/${post.id}/og.jpg` : image;
+const ogImageSize: [number, number] | undefined = image.startsWith('/') ? [1200, 630] : undefined;
 const mailHref = `mailto:?subject=${t}&body=${encodeURIComponent(`${summary}\n\n${pageUrl}`)}`;
 const iconBtn = 'w-11 h-11 inline-flex items-center justify-center border border-primary-text/20 text-primary-text/70 hover:border-accent-gold hover:text-accent-gold transition-colors';
 ---
 
-<Layout title={title} description={summary} image={image} noindex={isPast}>
+<Layout title={title} description={summary} image={ogImage} imageSize={ogImageSize} noindex={isPast}>
 	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom">
 			<!-- Header with Vertical Poster Support -->

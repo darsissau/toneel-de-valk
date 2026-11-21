@@ -9,9 +9,10 @@ interface Props {
 	transparentNav?: boolean;
 	noindex?: boolean;
 	image?: string;
+	imageSize?: [number, number];
 }
 
-const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false, noindex = false, image } = Astro.props;
+const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false, noindex = false, image, imageSize } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const { sponsors } = sponsorsData;
 ---
@@ -36,6 +37,8 @@ const { sponsors } = sponsorsData;
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalUrl} />
 		{image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
+		{image && imageSize && <meta property="og:image:width" content={String(imageSize[0])} />}
+		{image && imageSize && <meta property="og:image:height" content={String(imageSize[1])} />}
 		<meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
 
 		<!-- Google Fonts -->
