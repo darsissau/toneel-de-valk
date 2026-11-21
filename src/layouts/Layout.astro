@@ -8,9 +8,11 @@ interface Props {
 	description?: string;
 	transparentNav?: boolean;
 	noindex?: boolean;
+	image?: string;
 }
 
-const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false, noindex = false } = Astro.props;
+const { title, description = "Koninklijke Toneelvereniging De Valk - Beleef theater dat raakt", transparentNav = false, noindex = false, image } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const { sponsors } = sponsorsData;
 ---
 
@@ -23,8 +25,18 @@ const { sponsors } = sponsorsData;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
+		<link rel="canonical" href={canonicalUrl} />
 		<title>{title} | Koninklijke Toneelvereniging De Valk</title>
+
+		<!-- Voorbeeldkaart bij delen (WhatsApp, Facebook, LinkedIn, X, ...) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="nl_BE" />
+		<meta property="og:site_name" content="Koninklijke Toneelvereniging De Valk" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		{image && <meta property="og:image" content={new URL(image, Astro.site).href} />}
+		<meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

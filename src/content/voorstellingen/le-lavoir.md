@@ -16,7 +16,7 @@ image: /images/le-lavoir_voorzijde-flyer_2026-versie9.jpg-1-.jpeg
 ticket_link: https://be.ticketgang.eu/orgFrameSaleNew.php?org=204637&event=179026
 ticket_label: ""
 pdf: /pdf/le-lavoir-programma.pdf
-pdf_label: Programmaboekje (PDF)
+pdf_label: Programmaboekje
 support_label: Gerealiseerd met de steun van
 support_partners:
   - name: Vlaamse Gemeenschap

@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+
+// Vaste link voor de programma-QR: blijft werken als de PDF later vervangen wordt
+export async function getStaticPaths() {
+  const voorstellingen = await getCollection('voorstellingen');
+  return voorstellingen
+    .filter((post) => post.data.pdf)
+    .map((post) => ({ params: { slug: post.id }, props: { pdf: post.data.pdf, title: post.data.title } }));
+}
+
+const { pdf, title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="nl-BE">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="robots" content="noindex" />
+		<meta http-equiv="refresh" content={`0;url=${pdf}`} />
+		<title>Programmaboekje {title} | Toneel De Valk</title>
+	</head>
+	<body style="font-family: sans-serif; padding: 2rem;">
+		<p><a href={pdf}>Open het programmaboekje van {title}</a></p>
+	</body>
+</html>

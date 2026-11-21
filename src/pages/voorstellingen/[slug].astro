@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { siWhatsapp, siFacebook, siX, siTelegram, siBluesky } from 'simple-icons';
 
 export async function getStaticPaths() {
   const voorstellingen = await getCollection('voorstellingen');
@@ -47,9 +48,30 @@ const {
 	support_label,
 	support_partners,
 } = post.data;
+
+const pageUrl = new URL(`/voorstellingen/${post.id}/`, Astro.site).href;
+const shareText = `${title} – Toneel De Valk`;
+const u = encodeURIComponent(pageUrl);
+const t = encodeURIComponent(shareText);
+// LinkedIn staat niet in simple-icons (merkverzoek), dus eigen pad
+const LINKEDIN_PATH = 'M4 9h3v11H4zM5.5 4a1.75 1.75 0 110 3.5 1.75 1.75 0 010-3.5zM10 9h3v1.6c.5-.9 1.7-1.8 3.4-1.8 3 0 3.6 2 3.6 4.6V20h-3v-5.8c0-1.4 0-3.1-1.9-3.1s-2.1 1.5-2.1 3V20h-3z';
+const shareLinks = [
+	{ name: 'WhatsApp', path: siWhatsapp.path, href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${pageUrl}`)}` },
+	{ name: 'Facebook', path: siFacebook.path, href: `https://www.facebook.com/sharer/sharer.php?u=${u}` },
+	{ name: 'X', path: siX.path, href: `https://x.com/intent/post?text=${t}&url=${u}` },
+	{ name: 'LinkedIn', path: LINKEDIN_PATH, href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}` },
+	{ name: 'Telegram', path: siTelegram.path, href: `https://t.me/share/url?url=${u}&text=${t}` },
+	{ name: 'Bluesky', path: siBluesky.path, href: `https://bsky.app/intent/compose?text=${encodeURIComponent(`${shareText} ${pageUrl}`)}` },
+];
+const qrCodes = [
+	{ file: 'qr', label: 'Voorstelling' },
+	...(pdf ? [{ file: 'qr-programma', label: 'Programmaboekje' }] : []),
+];
+const mailHref = `mailto:?subject=${t}&body=${encodeURIComponent(`${summary}\n\n${pageUrl}`)}`;
+const iconBtn = 'w-11 h-11 inline-flex items-center justify-center border border-primary-text/20 text-primary-text/70 hover:border-accent-gold hover:text-accent-gold transition-colors';
 ---
 
-<Layout title={title} noindex={isPast}>
+<Layout title={title} description={summary} image={image} noindex={isPast}>
 	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom">
 			<!-- Header with Vertical Poster Support -->
@@ -73,9 +95,43 @@ const {
 						)}
 						{pdf && (
 							<a href={pdf} target="_blank" rel="noopener" class="btn-theatre-outline w-full md:w-auto">
-								{pdf_label || "Programmaboekje (PDF)"}
+								{pdf_label || "Programmaboekje"}
 							</a>
 						)}
+					</div>
+
+					<div class="mb-10 md:mb-12">
+						<p class="text-primary-text/40 text-[9px] md:text-[10px] uppercase tracking-widest font-bold mb-4">Deel deze voorstelling</p>
+						<ul class="flex flex-wrap gap-2">
+							<li class="hidden" id="share-native-item">
+								<button type="button" id="share-native" data-title={title} data-text={shareText} data-url={pageUrl} class={iconBtn} aria-label="Delen via..." title="Delen via...">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+								</button>
+							</li>
+							{shareLinks.map((link) => (
+								<li>
+									<a href={link.href} target="_blank" rel="noopener noreferrer" class={iconBtn} aria-label={`Delen via ${link.name}`} title={link.name}>
+										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d={link.path} /></svg>
+									</a>
+								</li>
+							))}
+							<li>
+								<a href={mailHref} class={iconBtn} aria-label="Delen via e-mail" title="E-mail">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+								</a>
+							</li>
+							<li>
+								<button type="button" id="share-copy" data-url={pageUrl} class={iconBtn} aria-label="Kopieer link" title="Kopieer link">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+								</button>
+							</li>
+							<li>
+								<button type="button" id="qr-open" class={iconBtn} aria-label="Toon QR-codes" title="QR-codes">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" /></svg>
+								</button>
+							</li>
+						</ul>
+						<p id="share-copied" class="hidden mt-3 text-accent-gold text-[9px] md:text-[10px] uppercase tracking-widest font-bold" role="status">Link gekopieerd</p>
 					</div>
 
 					{location && (
@@ -151,7 +207,85 @@ const {
 			</div>
 		</div>
 	</article>
+
+	<dialog id="qr-dialog" data-slug={post.id} class="m-auto p-8 md:p-10 bg-bg-ivory text-primary-text max-w-[calc(100vw-2rem)] backdrop:bg-black/60">
+		<form method="dialog" class="absolute top-3 right-3">
+			<button class="p-2 text-primary-text/50 hover:text-accent-gold transition-colors" aria-label="Sluiten">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+			</button>
+		</form>
+		<p class="text-accent-gold text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold mb-2">QR-codes</p>
+		<h2 class="font-serif text-2xl md:text-3xl mb-6 pr-8">{title}</h2>
+		<div class="flex items-center gap-4 mb-6 md:mb-8 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]">
+			<span class="text-primary-text/50">Achtergrond</span>
+			<div class="flex border border-primary-text/20" role="group" aria-label="Achtergrond van de QR-code">
+				<button type="button" data-qr-bg="" aria-pressed="true" class="px-3 py-2 aria-pressed:bg-primary-text aria-pressed:text-bg-ivory hover:text-accent-gold transition-colors">Wit</button>
+				<button type="button" data-qr-bg="-transparant" aria-pressed="false" class="px-3 py-2 aria-pressed:bg-primary-text aria-pressed:text-bg-ivory hover:text-accent-gold transition-colors">Transparant</button>
+			</div>
+		</div>
+		<div class="flex flex-col md:flex-row gap-8 md:gap-10">
+			{qrCodes.map((qr) => (
+				<div class="text-center">
+					<p class="text-primary-text text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] mb-3">{qr.label}</p>
+					<img src={`/voorstellingen/${post.id}/${qr.file}.svg`} data-qr-file={qr.file} data-ext="svg" alt={`QR-code ${qr.label.toLowerCase()} ${title}`} width="240" height="240" loading="lazy" class="w-[220px] md:w-[240px] aspect-square bg-white mx-auto" />
+					<div class="flex gap-6 justify-center mt-4 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-primary-text/70">
+						{['svg', 'png'].map((ext) => (
+							<a href={`/voorstellingen/${post.id}/${qr.file}.${ext}`} data-qr-file={qr.file} data-ext={ext} download={`${qr.file}-${post.id}.${ext}`} class="hover:text-accent-gold transition-colors">{ext.toUpperCase()}</a>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+		<p id="qr-bg-hint" class="hidden mt-6 text-center text-primary-text/50 text-[11px] italic">Transparant scant enkel goed op een lichte achtergrond.</p>
+	</dialog>
 </Layout>
+
+<script>
+	// QR-popup met de codes van de voorstelling en (indien aanwezig) het programmaboekje
+	const dialog = document.getElementById('qr-dialog') as HTMLDialogElement;
+	document.getElementById('qr-open')?.addEventListener('click', () => dialog.showModal());
+	dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); }); // klik op achtergrond sluit
+
+	// Wit of transparant: wisselt voorbeeld en downloads naar de "-transparant" bestanden
+	const slug = dialog.dataset.slug!;
+	const qrBase = `/voorstellingen/${slug}/`;
+	dialog.querySelectorAll<HTMLButtonElement>('[data-qr-bg]').forEach((btn) => btn.addEventListener('click', () => {
+		const suffix = btn.dataset.qrBg!;
+		dialog.querySelectorAll<HTMLButtonElement>('[data-qr-bg]').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+		dialog.querySelectorAll<HTMLElement>('[data-qr-file]').forEach((el) => {
+			const name = `${el.dataset.qrFile}${suffix}`;
+			const url = `${qrBase}${name}.${el.dataset.ext}`;
+			if (el instanceof HTMLImageElement) {
+				el.src = url;
+				el.classList.toggle('bg-white', !suffix);
+			} else if (el instanceof HTMLAnchorElement) {
+				el.href = url;
+				el.download = `${name}-${slug}.${el.dataset.ext}`;
+			}
+		});
+		document.getElementById('qr-bg-hint')?.classList.toggle('hidden', !suffix);
+	}));
+
+	// Native deelmenu van de telefoon: bereikt ook Instagram, Messenger, Signal, sms, ...
+	const nativeBtn = document.getElementById('share-native') as HTMLButtonElement | null;
+	if (nativeBtn && navigator.share) {
+		document.getElementById('share-native-item')?.classList.remove('hidden');
+		nativeBtn.addEventListener('click', () => {
+			const { title, text, url } = nativeBtn.dataset;
+			navigator.share({ title, text, url }).catch(() => {});
+		});
+	}
+
+	const copyBtn = document.getElementById('share-copy') as HTMLButtonElement | null;
+	copyBtn?.addEventListener('click', async () => {
+		try {
+			await navigator.clipboard.writeText(copyBtn.dataset.url!);
+			document.getElementById('share-copied')?.classList.remove('hidden');
+		} catch {
+			prompt('Kopieer deze link:', copyBtn.dataset.url);
+		}
+	});
+</script>
 
 <style is:global>
 	.drop-cap p:first-of-type::first-letter {
