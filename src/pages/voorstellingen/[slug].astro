@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import tickets from '../../data/tickets.json';
 import { siWhatsapp, siFacebook, siX, siTelegram, siBluesky } from 'simple-icons';
 
 export async function getStaticPaths() {
@@ -71,10 +72,71 @@ const qrCodes = [
 const ogImage = image.startsWith('/') ? `/voorstellingen/${post.id}/og.jpg` : image;
 const ogImageSize: [number, number] | undefined = image.startsWith('/') ? [1200, 630] : undefined;
 const mailHref = `mailto:?subject=${t}&body=${encodeURIComponent(`${summary}\n\n${pageUrl}`)}`;
+// Google-zoekresultaten: één TheaterEvent per speeldatum (schema.org, JSON-LD)
+// "21 November 2026 - 20:00 (Extra)" -> "2026-11-21T20:00:00+01:00" in Belgische tijd (winter/zomeruur)
+const toIsoBrussels = (str: string) => {
+	const m = str.match(/(\d{1,2})\s+(\w+)\s+(\d{4})(?:\D+(\d{1,2})[:.](\d{2}))?/);
+	const month = m && MONTH_INDEX[m[2].toLowerCase()];
+	if (!m || month === undefined) return undefined;
+	const pad = (n: number) => String(n).padStart(2, '0');
+	const day = `${m[3]}-${pad(month + 1)}-${pad(Number(m[1]))}`;
+	if (!m[4]) return day;
+	const instant = new Date(Date.UTC(Number(m[3]), month, Number(m[1]), Number(m[4]), Number(m[5])));
+	const offset = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Brussels', timeZoneName: 'longOffset' })
+		.formatToParts(instant).find((p) => p.type === 'timeZoneName')!.value.replace('GMT', '') || '+00:00';
+	return `${day}T${pad(Number(m[4]))}:${m[5]}:00${offset}`;
+};
+// Vaste zaal krijgt het volledige adres; een andere locatie enkel de naam uit het CMS
+const place = !location || /magdalena/i.test(location)
+	? {
+		'@type': 'Place',
+		name: 'Magdalenazaal (Ma/Z)',
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: 'Magdalenastraat 27',
+			postalCode: '8200',
+			addressLocality: 'Brugge',
+			addressRegion: 'West-Vlaanderen',
+			addressCountry: 'BE',
+		},
+	}
+	: { '@type': 'Place', name: location, address: location };
+const devalk = { '@type': 'TheaterGroup', name: 'Koninklijke Toneelvereniging De Valk', url: Astro.site!.href };
+const events = (schedule ?? []).flatMap(({ time }) => {
+	const startDate = toIsoBrussels(time);
+	if (!startDate) return [];
+	return [{
+		'@context': 'https://schema.org',
+		'@type': 'TheaterEvent',
+		name: title,
+		description: summary,
+		url: pageUrl,
+		startDate,
+		eventStatus: 'https://schema.org/EventScheduled',
+		eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+		location: place,
+		image: [new URL(image, Astro.site).href, new URL(ogImage, Astro.site).href],
+		organizer: devalk,
+		performer: devalk,
+		...(director && { director: { '@type': 'Person', name: director } }),
+		...(author && { workPerformed: { '@type': 'CreativeWork', name: title, author: { '@type': 'Person', name: author } } }),
+		offers: {
+			'@type': 'Offer',
+			url: ticket_link || tickets.ticket_link,
+			price: tickets.ticket_price,
+			priceCurrency: 'EUR',
+			availability: 'https://schema.org/InStock',
+		},
+	}];
+});
+// "<" escapen zodat tekst uit het CMS de script-tag niet kan afsluiten
+const eventsJsonLd = JSON.stringify(events).replace(/</g, '\\u003c');
+
 const iconBtn = 'w-11 h-11 inline-flex items-center justify-center border border-primary-text/20 text-primary-text/70 hover:border-accent-gold hover:text-accent-gold transition-colors';
 ---
 
 <Layout title={title} description={summary} image={ogImage} imageSize={ogImageSize} noindex={isPast}>
+	{events.length > 0 && <script type="application/ld+json" set:html={eventsJsonLd} />}
 	<article class="pt-32 md:pt-48 pb-20 md:pb-32">
 		<div class="container-custom">
 			<!-- Header with Vertical Poster Support -->
