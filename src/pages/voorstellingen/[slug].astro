@@ -37,6 +37,8 @@ const {
 	image, 
 	ticket_link, 
 	ticket_label,
+	pdf,
+	pdf_label,
 	author, 
 	director, 
 	location, 
@@ -67,6 +69,11 @@ const {
 						{ticket_link && (
 							<a href={ticket_link} target="_blank" class="btn-theatre-primary w-full md:w-auto">
 								{ticket_label || "Tickets kopen"}
+							</a>
+						)}
+						{pdf && (
+							<a href={pdf} target="_blank" rel="noopener" class="btn-theatre-outline w-full md:w-auto">
+								{pdf_label || "Programmaboekje (PDF)"}
 							</a>
 						)}
 					</div>

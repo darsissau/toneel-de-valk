@@ -58,6 +58,17 @@ collections:
         widget: "string"
         default: "Tickets kopen"
         required: false
+      - label: "PDF (bv. programmaboekje)"
+        name: "pdf"
+        widget: "file"
+        required: false
+        media_folder: "/public/pdf"
+        public_folder: "/pdf"
+      - label: "PDF Knop Tekst"
+        name: "pdf_label"
+        widget: "string"
+        default: "Programmaboekje (PDF)"
+        required: false
       - label: "Steun Label"
         name: "support_label"
         widget: "string"

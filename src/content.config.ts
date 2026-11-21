@@ -16,6 +16,8 @@ const voorstellingen = defineCollection({
     image: z.string(),
     ticket_link: z.string().optional(),
     ticket_label: z.string().optional(),
+    pdf: z.string().optional(),
+    pdf_label: z.string().optional(),
     support_label: z.string().optional(),
     support_partners: z.array(
       z.object({
